@@ -1,9 +1,10 @@
+import Welcome from "./components/welcome";
 
 
 function App() {
   return (
     <div className="App">
-     Hello React project
+      <Welcome />
     </div>
   );
 }
