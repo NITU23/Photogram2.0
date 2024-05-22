@@ -1,5 +1,5 @@
 import Welcome from "./components/welcome";
-
+import './css/app.css'
 
 function App() {
   return (
