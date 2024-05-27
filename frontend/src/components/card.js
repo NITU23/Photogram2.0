@@ -16,16 +16,18 @@ function Card() {
         <div className="card">
             <div className='photoDetails'>
             <Name />
-          <img className="img" src={img} />
-          <div className="actions img">
-            <div className='activity'>
-            {!isClicked  &&    < PiHeart className="like heart " onClick={setClick} /> }
-            {isClicked  &&    < FaHeart className="liked" onClick={setClick} /> }
-            <FaRegComment className="like" />
-            <FiSend className="like" />
+          <img className="img" src={img} alt='' />
+          <div className="img">
+            {!isClicked  && <PiHeart className="like heart actions  " onClick={setClick} /> }
+            {isClicked  &&  <FaHeart className="liked actions" onClick={setClick} /> }
+            <FaRegComment className="like comment actions" />
+            <FiSend className="like comment" />
             </div>
-
-          </div>
+            <div className='captionDiv' >
+            <p>Comments</p>
+            <span className='captions'><b>Nitin : </b>Captions redis-cluster-alpha2-new4.chlyvs.ng.0001.use2.cache.amazonaws.com</span>
+            <span className='captions'>view all comments</span>
+            </div>
           </div>
         </div>
       </div>

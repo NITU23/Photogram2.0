@@ -5,13 +5,15 @@ import '../css/welcome.css'
 
 function Welcome() {
   return (
-    <div className="Welcome">
-      <Navbar />
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+    <div>
       
+      <Navbar />
+      <div className='cards'>
+      <Card />
+      <Card />
+      <Card />
+      <Card />
+      </div>    
     </div>
   );
 }

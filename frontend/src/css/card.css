@@ -1,17 +1,15 @@
 .card {
     height: 300px;
     width: 500px;
-    margin: auto;
-    margin-top: 70px;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
 }
 
 .img{
-    display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-  height: 300px;
+    width: fit-content;
+    height: auto;
 }
 
 .actions {
@@ -37,12 +35,28 @@ border-radius: 75px / 100%;
 }
 
 .photoDetails{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
 
 }
 
-.activity{
-  margin-bottom: 10px;
+.comment{
+    padding-bottom: 2px;
 }
+
+.captions {
+    font-size: 10px;
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+.captionDiv{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+

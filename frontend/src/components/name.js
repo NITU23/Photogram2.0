@@ -7,7 +7,7 @@ function Name() {
       <div className='profile' >
         <span className="nameUrl">NV</span>
       <div className='name'>Nitin Vyas <br/>
-      <span className='subheading'>Hello</span></div>
+      <span className='subheading'>Jaipur</span></div>
 
       </div>
 
