@@ -1,19 +1,17 @@
 .card {
-    height: 300px;
-    width: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 60px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.img{
-    width: fit-content;
-    height: auto;
+.img {
+  width: fit-content;
+  height: auto;
 }
 
 .actions {
-  margin-top : 10px
+  margin-top: 10px
 }
 
 .iconStyle {
@@ -23,40 +21,65 @@
 .like {
   margin-right: 10px;
 }
+
 .comment {
-border-radius: 75px / 100%;
+  border-radius: 75px / 100%;
 }
+
 .liked {
   margin-right: 10px;
   font-size: 18px;
 }
+
 .heart {
   font-size: 20px;
 }
 
-.photoDetails{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-
+.photoDetails {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.comment{
-    padding-bottom: 2px;
+.comment {
+  padding-bottom: 2px;
 }
 
-.captions {
-    font-size: 10px;
-    width: 250px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+.comments {
+  font-size: 10px;
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
+.viewAllcomment{
+  font-size: 10px;
+ width: 295px;
+ margin-top: 5px;
+}
+.commentDiv {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+}
+
+.caption {
+  font-size: 10px;
+}
+
+.viewComment {
+  text-decoration: underline;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+.viewAllCommentDiv {
+  display: flex;
+  flex-direction: column;
 }
 .captionDiv{
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
+  width: 295px;
 }
-
