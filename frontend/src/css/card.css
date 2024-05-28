@@ -20,6 +20,7 @@
 
 .like {
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .comment {
@@ -82,4 +83,7 @@
 }
 .captionDiv{
   width: 295px;
+}
+.commentDiv{
+  display: flex;
 }
