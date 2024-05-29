@@ -9,8 +9,8 @@ function ChatwithUser () {
     }
 
 return (
-    <div> 
-        {/* {showMessageDialog && <Message />} */}
+    <div>
+
       <div className='namePhotoDiv' onClick={openMessage}>
         <div>
       <img alt=''  src={flower} className='photo'/>
@@ -19,10 +19,10 @@ return (
         <span>Nitin Vyas</span>
         </div>
       </div>
-      
-     
-      
-      
+
+
+
+
 
     </div>
 )

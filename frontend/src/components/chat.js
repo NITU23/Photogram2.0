@@ -10,7 +10,7 @@ function Chat() {
    return (
    <div>
     <div className='accordian-Message'>
-     <div className='messageBox'><Message/></div> 
+     <div className='messageBox'><Message/></div>
      <div className='accordianWidth'>
       <Accordion>
         <AccordionSummary
