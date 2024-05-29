@@ -4,11 +4,14 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChatwithUser from './chatwithUser';
+import Message from './message';
+import '../css/chat.css'
 function Chat() {
    return (
    <div>
-
-    <div>
+    <div className='accordian-Message'>
+     <div className='messageBox'><Message/></div> 
+     <div className='accordianWidth'>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -17,11 +20,11 @@ function Chat() {
         >
         Messages
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails className='accordianHeight'>
           <ChatwithUser />
-
         </AccordionDetails>
       </Accordion>
+      </div>
     </div>
    </div>)
 }

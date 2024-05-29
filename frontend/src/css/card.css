@@ -35,13 +35,19 @@
 .heart {
   font-size: 20px;
 }
-
-.photoDetails {
+.wrapper{
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
+  max-height: 300px;
 }
+.commentDialog{
+  float: right;
+  height: 300px;
+  margin-left: 30px;
+  margin-top: 75px;
+  width: 300px;
+}
+
+
 
 .comment {
   padding-bottom: 2px;
@@ -55,35 +61,44 @@
   text-overflow: ellipsis;
 }
 
-.viewAllcomment{
-  font-size: 10px;
- width: 295px;
- margin-top: 5px;
-}
-.commentDiv {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  width: 250px;
-}
+
 
 .caption {
   font-size: 10px;
 }
 
-.viewComment {
-  text-decoration: underline;
-  font-size: 10px;
-  margin-top: 5px;
-}
 
-.viewAllCommentDiv {
-  display: flex;
-  flex-direction: column;
-}
+
 .captionDiv{
   width: 295px;
 }
 .commentDiv{
   display: flex;
+  border-radius: 10px;
+  border: 1px solid;
+  padding: 5px;
+  width: 270px;
+  margin-top: 10px;
+}
+
+.commentBox{
+border: none;
+outline: none;
+width: 225px;
+}
+
+.commentBox:focus{
+  outline: none;
+}
+.post {
+  background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    height: 25px;
+    border: none;
+    margin-left: auto;
+    cursor: pointer;
 }

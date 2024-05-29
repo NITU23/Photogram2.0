@@ -1,0 +1,16 @@
+.accordianHeight{
+    min-height: 50vh;
+    max-height: 70vh;
+    overflow: auto;
+}
+.accordian-Message{
+    display: flex
+}
+.accordianWidth{
+    width: 100%;
+}
+.messageBox{
+
+    width: 300px;
+    
+}

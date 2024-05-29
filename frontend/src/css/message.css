@@ -1,0 +1,13 @@
+.profilePic{
+display: flex;
+}
+.messageDialog{
+    border: 1px solid black;
+    min-height: 492px;
+}
+
+.chatBox{
+    border: 1px solid;
+    height: 300px;
+
+}

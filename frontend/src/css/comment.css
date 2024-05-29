@@ -1,4 +1,28 @@
-.commentDiv{
-    height: 300px;
-    width: 300px;
-}
+.viewAllcomment{
+    font-size: 10px;
+   width: 295px;
+   margin-top: 5px;
+  }
+  .showComment {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cardWidth{
+    width: 350px;
+  }
+
+  .closeButton{
+    float: right;
+    margin-top: 2%;
+    margin-right: 2%;
+  }
+
+  
+  .viewAllCommentDiv {
+    display: flex;
+    flex-direction: column;
+    max-height: 150px;
+    overflow: auto;
+  }

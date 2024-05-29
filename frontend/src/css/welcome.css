@@ -10,10 +10,7 @@
     flex: 1;
 }
 .chat{
-  width: 20%;
   position: fixed;
   right: 0;
   bottom: 0;
-
-
 }

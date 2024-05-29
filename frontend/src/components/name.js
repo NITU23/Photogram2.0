@@ -1,16 +1,15 @@
-import  '../css/name.css'
+import '../css/name.css'
 import flower from '../images/flower.jpeg'
 
 function Name() {
-    return (
+  return (
     <div >
       <div className='profile' >
-        <img className="nameUrl" src ={flower}/>
-      <div className='name'>Nitin Vyas <br/>
-      <span className='subheading'>Jaipur</span>
+        <img className="nameUrl" alt='' src={flower} />
+        <div className='name'>Nitin Vyas <br />
+          <span className='subheading'>Jaipur</span>
+        </div>
       </div>
-      </div>
-
-        </div>)
+    </div>)
 }
 export default Name;
