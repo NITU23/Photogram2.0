@@ -7,14 +7,15 @@ import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
 
 
-export default function Message() {
+export default function Message(props) {
     const [viewDialog, setViewDialog] = useState(true);
     const setShowDialog = () => {
-        setViewDialog(false)
+        props.chatBox(false)
+        console.log('hello props are', props)
     }
     return (
         <div>
-            {viewDialog && <Card sx={{ minWidth: 275 }}>
+          <Card sx={{ minWidth: 275 }}>
                 <CardContent style={{ padding: '0px' }}>
                     <div>
                         <div className='messageDialog'>
@@ -34,7 +35,7 @@ export default function Message() {
                         </div>
                     </div>
                 </CardContent>
-            </Card>}
+            </Card>
         </div>
 
     );

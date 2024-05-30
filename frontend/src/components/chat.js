@@ -6,11 +6,17 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChatwithUser from './chatwithUser';
 import Message from './message';
 import '../css/chat.css'
+import { useState } from 'react';
 function Chat() {
+    const [showMessageBox,setShowMessageBox] = useState('false');
+     const showChatBox = (data)=>{
+      console.log('hello this is called')
+      setShowMessageBox(data)
+     }
    return (
    <div>
     <div className='accordian-Message'>
-     <div className='messageBox'><Message/></div>
+    { showMessageBox && <div className='messageBox'><Message chatBox={showChatBox}/></div>}
      <div className='accordianWidth'>
       <Accordion>
         <AccordionSummary
