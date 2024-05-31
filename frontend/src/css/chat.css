@@ -1,6 +1,6 @@
 .accordianHeight{
-    min-height: 40vh;
-    max-height: 70vh;
+    min-height: 30vh;
+    max-height: 50vh;
     overflow: auto;
 }
 .accordian-Message{
@@ -11,7 +11,6 @@
     margin-top: auto;
 }
 .messageBox{
-     height: 40vh;
     width: 300px;
 
 }

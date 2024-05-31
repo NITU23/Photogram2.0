@@ -30,3 +30,7 @@
     margin-bottom: 5px;
 }
 
+.searchBar:focus{
+    border: none;
+    outline: none;
+}

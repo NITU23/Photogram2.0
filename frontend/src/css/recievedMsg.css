@@ -1,0 +1,14 @@
+
+.getMsg {
+    max-width: 150px;
+    padding: 10px;
+    border-radius: 15px;
+    position: relative;
+    background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
+    word-wrap: break-word;
+    margin: 7px;
+    width: fit-content;
+}
+ .content {
+    margin: 0;
+}

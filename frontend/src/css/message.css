@@ -2,16 +2,15 @@
 display: flex;
 }
 .messageDialog{
-
-    min-height: 412px;
     margin-right: 15px;
 }
 
 .chatBox{
-    height: 37vh;
+    height: 48vh;
     border-top: 1px solid grey;
     border-bottom: 1px solid gray;
     width: 300px;
+    overflow: auto;
 }
 .sendDiv{
     display: flex;

@@ -1,0 +1,16 @@
+.sendMsg {
+    max-width: 150px;
+    padding: 10px;
+    border-radius: 15px;
+    position: relative;
+    background-color: #D9AFD9;
+    word-wrap: break-word;
+    margin: 10px;
+    width: fit-content;
+    margin-left: auto;
+}
+
+
+ .content {
+    margin: 0;
+}

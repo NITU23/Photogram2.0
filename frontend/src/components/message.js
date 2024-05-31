@@ -5,7 +5,8 @@ import flower from '../images/superman.jpeg';
 import '../css/message.css'
 import { IoCloseSharp } from "react-icons/io5";
 import { useState } from 'react';
-
+import RecievedMsg from './recievedMsg';
+import SendMsg from './sendMsg';
 
 export default function Message(props) {
     const [viewDialog, setViewDialog] = useState(props.messageBox);
@@ -14,12 +15,11 @@ export default function Message(props) {
         props.showMessageBoxState(false)
         setViewDialog(false)
     }
-  
+
     return (
         <div>
         { viewDialog && <Card sx={{ minWidth: 275 }}>
                 <CardContent style={{ padding: '0px' }}>
-                    
                     <div>
                         <div className='messageDialog'>
                             <div className='closeButton'>
@@ -30,7 +30,18 @@ export default function Message(props) {
                                 <h4>Nitin Vyas</h4>
                             </div>
                             <div className='chatBox'>
+                            <RecievedMsg  />
+                            <SendMsg />
+                            <RecievedMsg  />
+                            <SendMsg />
+                            <RecievedMsg  />
+                            <SendMsg />
+                            <RecievedMsg  />
+                            <SendMsg />
+                            <RecievedMsg  />
+                            <SendMsg />
                             </div>
+
                             <div className='sendDiv'>
                                 <input type="text" name="comment" className='commentBox' placeholder='Write a message' />
                                 <button className='post'>Send</button>

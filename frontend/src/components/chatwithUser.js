@@ -15,8 +15,80 @@ return (
         <div className='searchBox'>
         <IoIosSearch />
         <input placeholder='Type Here To Search' className='searchBar'/>
-     
+
         </div>
+      <div className='namePhotoDiv' onClick={openMessage}>
+        <div>
+      <img alt=''  src={flower} className='photo'/>
+        </div>
+        <div className='username'>
+        <span>Nitin Vyas</span>
+        </div>
+      </div>
+      <hr />
+      <div className='namePhotoDiv' onClick={openMessage}>
+        <div>
+      <img alt=''  src={flower} className='photo'/>
+        </div>
+        <div className='username'>
+        <span>Nitin Vyas</span>
+        </div>
+      </div>
+      <hr />
+      <div className='namePhotoDiv' onClick={openMessage}>
+        <div>
+      <img alt=''  src={flower} className='photo'/>
+        </div>
+        <div className='username'>
+        <span>Nitin Vyas</span>
+        </div>
+      </div>
+      <hr />
+      <div className='namePhotoDiv' onClick={openMessage}>
+        <div>
+      <img alt=''  src={flower} className='photo'/>
+        </div>
+        <div className='username'>
+        <span>Nitin Vyas</span>
+        </div>
+      </div>
+      <hr />
+      <div className='namePhotoDiv' onClick={openMessage}>
+        <div>
+      <img alt=''  src={flower} className='photo'/>
+        </div>
+        <div className='username'>
+        <span>Nitin Vyas</span>
+        </div>
+      </div>
+      <hr />
+      <div className='namePhotoDiv' onClick={openMessage}>
+        <div>
+      <img alt=''  src={flower} className='photo'/>
+        </div>
+        <div className='username'>
+        <span>Nitin Vyas</span>
+        </div>
+      </div>
+      <hr />
+      <div className='namePhotoDiv' onClick={openMessage}>
+        <div>
+      <img alt=''  src={flower} className='photo'/>
+        </div>
+        <div className='username'>
+        <span>Nitin Vyas</span>
+        </div>
+      </div>
+      <hr />
+      <div className='namePhotoDiv' onClick={openMessage}>
+        <div>
+      <img alt=''  src={flower} className='photo'/>
+        </div>
+        <div className='username'>
+        <span>Nitin Vyas</span>
+        </div>
+      </div>
+      <hr />
       <div className='namePhotoDiv' onClick={openMessage}>
         <div>
       <img alt=''  src={flower} className='photo'/>
