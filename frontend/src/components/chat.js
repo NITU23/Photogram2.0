@@ -8,15 +8,15 @@ import Message from './message';
 import '../css/chat.css'
 import { useState } from 'react';
 function Chat() {
-    const [showMessageBox,setShowMessageBox] = useState('false');
+
+    const [showMessageBox,setShowMessageBox] = useState(false);
      const showChatBox = (data)=>{
-      console.log('hello this is called')
-      setShowMessageBox(data)
+      setShowMessageBox(data) 
      }
    return (
    <div>
     <div className='accordian-Message'>
-    { showMessageBox && <div className='messageBox'><Message chatBox={showChatBox}/></div>}
+    { showMessageBox && <div className='messageBox'><Message messageBox={showMessageBox} showMessageBoxState={setShowMessageBox} /></div>}
      <div className='accordianWidth'>
       <Accordion>
         <AccordionSummary
@@ -27,7 +27,7 @@ function Chat() {
         Messages
         </AccordionSummary>
         <AccordionDetails className='accordianHeight'>
-          <ChatwithUser />
+          <ChatwithUser showChat = {showChatBox}/>
         </AccordionDetails>
       </Accordion>
       </div>

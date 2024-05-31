@@ -8,7 +8,7 @@ display: flex;
 }
 
 .chatBox{
-    height: 310px;
+    height: 37vh;
     border-top: 1px solid grey;
     border-bottom: 1px solid gray;
     width: 300px;

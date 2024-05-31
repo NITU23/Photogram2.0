@@ -1,5 +1,6 @@
 .namePhotoDiv{
     display: flex;
+    cursor: pointer;
 }
 .photo{
     width: 50px;
@@ -11,3 +12,21 @@
 .username{
  margin-left: 10px;
 }
+
+.searchBar {
+    width: 20vw;
+    border: none;
+    margin-left: 5px;
+}
+
+.searchBox{
+    display: flex;
+    border :1px solid gray;
+    margin-bottom: 20px;
+    padding: 5px;
+}
+
+.cardContent{
+    margin-bottom: 5px;
+}
+

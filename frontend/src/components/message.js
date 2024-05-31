@@ -8,15 +8,18 @@ import { useState } from 'react';
 
 
 export default function Message(props) {
-    const [viewDialog, setViewDialog] = useState(true);
+    const [viewDialog, setViewDialog] = useState(props.messageBox);
+
     const setShowDialog = () => {
-        props.chatBox(false)
-        console.log('hello props are', props)
+        props.showMessageBoxState(false)
+        setViewDialog(false)
     }
+  
     return (
         <div>
-          <Card sx={{ minWidth: 275 }}>
+        { viewDialog && <Card sx={{ minWidth: 275 }}>
                 <CardContent style={{ padding: '0px' }}>
+                    
                     <div>
                         <div className='messageDialog'>
                             <div className='closeButton'>
@@ -35,7 +38,7 @@ export default function Message(props) {
                         </div>
                     </div>
                 </CardContent>
-            </Card>
+            </Card>}
         </div>
 
     );
