@@ -17,3 +17,9 @@ display: flex;
     padding: 5px;
     width: 270px;
 }
+
+.attachFile{
+    cursor: pointer;
+    height: 22px;
+    width: 22px;
+}
