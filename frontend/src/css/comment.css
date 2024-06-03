@@ -22,6 +22,6 @@
   .viewAllCommentDiv {
     display: flex;
     flex-direction: column;
-    max-height: 150px;
+    max-height: 250px;
     overflow: auto;
   }

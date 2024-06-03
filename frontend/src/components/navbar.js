@@ -18,7 +18,7 @@ function Navbar() {
     };
     const getNotifications = () => {
       setOpenNotification(true)
-      openNotification ==true ? setOpenNotification(false) : setOpenNotification(true)
+      openNotification ===true ? setOpenNotification(false) : setOpenNotification(true)
     }
 
     return (
@@ -27,23 +27,26 @@ function Navbar() {
           <div className="heading">
             <Link className="link" to="/"> Photogram </Link>
           </div>
-          
-        
-          <div class='profileMenu'>
-          <div className='notificationDiv'>  
+
+
+          <div className='profileMenu'>
+          <div className='notificationDiv'>
             <IoIosNotificationsOutline  className='notificationBell' onClick={getNotifications}/>
             </div>
-            {openNotification && <Notification />}
+
             <img  className='profilePhoto'  onClick={handleClick} src={flower} alt=''/>
              <Menu anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{
                 "aria-labelledby": "basic-button",
               }}
             >
            <Link className="link" to="profile"> <MenuItem onClick={handleClose}>Profile</MenuItem></Link>
-           <Link className="link" to="/">   <MenuItem onClick={handleClose}>Update Password</MenuItem></Link>
-           <Link className="link" to="/">  <MenuItem onClick={handleClose}>Logout</MenuItem></Link>
+           <Link className="link" to="/updatepassword"> <MenuItem onClick={handleClose}>Update Password</MenuItem></Link>
+           <Link className="link" to="/login"> <MenuItem onClick={handleClose}>Logout</MenuItem></Link>
             </Menu>
           </div>
+        </div>
+        <div className='notificationSection'>
+        {openNotification && <Notification />}
         </div>
       </div>
     );

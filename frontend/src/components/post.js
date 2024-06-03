@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Unstable_Grid2';
 import '../css/post.css'; // Import external CSS file
 import flower from '../images/flower.jpeg';
 import { Link } from 'react-router-dom'
@@ -15,10 +14,10 @@ function Post() {
   return (
     <div className='posts'>
       <div className='grid-container'>
-        {Array.from(Array(4)).map((_, index) => (
+        {Array.from(Array(10)).map((_, index) => (
           <div key={index} className='grid-item'>
             <Item className='item'>
-            <Link to="/viewPost"><img src={flower} alt='' className='postImg'/></Link>  
+            <Link to="/viewPost"><img src={flower} alt='' className='postImg'/></Link>
             </Item>
           </div>
         ))}

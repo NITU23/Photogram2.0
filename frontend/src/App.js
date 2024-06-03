@@ -6,7 +6,8 @@ import Profile from '../src/components/profile';
 import './css/app.css';
 import ViewMyPost from './components/viewMyPost';
 import Chat from './components/chat';
-
+import UpdatePassword from './components/updatePassword';
+import Login from './components/login'
 function App() {
   return (
     <div className="App">
@@ -16,6 +17,8 @@ function App() {
           <Route path="/" element={<Welcome />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/viewPost" element={<ViewMyPost />} />
+          <Route path="/updatepassword" element={<UpdatePassword />} />
+          <Route path="/login" element={<Login/>} />
         </Routes>
       </main>
       <div className="chat">

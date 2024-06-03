@@ -25,7 +25,7 @@ export default function Profile() {
         <CardContent>
           <div className='profileDetail'>
             <img src={flower} alt='' className='profilePicture' />
-            <p className='name'>Nitin Vyas</p>
+            <p className='names'>Nitin Vyas</p>
             <div className='tableDiv'>
               <table  >
                 <thead>
@@ -45,7 +45,7 @@ export default function Profile() {
               </table>
             </div>
             <div className='connect'>
-              <button className='button' onClick={handleClick({ vertical: 'top', horizontal: 'center' })}><li className='listItem'>{open==true ? 'Following':'Connect'}</li></button>
+              <button className='button' onClick={handleClick({ vertical: 'top', horizontal: 'center' })}><li className='listItem'>{open===true ? 'Following':'Connect'}</li></button>
               <button className='button'> <li className='listItem'>Message</li></button>
             </div>
           </div>

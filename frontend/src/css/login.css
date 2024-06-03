@@ -1,0 +1,6 @@
+.question{
+text-decoration: underline;
+cursor: pointer;
+display: flex;
+justify-content: center;
+}
