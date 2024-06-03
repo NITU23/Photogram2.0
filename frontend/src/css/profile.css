@@ -2,12 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-   margin-top: 10vh;
+   margin-top: 5vh;
   }
 
   .profileCard {
-    width: 50vw;
-    height: 65vh;
+    width: 70vw;
+    height: 75vh;
   }
 .profilePicture{
     height: 60px;
@@ -15,13 +15,13 @@
     border-radius: 50%;
     margin-right: 30px;
     margin-top: 5px;
-
+    margin-left: 5vw;
 }
 
 .name {
     margin-top: 4px;
     font-weight: bold;
-    margin-left: 0px;
+    margin-left: 5vw;
 }
 
 .profileDetail{
@@ -39,7 +39,7 @@
     display: flex;
     justify-content: center;
     margin-top: -105px;
-    margin-left: 15vw;
+    margin-left: 30vw;
 }
 .button {
     background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);

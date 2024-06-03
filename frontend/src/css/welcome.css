@@ -9,8 +9,3 @@
 .parent {
     flex: 1;
 }
-.chat{
-  position: fixed;
-  right: 0;
-  bottom: 0;
-}

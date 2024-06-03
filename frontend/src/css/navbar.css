@@ -23,6 +23,7 @@
 
 .profileMenu {
     margin-left: auto;
+    display: flex;
 }
 .profilePhoto{
     height: 50px;
@@ -32,3 +33,12 @@
     margin-top: 5px;
 }
 
+.notificationBell{
+    height: 75px;
+    width: 75px;
+    cursor: pointer;
+}
+
+.notificationDiv{
+    margin-right: 10px;
+}

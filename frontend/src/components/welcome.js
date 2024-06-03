@@ -1,8 +1,7 @@
 import React from "react";
-
 import Card from "./card"
 import '../css/welcome.css'
-import Chat from "./chat";
+
 
 function Welcome() {
   return (
@@ -15,9 +14,6 @@ function Welcome() {
           <Card />
           <Card />
           <Card />
-        </div>
-        <div className="chat">
-          <Chat />
         </div>
       </div>
 
