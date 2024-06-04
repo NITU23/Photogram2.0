@@ -59,7 +59,7 @@ const jwt = require('jsonwebtoken')
     return res.status(400).json({ message: "Incorrect Password" });
   }
   const accessToken = jwt.sign(email, 'SECRET');
-  res.cookie('token',accessToken)
+  res.cookie('token',accessToken,{ maxAge: 900000, httpOnly: false })
   return res
     .status(200)
     .json({ message: "Login Successfull", user: existingUser,accessToken });

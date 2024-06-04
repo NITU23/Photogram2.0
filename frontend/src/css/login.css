@@ -4,3 +4,10 @@ cursor: pointer;
 display: flex;
 justify-content: center;
 }
+
+.spinnerDiv{
+    height: 4px;
+    width: 35px;
+    margin-top: -20px;
+    margin-left: 6px;
+}

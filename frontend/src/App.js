@@ -14,10 +14,11 @@ function App() {
       <Navbar />
       <main>
         <Routes>
-          <Route path="/" element={<Welcome />} />
+          <Route path="/welcome" element={<Welcome />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/viewPost" element={<ViewMyPost />} />
           <Route path="/updatepassword" element={<UpdatePassword />} />
+          <Route path="/" element={<Login/>} />
           <Route path="/login" element={<Login/>} />
         </Routes>
       </main>

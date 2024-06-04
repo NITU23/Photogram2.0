@@ -41,7 +41,7 @@ function Navbar() {
             >
            <Link className="link" to="profile"> <MenuItem onClick={handleClose}>Profile</MenuItem></Link>
            <Link className="link" to="/updatepassword"> <MenuItem onClick={handleClose}>Update Password</MenuItem></Link>
-           <Link className="link" to="/login"> <MenuItem onClick={handleClose}>Logout</MenuItem></Link>
+           <Link className="link" to="/"> <MenuItem onClick={handleClose}>Logout</MenuItem></Link>
             </Menu>
           </div>
         </div>
