@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, TextField, Box, Button } from '@mui/material';
+import { Card, CardContent, CardHeader, TextField, Box } from '@mui/material';
 import '../css/updatePassword.css';
 
 const UpdatePassword = () => {

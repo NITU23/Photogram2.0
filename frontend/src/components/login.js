@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, TextField, Box, Button } from '@mui/material';
+import React, { useState,useEffect } from 'react';
+import { Card, CardContent, CardHeader, TextField, Box } from '@mui/material';
 import '../css/login.css';
 
 
@@ -21,13 +21,37 @@ const LoginComponent = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+ let data = {
+  email:formData.email,password:formData.password
+ }
+
+var requestOptions = {
+  method: 'POST',
+ 
+  body: data,
+  redirect: 'follow'
+};
+  const handleSubmit =  async(e) => {
     e.preventDefault();
+    const response = await fetch('http://localhost:3001/api/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password
+      })
+    });
+    console.log('hello I a, respose',response)
+
   };
 
   const changeLogin = () => {
     signUp === true ? setSignUp(false):setSignUp(true)
   }
+
+  
 
   return (
     <Box display="flex" justifyContent="center" marginTop="50px">
@@ -38,9 +62,9 @@ const LoginComponent = () => {
         { signUp && <Box mb={2}>
               <TextField
                 fullWidth
-                label="Email"
-                name="email"
-                value={formData.email}
+                label="Username"
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
                 variant="outlined"
                 required
@@ -49,9 +73,9 @@ const LoginComponent = () => {
             <Box mb={2}>
               <TextField
                 fullWidth
-                label="Username"
-                name="username"
-                value={formData.username}
+                label="Email"
+                name="email"
+                value={formData.email}
                 onChange={handleChange}
                 variant="outlined"
                 required
