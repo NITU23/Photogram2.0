@@ -45,7 +45,7 @@ export default function Profile() {
               </table>
             </div>
             <div className='connect'>
-              <button className='button' onClick={handleClick({ vertical: 'top', horizontal: 'center' })}><li className='listItem'>{open===true ? 'Following':'Connect'}</li></button>
+              <button className='button' onClick={handleClick({ vertical: 'top', horizontal: 'center' })}><li className='listItem'>{open===true ? 'Following':'Follow'}</li></button>
               <button className='button'> <li className='listItem'>Message</li></button>
             </div>
           </div>

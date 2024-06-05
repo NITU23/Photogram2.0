@@ -6,9 +6,13 @@ import MenuItem from '@mui/material/MenuItem';
 import flower from '../images/flower.jpeg'
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Notification from './notification';
+import { useNavigate } from "react-router-dom";
+
 function Navbar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [openNotification,setOpenNotification] = useState(false)
+    const navigate = useNavigate()
+    const [files, setFiles] = useState([]);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -21,15 +25,20 @@ function Navbar() {
       openNotification ===true ? setOpenNotification(false) : setOpenNotification(true)
     }
 
+    const createPost = () => {
+     navigate('/createPost')
+    }
+
     return (
       <div>
         <div className="navbar">
           <div className="heading">
             <Link className="link" to="/"> Photogram </Link>
           </div>
-
-
           <div className='profileMenu'>
+          <div>
+        <button className='button postButton' onClick={createPost} >Create A Post</button>
+        </div>
           <div className='notificationDiv'>
             <IoIosNotificationsOutline  className='notificationBell' onClick={getNotifications}/>
             </div>
@@ -45,7 +54,7 @@ function Navbar() {
             </Menu>
           </div>
         </div>
-        <div className='notificationSection'>
+                <div className='notificationSection'>
         {openNotification && <Notification />}
         </div>
       </div>
