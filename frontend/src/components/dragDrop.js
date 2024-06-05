@@ -55,7 +55,7 @@ function DragDrop(props) {
   }, [file, onFilesSelected]);
 
   return (
-    <section className="drag-drop" style={{ width: '400px',  }}>
+    <section className="drag-drop" style={{ width: '400px' }}>
       <div
         className={`document-uploader ${
           file ? "upload-box active" : "upload-box"
