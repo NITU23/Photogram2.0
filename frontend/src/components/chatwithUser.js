@@ -2,10 +2,9 @@ import flower from '../images/superman.jpeg'
 import '../css/chatwithUser.css'
 import {useState} from 'react'
 import { IoIosSearch } from "react-icons/io";
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+
 function ChatwithUser (props) {
-    const [showMessageDialog,setShowMessageDialog] = useState(false);
+    const [showMessageDialog] = useState(false);
     const openMessage = () =>{
       showMessageDialog===true ? props.showChat(false) : props.showChat(true)
     }

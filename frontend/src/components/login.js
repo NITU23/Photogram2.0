@@ -12,10 +12,11 @@ const LoginComponent = () => {
     password: '',
     email:''
   });
-  const [state, setState] = React.useState({
+  const [state] = React.useState({
     vertical: 'top',
     horizontal: 'center',
   });
+
   const { vertical, horizontal } = state;
 
 

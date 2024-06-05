@@ -12,7 +12,6 @@ function Navbar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [openNotification,setOpenNotification] = useState(false)
     const navigate = useNavigate()
-    const [files, setFiles] = useState([]);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -33,7 +32,7 @@ function Navbar() {
       <div>
         <div className="navbar">
           <div className="heading">
-            <Link className="link" to="/"> Photogram </Link>
+            <Link className="link" to="/welcome"> Photogram </Link>
           </div>
           <div className='profileMenu'>
           <div>
