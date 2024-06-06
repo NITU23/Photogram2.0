@@ -55,7 +55,7 @@ function DragDrop(props) {
   }, [file, onFilesSelected]);
 
   return (
-    <section className="drag-drop" style={{ width: '400px' }}>
+    <section className="drag-drop" style={{ width: '400px'   }}>
       <div
         className={`document-uploader ${
           file ? "upload-box active" : "upload-box"
@@ -67,6 +67,7 @@ function DragDrop(props) {
           <>
             <div className="upload-info">
               <AiOutlineCloudUpload />
+
               <div>
                 <p>Select Media to Upload</p>
               </div>
@@ -89,8 +90,8 @@ function DragDrop(props) {
             <div className="file-list__container">
               <div className="file-item">
                 <div className="file-info">
+                 {preview && <img src={preview} alt="Preview" className="image-preview" />}
                   <p>{file.name}</p>
-                  {preview && <img src={preview} alt="Preview" className="image-preview" />}
                 </div>
                 <div className="file-actions">
                   <MdClear onClick={handleRemoveFile} />
@@ -99,9 +100,9 @@ function DragDrop(props) {
             </div>
             <div className="success-file">
               <AiOutlineCheckCircle
-                style={{ color: "#6DC24B", marginRight: 1 }}
+                style={{ color: "black", marginRight: 1 }}
               />
-              <p>1 file selected</p>
+              <p style={{ color: "black", marginRight: 1 }}>1 file selected</p>
             </div>
           </div>
         )}

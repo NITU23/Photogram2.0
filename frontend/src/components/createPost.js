@@ -17,15 +17,16 @@ function CreatePost() {
   };
   return (
     <div className="postCard">
-      <Card sx={{ maxWidth: 470 }} >
+      <Card sx={{ maxWidth: 430 }} >
         <CardContent>
            <DragDrop onFilesSelected={setFiles} />
           <TextField
-            fullWidth
+            fullWidth multiline
+            rows ={2}
             label="Caption"  name="Caption"  value={caption} onChange={handleChange} variant="outlined" className="captionBox" />
               <TextField
-            fullWidth
-            label="Location" name="Location" value={location} onChange={handleLocation} variant="outlined" className="captionBox"/>
+            fullWidth multiline
+            rows ={2} label="Location" name="Location" value={location} onChange={handleLocation} variant="outlined" className="captionBox"/>
           <button className="postbtn" >Post</button>
         </CardContent>
       </Card>
