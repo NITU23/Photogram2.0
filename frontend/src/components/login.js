@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, TextField, Box } from '@mui/material';
 import '../css/login.css';
 import { TailSpin } from "react-loader-spinner";
-import Snackbar from '@mui/material/Snackbar';
+import MessageBar from '../util/snackbar';
 
 const LoginComponent = () => {
   const navigate = useNavigate();
@@ -12,15 +12,6 @@ const LoginComponent = () => {
     password: '',
     email:''
   });
-  const [state] = React.useState({
-    vertical: 'top',
-    horizontal: 'center',
-  });
-
-  const { vertical, horizontal } = state;
-
-
-
   const [signUp,setSignUp] = useState(false)
   const [loading, setLoading] = useState(false);
   const [showSnackbar,setShowsnackbar] = useState(false)
@@ -32,9 +23,6 @@ const LoginComponent = () => {
       [name]: value
     });
   };
-
-
-
 
   const handleSubmit =  async(e) => {
     setLoading(true)
@@ -48,6 +36,7 @@ const LoginComponent = () => {
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'include',
       body:body
     });
     if(response.status!==200){
@@ -66,9 +55,6 @@ const LoginComponent = () => {
   const changeLogin = () => {
     signUp === true ? setSignUp(false):setSignUp(true)
   }
-
-
-
   return (
     <div>
     <Box display="flex" justifyContent="center" marginTop="50px">
@@ -122,13 +108,7 @@ const LoginComponent = () => {
         </CardContent>
       </Card>
     </Box>
-    <Snackbar
-            anchorOrigin={{ vertical, horizontal }}
-            open={showSnackbar}
-            autoHideDuration={2000}
-            message="Invalid Credentials provided."
-            key={vertical + horizontal}
-          />
+   {showSnackbar && <MessageBar  message="Invalid Credentials provided." />}
     </div>
   );
 };

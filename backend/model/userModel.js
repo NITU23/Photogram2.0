@@ -17,6 +17,11 @@ const userSchema = new Schema({
     required: true,
     minlength: 6,
   },
+  posts: [
+    {
+      post_id : Number
+    }
+  ]
 });
 
 const User = mongoose.model("User", userSchema);

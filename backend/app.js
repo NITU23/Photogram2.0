@@ -5,11 +5,13 @@ const app = express();
 const cookieParser = require('cookie-parser')
 const PORT = 3001;
 const bodyParser = require('body-parser');
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cookieParser());
+app.use(cors({ origin: 'http://localhost:3000',credentials: true,
+    optionsSuccessStatus: 200, }));
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
-app.use(cookieParser());
+
 const userRouter = require("./routes/user");
 const postRouter = require("./routes/post")
 app.use("/api/user", userRouter);

@@ -59,10 +59,18 @@ const jwt = require('jsonwebtoken')
     return res.status(400).json({ message: "Incorrect Password" });
   }
   const accessToken = jwt.sign(email, 'SECRET');
-  res.cookie('token',accessToken,{ maxAge: 900000, httpOnly: false })
+  res.cookie('token',accessToken,{ maxAge: 900000, httpOnly: true })
   return res
     .status(200)
-    .json({ message: "Login Successfull", user: existingUser,accessToken });
+    .json({ message: "Login Successfull", user: existingUser });
 };
+const logout = async(req,res) => {
+  if(JSON.stringify(req.cookies)!='{}'){
+    res.clearCookie('token');
+   return res.status(200).send('You have been logged out successfully.')
+  }
+ res.status(404).send('Unable to logout')
 
-module.exports = {login,signup,getAllUser};
+}
+
+module.exports = {login,signup,getAllUser,logout};

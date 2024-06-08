@@ -3,6 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import { useState } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
+import flower from '../images/flower.jpeg'
 import '../css/comment.css'
 export default function Comment(props) {
   const [showComponent, setShowComponent] = useState(props.showDialog)
@@ -16,10 +17,10 @@ export default function Comment(props) {
         <div className='closeButton'><IoCloseSharp onClick={handleShowComponent} /></div>
         <CardContent>
           <div className='viewAllCommentDiv' >
-            <span className='viewAllcomment'><b>NitinV : </b>Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com</span>
-            <span className='viewAllcomment'><b>NitinV : </b>Captions Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com</span>
-            <span className='viewAllcomment'><b>NitinV : </b>Captions Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com</span>
-            <span className='viewAllcomment'><b>NitinV : </b>Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com</span>
+            <span className='viewAllcomment'><img  className='commentImg'  src={flower} alt=''/><b>NitinV : </b>Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com</span>
+            <span className='viewAllcomment'><img  className='commentImg'  src={flower} alt=''/><b>NitinV : </b>Captions Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com</span>
+            <span className='viewAllcomment'><img  className='commentImg'  src={flower} alt=''/><b>NitinV : </b>Captions Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com</span>
+            <span className='viewAllcomment'><img  className='commentImg'  src={flower} alt=''/><b>NitinV : </b>Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com com Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com</span>
           </div>
           <div className='commentDiv'>
             <input type="text" name="comment" className='commentBox' placeholder='Add your comment' />

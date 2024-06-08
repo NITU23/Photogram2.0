@@ -7,10 +7,11 @@ import flower from '../images/flower.jpeg'
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Notification from './notification';
 import { useNavigate } from "react-router-dom";
-
+import MessageBar from '../util/snackbar';
 function Navbar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [openNotification,setOpenNotification] = useState(false)
+    const [showSnackbar,setShowsnackbar] = useState(false)
     const navigate = useNavigate()
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -26,6 +27,27 @@ function Navbar() {
 
     const createPost = () => {
      navigate('/createPost')
+    }
+    const logout = async () => {
+      const url ='http://localhost:3001/api/user/logout' ;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+      })
+      if(response.status!==200){
+        setShowsnackbar(true);
+        setAnchorEl(null);
+      }
+      else {
+        setAnchorEl(null);
+        navigate('/login')
+      }
+      setTimeout(()=>{
+        setShowsnackbar(false);
+      },2000)
     }
 
     return (
@@ -47,14 +69,15 @@ function Navbar() {
                 "aria-labelledby": "basic-button",
               }}
             >
-           <Link className="link" to="profile"> <MenuItem onClick={handleClose}>Profile</MenuItem></Link>
-           <Link className="link" to="/updatepassword"> <MenuItem onClick={handleClose}>Update Password</MenuItem></Link>
-           <Link className="link" to="/"> <MenuItem onClick={handleClose}>Logout</MenuItem></Link>
+           <Link className="link" to="profile"> <MenuItem>Profile</MenuItem></Link>
+           <Link className="link" to="/updatepassword"> <MenuItem >Update Password</MenuItem></Link>
+           <Link className="link" > <MenuItem onClick={logout}>Logout</MenuItem></Link>
             </Menu>
           </div>
         </div>
                 <div className='notificationSection'>
         {openNotification && <Notification />}
+        {showSnackbar && <MessageBar message='Unable to logout'/>}
         </div>
       </div>
     );

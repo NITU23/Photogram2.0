@@ -28,7 +28,6 @@
 }
 .postbtn:hover {
     background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
-    text-align: center;
     transition: 0.5s;
     background-size: 200% auto;
     color: black;
