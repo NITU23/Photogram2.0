@@ -11,10 +11,12 @@ function DragDrop(props) {
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
-      setFile(selectedFile);
+      // setFile(selectedFile);
       if (selectedFile.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onloadend = () => {
+          const base64 = reader.result.split(',')[1];
+          setFile(base64)
           setPreview(reader.result);
         };
         reader.readAsDataURL(selectedFile);
