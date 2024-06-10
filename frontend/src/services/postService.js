@@ -14,7 +14,17 @@ module.exports = {
               "Content-Type": "application/json",
             }
         })
-        posts = await posts.json()
+        posts = {status:posts.status,posts: (await posts.json())}
         return posts;
      },
+     fetchPosts : async() =>{
+      let url = 'http://localhost:3001/api/post/allImage'
+      let posts = await fetch(url,{
+        method: 'GET',
+        headers: headers,
+        credentials: 'include'}
+        )
+       posts = await posts.json();
+       return posts;
+    }
 }

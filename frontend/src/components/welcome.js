@@ -1,22 +1,14 @@
 import React,{useEffect} from "react";
 import Card from "./card"
 import '../css/welcome.css'
+import { fetchPosts } from "../services/postService";
 
 
 function Welcome() {
-  const fetchPosts = async() =>{
-    let url = 'http://localhost:3001/api/post/allImage'
-    let posts = await fetch(url,{
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      credentials: 'include'}
-      )
-      console.log('Hello I am response from api',posts)
-  }
+
   useEffect(()=>{
-    fetchPosts()
+   let resp= fetchPosts()
+   console.log("Hello I am response",resp)
   },[])
   return (
     <div>

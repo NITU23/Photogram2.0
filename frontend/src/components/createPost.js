@@ -24,12 +24,13 @@ function CreatePost() {
 
   const clickPost = async () => {
     setSpinner(true)
-    let body = { file, caption, location }; 
-    
-        const response = await createPosts(JSON.stringify(body)); 
+    let body = { file, caption, location };
+
+        const response = await createPosts(JSON.stringify(body));
         if(response.status!==200){
             setShowsnackbar(true)
-           setError(response.message)
+           setError(response.posts.message)
+           setSuccess(false)
            setTimeout(()=>{
             setShowsnackbar(false)
            },2000)
@@ -39,6 +40,7 @@ function CreatePost() {
             setFiles('')
             setCaption('')
             setLocation('')
+            setError('')
             setSuccess(true)
             setTimeout(()=>{
              setShowsnackbar(false)
@@ -63,8 +65,8 @@ function CreatePost() {
           <button className="postbtn" onClick={clickPost} >Post</button>
         </CardContent>
       </Card>
-     { showSnackbar &&  <Errorbar message={error}/>}
-     {(showSnackbar && success) && <MessageBar message='Post has been created Successfully.'/> }
+     { (showSnackbar && error!='' && !success ) &&  <Errorbar message={error}/>}
+     {(showSnackbar && success && error=='') && <MessageBar message='Post has been created Successfully.'/> }
     </div>
   );
 }

@@ -3,8 +3,14 @@ const User = require('../model/userModel')
 module.exports = {
 
     getAllImages : async(req,res)=>{
-
-     res.status(200).send('567890')
+    console.log('Hello I am images')
+    let allPosts = await Post.find()
+    console.log('Helllo I am all posts',allPosts)
+    let data =[];
+    for(let item of allPosts){
+      data.push({username:item.username,file:item.file,caption:item.caption,location:item.location,date:item.createdAt})
+    }
+     res.status(200).send(data)
     },
 
     getUserImage : async(req,res)=>{
@@ -25,18 +31,19 @@ module.exports = {
         const newFile = new Post({
             file: req.body.file,
             location: req.body.location,
-            caption: req.body.caption
+            caption: req.body.caption,
+            username : username
         });
-    
+
         const savedFile = await newFile.save();
         findUser.posts.push(savedFile._id);
         await findUser.save();
-    
+
         res.status(200).send(savedFile);
     } catch (err) {
         console.log('Error while creating Post', err);
-        res.status(400).json({message:'Error while Creating Post'});
+        res.status(400).send({message:'Error while Creating Post.'});
     }
-  
+
     }
 }
