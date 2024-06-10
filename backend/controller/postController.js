@@ -19,24 +19,24 @@ module.exports = {
           }
     },
     createPost : async(req,res)=>{
-        try{
-            let username = req.username;
-          try {
-                const newFile = new Post({
-                  filename: req.file.filename,
-                  filepath: req.file.path,
-
-                });
-                const file = await newFile.save();
-                res.status(201).send(file);
-              } catch (err) {
-                res.status(500).send(err.message);
-              }
-        }
-        catch(err){
-            console.log('Error while creating Post',err);
-            res.status(400).send('Error While Sending Post')
-        }
-
+      try {
+        let username = req.username;
+        let findUser = await User.findOne({ username: username });
+        const newFile = new Post({
+            file: req.body.file,
+            location: req.body.location,
+            caption: req.body.caption
+        });
+    
+        const savedFile = await newFile.save();
+        findUser.posts.push(savedFile._id);
+        await findUser.save();
+    
+        res.status(200).send(savedFile);
+    } catch (err) {
+        console.log('Error while creating Post', err);
+        res.status(400).json({message:'Error while Creating Post'});
+    }
+  
     }
 }

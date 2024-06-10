@@ -58,7 +58,7 @@ const jwt = require('jsonwebtoken')
   if (existingUser.password!==password) {
     return res.status(400).json({ message: "Incorrect Password" });
   }
-  const accessToken = jwt.sign(email, 'SECRET');
+  const accessToken = jwt.sign({email,username:existingUser.username}, 'SECRET');
   res.cookie('token',accessToken,{ maxAge: 900000000000, httpOnly: true })
   return res
     .status(200)

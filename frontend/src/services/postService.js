@@ -10,8 +10,11 @@ module.exports = {
             credentials: 'include',
             body:body,
             headers:{
-              'Content_Type':'application/json'
+              "Accept": "application/json",
+              "Content-Type": "application/json",
             }
         })
+        posts = await posts.json()
+        return posts;
      },
 }

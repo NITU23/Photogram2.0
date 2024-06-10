@@ -3,12 +3,18 @@ import DragDrop from "./dragDrop";
 import { Card, CardContent, TextField } from "@mui/material";
 import "../css/createPost.css";
 import { createPosts  } from "../services/postService";
+import CircularProgress from '@mui/material/CircularProgress';
+import Errorbar from "../util/errorSnackbar";
+import MessageBar from "../util/snackbar";
 function CreatePost() {
 
   const [caption, setCaption] = useState("");
-  const [files, setFiles] = useState([]);
+  const [file, setFiles] = useState([]);
   const [location,setLocation] = useState('')
-
+  const [spinner,setSpinner] = useState(false);
+  const [error,setError] = useState('');
+  const [showSnackbar,setShowsnackbar] = useState(false)
+  const [success,setSuccess] = useState(false)
   const handleChange = (e) => {
     setCaption(e.target.value);
   };
@@ -16,17 +22,31 @@ function CreatePost() {
     setLocation(e.target.value);
   };
 
-   const clickPost = async() => {
-    let body = {files,caption,location}
-    let formData = new FormData()
-    formData.append('file', files);
-    formData.append('location', location);
-    formData.append('caption', caption);
-     let response = await createPosts(JSON.stringify(body))
-     console.log('Hello I am response',response)
+  const clickPost = async () => {
+    setSpinner(true)
+    let body = { file, caption, location }; 
+    
+        const response = await createPosts(JSON.stringify(body)); 
+        if(response.status!==200){
+            setShowsnackbar(true)
+           setError(response.message)
+           setTimeout(()=>{
+            setShowsnackbar(false)
+           },2000)
+        }
+        else {
+            setShowsnackbar(true)
+            setFiles('')
+            setCaption('')
+            setLocation('')
+            setSuccess(true)
+            setTimeout(()=>{
+             setShowsnackbar(false)
+            },2000)
+        }
+    setSpinner(false)
+}
 
-
-   }
 
   return (
     <div className="postCard">
@@ -43,6 +63,8 @@ function CreatePost() {
           <button className="postbtn" onClick={clickPost} >Post</button>
         </CardContent>
       </Card>
+     { showSnackbar &&  <Errorbar message={error}/>}
+     {(showSnackbar && success) && <MessageBar message='Post has been created Successfully.'/> }
     </div>
   );
 }

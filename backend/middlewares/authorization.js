@@ -9,7 +9,8 @@ module.exports = (req, res, next) => {
   }
   try {
     const user = jwt.verify(cookieToken, 'SECRET');
-    req.username = user;
+    req.username = user.username;
+    req.email = user.email
     next();
   } catch (error) {
     res.status(401).json({

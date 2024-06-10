@@ -1,12 +1,8 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-  filename: {
-    type: String,
-    required: true,
-  },
-  filepath: {
-    type: String,
+  file: {
+    type: Array,
     required: true,
   },
   username: {
