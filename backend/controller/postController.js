@@ -3,14 +3,17 @@ const User = require('../model/userModel')
 module.exports = {
 
     getAllImages : async(req,res)=>{
-    console.log('Hello I am images')
-    let allPosts = await Post.find()
-    console.log('Helllo I am all posts',allPosts)
-    let data =[];
-    for(let item of allPosts){
-      data.push({username:item.username,file:item.file,caption:item.caption,location:item.location,date:item.createdAt})
-    }
-     res.status(200).send(data)
+      try {
+        let allPosts = await Post.find()
+        let data = [];
+        for (let item of allPosts) {
+          data.push({ username: item.username, file: item.file, caption: item.caption, location: item.location, date: item.createdAt })
+        }
+        res.status(200).send(data)
+      }
+      catch(err){
+        res.status(400).send({message:'Error While Getting Post'})
+      }
     },
 
     getUserImage : async(req,res)=>{

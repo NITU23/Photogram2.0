@@ -62,7 +62,8 @@ function CreatePost() {
               <TextField
             fullWidth multiline
             rows ={2} label="Location" name="Location" value={location} onChange={handleLocation} variant="outlined" className="captionBox"/>
-          <button className="postbtn" onClick={clickPost} >Post</button>
+         <div className="spinnerButton"> <button className="postbtn" onClick={clickPost} >Post</button>
+          { spinner && <CircularProgress className="spinner" />}</div>
         </CardContent>
       </Card>
      { (showSnackbar && error!='' && !success ) &&  <Errorbar message={error}/>}

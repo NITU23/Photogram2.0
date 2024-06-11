@@ -7,7 +7,8 @@ import { FiSend } from "react-icons/fi";
 import { useState } from 'react';
 import Name from './name'
 import Comment from './comment'
-function Card() {
+function Card(props) {
+  const {caption,location,file,username} = props
   const [isClicked, setIsClicked] = useState(false);
   const [showCommentComponent, setShowCommentComponent] = useState(false);
   const setClick = () => {
@@ -26,7 +27,7 @@ function Card() {
         <div className='photoDetails'>
           <div className='wrapper'>
             <div >
-              <Name />
+              <Name location={location} username={username}/>
               <img className="img" src={img} alt='' onDoubleClickCapture={setClick} />
               <div className="img">
                 {!isClicked && <PiHeart className="like heart actions" onClick={setClick} />}
@@ -40,7 +41,7 @@ function Card() {
             </div>
           </div>
           <div className='captionDiv'>
-            <span className='caption'>Hello My first Pic aptions redis-cluster-alpha2-new4 Captions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws comCaptions redis-cluster-alpha2-new4 chlyvs ng 0001 use2 cache amazonaws com</span>
+            <span className='caption'>{caption}</span>
           </div>
          { !showCommentComponent && <div className='commentDiv'>
             <input  type="text" name="comment" className='commentBox' placeholder='Add your comment' />
