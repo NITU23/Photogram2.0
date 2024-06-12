@@ -1,7 +1,7 @@
 import   {useEffect,useState } from 'react';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import '../css/post.css'; 
+import '../css/post.css';
 import { Link } from 'react-router-dom';
 import { fetchUserPosts } from '../services/postService';
 
@@ -27,7 +27,7 @@ function Post(props) {
     };
     fetchData();
   }, []);
-  console.log('Helo I am userpost',userPost)
+
   return (
     <div className='posts'>
   <div className='grid-container'>
@@ -35,9 +35,7 @@ function Post(props) {
     <div key={index} className='grid-item'>
      <Item className='item'>
   <Link to="/viewPost">
-
       <img src={"data:image/png;base64," + item.file[0]} alt='r5678' className='postImg'/>
-  
   </Link>
 </Item>
 

@@ -8,6 +8,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import Notification from './notification';
 import { useNavigate } from "react-router-dom";
 import MessageBar from '../util/snackbar';
+import { IoIosSearch } from 'react-icons/io';
 function Navbar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [openNotification,setOpenNotification] = useState(false)
@@ -59,6 +60,11 @@ function Navbar() {
           <div className='profileMenu'>
           <div>
         <button className='button postButton' onClick={createPost} >Create A Post</button>
+        </div>
+        <div className='searchBox'>
+        <IoIosSearch  style={{marginTop: "10px"}}/>
+        <input placeholder='Type Here To Search Users' className='searchBar'/>
+
         </div>
           <div className='notificationDiv'>
             <IoIosNotificationsOutline  className='notificationBell' onClick={getNotifications}/>
