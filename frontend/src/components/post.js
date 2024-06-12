@@ -1,27 +1,51 @@
-import * as React from 'react';
+import   {useEffect,useState } from 'react';
 import { experimentalStyled as styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import '../css/post.css'; // Import external CSS file
-import flower from '../images/flower.jpeg';
-import { Link } from 'react-router-dom'
+import '../css/post.css'; 
+import { Link } from 'react-router-dom';
+import { fetchUserPosts } from '../services/postService';
+
 const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   textAlign: 'center',
   color: theme.palette.text.secondary,
+  position: 'relative',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
 }));
 
-function Post() {
+
+
+
+function Post(props) {
+  const [userPost,setUserPost] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      let allPosts = await fetchUserPosts(props.username);
+      setUserPost(allPosts)
+    };
+    fetchData();
+  }, []);
+  console.log('Helo I am userpost',userPost)
   return (
     <div className='posts'>
-      <div className='grid-container'>
-        {Array.from(Array(10)).map((_, index) => (
-          <div key={index} className='grid-item'>
-            <Item className='item'>
-            <Link to="/viewPost"><img src={flower} alt='' className='postImg'/></Link>
-            </Item>
-          </div>
-        ))}
-      </div>
+  <div className='grid-container'>
+  {userPost?.map((item, index) => (
+    <div key={index} className='grid-item'>
+     <Item className='item'>
+  <Link to="/viewPost">
+
+      <img src={"data:image/png;base64," + item.file[0]} alt='r5678' className='postImg'/>
+  
+  </Link>
+</Item>
+
+    </div>
+  ))}
+</div>
+
+
     </div>
   );
 }

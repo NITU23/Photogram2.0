@@ -6,8 +6,8 @@
 }
 
 .img {
-  width: fit-content;
-  height: auto;
+  width: 400px;
+  height: 400px;
 }
 
 .actions {
@@ -37,14 +37,11 @@
 }
 .wrapper{
   display: flex;
-  max-height: 300px;
+  
 }
 .commentDialog{
-  float: right;
-  height: 300px;
-  margin-left: 30px;
-  margin-top: 75px;
-  width: 300px;
+width: 400px;
+  margin-top: 25px;
 }
 
 
@@ -71,13 +68,14 @@
 
 .captionDiv{
   width: 295px;
+ margin-top: 10px;
+  display: flex;
 }
 .commentDiv{
   display: flex;
   border-radius: 10px;
   border: 1px solid;
   padding: 5px;
-  width: 270px;
   margin-top: 10px;
 }
 
@@ -101,4 +99,9 @@ width: 225px;
     border: none;
     margin-left: auto;
     cursor: pointer;
+}
+.viewComment{
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 13px;
 }

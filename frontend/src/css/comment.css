@@ -1,6 +1,6 @@
 .viewAllcomment{
     font-size: 10px;
-   width: 295px;
+
    margin-top: 5px;
   }
   .showComment {
@@ -9,10 +9,7 @@
     flex-direction: column;
   }
 
-  .cardWidth{
-    width: 350px;
-  }
-
+  
   .closeButton{
     float: right;
     cursor: pointer;

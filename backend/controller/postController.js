@@ -48,5 +48,22 @@ module.exports = {
         res.status(400).send({message:'Error while Creating Post.'});
     }
 
+    },
+    fetchUserPosts : async(req,res,next) => {
+      try{
+        let username = req.query.username;
+        let findUser = await User.findOne({ email: username });
+        let userPostsId = findUser.posts;
+        let userPosts = [];
+        for(let item of userPostsId) {
+          let getPost = await Post.findById(item.id)
+          userPosts.push({username:getPost.username,caption:getPost.caption,location:getPost.location,file:getPost.file,date: getPost.createdAt})
+        }
+        res.status(200).send(userPosts)
+      }
+      catch(err){
+        console.log('Error While Fetching user posts',err)
+        res.send(401).send({message:'Error While fetching user posts'})
+      }
     }
 }

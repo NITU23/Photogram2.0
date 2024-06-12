@@ -50,7 +50,7 @@ export default function Profile() {
             </div>
           </div>
           <hr />
-          <div><Post /></div>
+          <div><Post username={'nitin@gmail.com'}/></div>
           <Snackbar
             anchorOrigin={{ vertical, horizontal }}
             open={open}
