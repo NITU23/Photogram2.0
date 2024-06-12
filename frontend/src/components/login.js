@@ -10,7 +10,9 @@ const LoginComponent = () => {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
-    email:''
+    email:'',
+    firstName:'',
+    lastName:''
   });
   const [signUp,setSignUp] = useState(false)
   const [loading, setLoading] = useState(false);
@@ -29,7 +31,7 @@ const LoginComponent = () => {
     e.preventDefault();
     const url = signUp===true ? 'http://localhost:3001/api/user/signup' : 'http://localhost:3001/api/user/login';
     let body =  signUp===true ? JSON.stringify({ username: formData?.username,
-      email: formData.email, password: formData.password}) :
+      email: formData.email, password: formData.password,firstName:formData.firstName,lastName:formData.lastName}) :
       JSON.stringify({ email: formData.email, password: formData.password })
     const response = await fetch(url, {
       method: 'POST',
@@ -49,7 +51,7 @@ const LoginComponent = () => {
       setShowsnackbar(false)
     },2000)
     setLoading(false)
-    setFormData({username:'',email:'',password:''})
+    setFormData({username:'',email:'',password:'',firstName:'',lastName:''})
   };
 
   const changeLogin = () => {
@@ -62,7 +64,30 @@ const LoginComponent = () => {
         <CardHeader title={signUp===true?'Sign Up':'Login'} sx={{ textAlign: 'center' }} />
         <CardContent>
           <form onSubmit={handleSubmit}>
-        { signUp && <Box mb={2}>
+        { signUp &&<>
+            <Box mb={2}>
+              <TextField
+                fullWidth
+                label="First Name"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                variant="outlined"
+                required
+              />
+            </Box>
+            <Box mb={2}>
+              <TextField
+                fullWidth
+                label="Last Name"
+                name="lastName"
+                value={formData.lastName }
+                onChange={handleChange}
+                variant="outlined"
+                required
+              />
+            </Box>
+            <Box mb={2}>
               <TextField
                 fullWidth
                 label="Username"
@@ -72,7 +97,7 @@ const LoginComponent = () => {
                 variant="outlined"
                 required
               />
-            </Box>}
+            </Box></> }
             <Box mb={2}>
               <TextField
                 fullWidth

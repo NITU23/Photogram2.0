@@ -36,6 +36,7 @@ module.exports = {
       });
       posts = await posts.json();
       return posts;
-  }
-  
+  },
+
+
 }

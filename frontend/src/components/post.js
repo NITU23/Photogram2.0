@@ -26,7 +26,7 @@ function Post(props) {
       setUserPost(allPosts)
     };
     fetchData();
-  }, []);
+  },[]);
 
   return (
     <div className='posts'>
@@ -35,15 +35,12 @@ function Post(props) {
     <div key={index} className='grid-item'>
      <Item className='item'>
   <Link to="/viewPost">
-      <img src={"data:image/png;base64," + item.file[0]} alt='r5678' className='postImg'/>
+      <img src={"data:image/png;base64," + item.file[0]} alt='post' className='postImg'/>
   </Link>
 </Item>
-
     </div>
   ))}
 </div>
-
-
     </div>
   );
 }

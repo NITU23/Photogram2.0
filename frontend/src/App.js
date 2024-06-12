@@ -9,7 +9,7 @@ import Chat from './components/chat';
 import UpdatePassword from './components/updatePassword';
 import Login from './components/login'
 import CreatePost from './components/createPost';
-
+import UploadProfilePic from './components/uploadProfilePic';
 function App() {
   return (
     <div className="App">
@@ -23,6 +23,7 @@ function App() {
           <Route path="/" element={<Login/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/createPost" element={<CreatePost/>} />
+          <Route path="/uploadProfile" element={<UploadProfilePic/>} />
         </Routes>
       </main>
       <div className="chat">

@@ -66,8 +66,8 @@ function CreatePost() {
           { spinner && <CircularProgress className="spinner" />}</div>
         </CardContent>
       </Card>
-     { (showSnackbar && error!='' && !success ) &&  <Errorbar message={error}/>}
-     {(showSnackbar && success && error=='') && <MessageBar message='Post has been created Successfully.'/> }
+     { (showSnackbar && error!=='' && !success ) &&  <Errorbar message={error}/>}
+     {(showSnackbar && success && error==='') && <MessageBar message='Post has been created Successfully.'/> }
     </div>
   );
 }

@@ -1,0 +1,10 @@
+.parentSection{
+    display: flex;
+    justify-content: center;
+
+    height: 400px;
+    margin-top: 30px;
+}
+.dragDrop{
+    border: 1px solid black;
+}

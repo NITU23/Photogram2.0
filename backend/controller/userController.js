@@ -15,7 +15,7 @@ const jwt = require('jsonwebtoken')
 };
 
  const signup = async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, email, password,firstName,lastName } = req.body;
   let existingUser;
   try {
     existingUser = await User.findOne({ email });
@@ -32,6 +32,8 @@ const jwt = require('jsonwebtoken')
     username,
     email,
     password,
+    firstName,
+    lastName
   });
 
   try {
