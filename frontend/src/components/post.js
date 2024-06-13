@@ -31,7 +31,7 @@ function Post(props) {
   return (
     <div className='posts'>
   <div className='grid-container'>
-    {userPost.length<=0 && <ShimmerLayout />}
+    {userPost.length<=0 &&<> <ShimmerLayout /><ShimmerLayout /><ShimmerLayout /> </>}
   {userPost.length>0 && userPost?.map((item, index) => (
     <div key={index} className='grid-item'>
      <Item className='item'>

@@ -7,14 +7,14 @@ import { useState } from 'react';
 import Name from './name'
 import Comment from './comment'
 function Card(props) {
-  const {caption,location,file,username} = props
+  const {caption,location,file,username,profile} = props
   const [isClicked, setIsClicked] = useState(false);
   const [showCommentComponent, setShowCommentComponent] = useState(false);
   const setClick = () => {
     isClicked === true ? setIsClicked(false) : setIsClicked(true)
   }
   const setAddComments = () => {
-    showCommentComponent===true ? setShowCommentComponent(false) : setShowCommentComponent(true) 
+    showCommentComponent===true ? setShowCommentComponent(false) : setShowCommentComponent(true)
   }
   const getData = (data) =>{
     setShowCommentComponent(data)
@@ -26,7 +26,7 @@ function Card(props) {
         <div className='photoDetails'>
           <div className='wrapper'>
             <div className='mainDiv'>
-              <Name location={location} username={username}/>
+              <Name location={location} username={username} profilePic = {profile}/>
               <img className="img" src={"data:image/png;base64," + file}  alt='' onDoubleClickCapture={setClick} />
               <div >
                 {!isClicked && <PiHeart className="like heart actions" onClick={setClick} />}
@@ -34,7 +34,7 @@ function Card(props) {
                 <FaRegComment className="like comment actions" onClick={setAddComments} />
                 <FiSend className="like comment" />
               </div>
-              <div> 
+              <div>
                 <span className='viewComment' onClick={setAddComments}>{ showCommentComponent===true?'Hide Comments' : 'View Comments'}</span>
             <div className='captionDiv'>
             <span className='caption'>{caption}</span>
@@ -45,16 +45,16 @@ function Card(props) {
           </div> }
           </div>
             </div>
-          
+
           </div>
           { showCommentComponent &&  <div className='commentDialog'>
-          <Comment showDialog={showCommentComponent} getCommentVar={getData}  /> 
+          <Comment showDialog={showCommentComponent} getCommentVar={getData}  />
             </div>}
-         
-            
-         
+
+
+
         </div>
-        
+
       </div>
     </div>
   );

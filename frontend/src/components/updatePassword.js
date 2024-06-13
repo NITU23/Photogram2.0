@@ -2,14 +2,17 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, TextField, Box } from '@mui/material';
 import '../css/updatePassword.css';
-
+import { updatePassword } from '../services/userService';
+import Errorbar from '../util/errorSnackbar';
+import MessageBar from '../util/snackbar'
 const UpdatePassword = () => {
   const [formData, setFormData] = useState({
     password: '',
     newpassword: '',
     cnewpassword: ''
   });
-
+   const [showSnackbar,setShowSnackbar] = useState(false)
+   const [error,setError] = useState('')
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -18,12 +21,24 @@ const UpdatePassword = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    if(formData.newpassword!==formData.cnewpassword){
+         setShowSnackbar(true)
+         setError('New Password Does not match')
+         setTimeout(()=>{
+          setShowSnackbar(false)
+         },2000)
+    }
+    else {
+      let body = {password:formData.password,newpassword:formData.newpassword,cnewpassword:formData.cnewpassword}
+      const response = await updatePassword(JSON.stringify(body))
+      console.log('Hello Password',response)
+    }
   };
 
   return (
+    <>
     <Box display="flex" justifyContent="center" marginTop="50px">
       <Card sx={{ maxWidth: 500, width: '100%' }}>
         <CardHeader title="Update Password" sx={{ textAlign: 'center' }} />
@@ -71,6 +86,9 @@ const UpdatePassword = () => {
         </CardContent>
       </Card>
     </Box>
+    {(showSnackbar && error!=='') && <Errorbar message={error} />}
+    {(showSnackbar && error==='' ) && <MessageBar />}
+    </>
   );
 };
 

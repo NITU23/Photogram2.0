@@ -6,12 +6,15 @@ module.exports = {
       try {
         let allPosts = await Post.find()
         let data = [];
+        let email = req.email
         for (let item of allPosts) {
-          data.push({ username: item.username, file: item.file, caption: item.caption, location: item.location, date: item.createdAt })
+          let findUser = await User.findOne({email:email})
+          data.push({ username: item.username, file: item.file, caption: item.caption, location: item.location, date: item.createdAt,profilePic:findUser.profilePicture })
         }
         res.status(200).send(data)
       }
       catch(err){
+        console.log('Error While Getting Post',err)
         res.status(400).send({message:'Error While Getting Post'})
       }
     },

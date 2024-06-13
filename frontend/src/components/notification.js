@@ -10,8 +10,6 @@ export default function Notification() {
         <ul className='notifications'>
           <li> <img  className='notificationImg'  src={flower} alt=''/><b>Nitin</b> Liked Your Photo </li>
           <li> <img  className='notificationImg'  src={flower} alt=''/>Nitin Commented on your photo</li>
-
-
         </ul>
       </CardContent>
     </Card>

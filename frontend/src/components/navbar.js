@@ -76,7 +76,7 @@ function Navbar() {
               }}
             >
            <Link className="link" to="profile"> <MenuItem>Profile</MenuItem></Link>
-           <Link className="link" to="/updatepassword"> <MenuItem >Update Password</MenuItem></Link>
+           <Link className="link" to="/updateprofile"> <MenuItem >Update Profile</MenuItem></Link>
            <Link className="link" > <MenuItem onClick={logout}>Logout</MenuItem></Link>
             </Menu>
           </div>

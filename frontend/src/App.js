@@ -6,7 +6,7 @@ import Profile from '../src/components/profile';
 import './css/app.css';
 import ViewMyPost from './components/viewMyPost';
 import Chat from './components/chat';
-import UpdatePassword from './components/updatePassword';
+import UpdateProfile from './components/updateProfile';
 import Login from './components/login'
 import CreatePost from './components/createPost';
 import UploadProfilePic from './components/uploadProfilePic';
@@ -19,7 +19,7 @@ function App() {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/viewPost" element={<ViewMyPost />} />
-          <Route path="/updatepassword" element={<UpdatePassword />} />
+          <Route path="/updateprofile" element={<UpdateProfile />} />
           <Route path="/" element={<Login/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/createPost" element={<CreatePost/>} />

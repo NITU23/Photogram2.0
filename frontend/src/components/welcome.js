@@ -11,7 +11,7 @@ function Welcome() {
       let allPosts = await fetchPosts();
       setAllPost(allPosts)
     };
-  
+
     fetchData();
   }, []);
 
@@ -20,14 +20,14 @@ function Welcome() {
        { allPost.length===0 && <div className="parent"> <ShimmerLayout /> <ShimmerLayout /><ShimmerLayout /><ShimmerLayout /></div>}
      { allPost && <div className='parent'>
         <div className='cards'>
-        {allPost?.map((item, index) => (
+        {allPost.length>0 && allPost?.map((item, index) => (
         <div key={index}>
-        <Card  caption={item.caption} location={item.location} file={item.file}/>
+        <Card  caption={item.caption} location={item.location} file={item.file} username={item.username} profile={item.profilePic}/>
         </div>
       ))}
         </div>
       </div>}
-    
+
     </div>
   );
 }

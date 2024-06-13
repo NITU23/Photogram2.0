@@ -2,7 +2,6 @@ import '../css/profile.css';
 import React, { useEffect,useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import flower from '../images/flower.jpeg'
 import Post from './post';
 import Snackbar from '@mui/material/Snackbar';
 import { getUserProfile } from '../services/userService';

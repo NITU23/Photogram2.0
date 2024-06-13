@@ -101,4 +101,21 @@ const getUserProfile = async(req,res)=>{
     res.status(400).send({message:'Error While Getting user\'s Profile'})
   }
 }
-module.exports = {login,signup,getAllUser,logout,setProfile,getUserProfile};
+
+const updatePassword = async(req,res)=>{
+  try{
+    const { password, newpassword, cnewpassword } = req.body;
+    let username = req.username
+    const user = await User.findOne({ username: username });
+    if (password !== user.password) {
+      throw new Error('Current password is incorrect');
+    }
+    await User.updateOne({ username: username }, { $set: { password: newpassword } });
+    res.status(200).send('Password updated successfully');
+  }
+  catch(err){
+    console.log('Error While Updating Password',err)
+    res.status(400).send({message:'Error While Updating Password'})
+  }
+}
+module.exports = {login,signup,getAllUser,logout,setProfile,getUserProfile,updatePassword};

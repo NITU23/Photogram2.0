@@ -29,7 +29,7 @@ function DragDrop(props) {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
     if (droppedFile) {
-    
+
       if (droppedFile.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onloadend = () => {

@@ -1,0 +1,8 @@
+.tabDiv{
+    display: flex;
+    justify-content: center;
+}
+
+.tab{
+    width: 50%;
+}

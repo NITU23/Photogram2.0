@@ -37,7 +37,6 @@ function CreatePost() {
         }
         else {
             setShowsnackbar(true)
-            setFiles('')
             setCaption('')
             setLocation('')
             setError('')
@@ -58,10 +57,10 @@ function CreatePost() {
           <TextField
             fullWidth multiline
             rows ={2}
-            label="Caption"  name="Caption"  value={caption} onChange={handleChange} variant="outlined" className="captionBox" />
+            label="Caption (Optional)"  name="Caption"  value={caption} onChange={handleChange} variant="outlined" className="captionBox" />
               <TextField
             fullWidth multiline
-            rows ={2} label="Location" name="Location" value={location} onChange={handleLocation} variant="outlined" className="captionBox"/>
+            rows ={2} label="Location (Optional)" name="Location" value={location} onChange={handleLocation} variant="outlined" className="captionBox"/>
          <div className="spinnerButton"> <button className="postbtn" onClick={clickPost} >Post</button>
           { spinner && <CircularProgress className="spinner" />}</div>
         </CardContent>
