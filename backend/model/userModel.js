@@ -29,7 +29,10 @@ const userSchema = new Schema({
     {
       post_id : Number
     }
-  ]
+  ],
+  profilePicture:{
+    type : String
+  }
 });
 
 const User = mongoose.model("User", userSchema);

@@ -1,111 +1,109 @@
 .drag-drop {
-    background: #fff;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-  }
-  .document-uploader {
-    background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
 
-    .upload-info {
-      display: flex;
-      align-items: center;
+.document-uploader {
+  background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 8px;
+}
 
-      svg {
-        font-size: 36px;
-        margin-right: 1rem;
-      }
+.upload-info {
+  display: flex;
+  align-items: center;
+}
 
-      div {
-        p {
-          margin: 0;
-          font-size: 16px;
-        }
+.upload-info svg {
+  font-size: 36px;
+  margin-right: 1rem;
+}
 
-        p:first-child {
-          font-weight: bold;
-        }
-      }
-    }
+.upload-info div p {
+  margin: 0;
+  font-size: 16px;
+}
 
-    .file-list {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      &__container {
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-      }
-    }
+.upload-info div p:first-child {
+  font-weight: bold;
+}
 
-    .file-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
+.file-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 
-      .file-info {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        flex: 1;
+.file-list__container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
 
-        p {
-          margin: 0;
-          font-size: 14px;
-          color: #333;
-        }
-      }
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
 
-      .file-actions {
-        cursor: pointer;
+.file-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
 
-        svg {
-          font-size: 18px;
-        }
+.file-info p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
 
+.file-actions {
+  cursor: pointer;
+}
 
-      }
-    }
+.file-actions svg {
+  font-size: 18px;
+}
 
-    .browse-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.5rem 1rem;
-      border: 1px solid;
-      border-radius: 8px;
-      cursor: pointer;
+.browse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
-    }
+.success-file {
+  display: flex;
+  align-items: center;
+  color: #6dc24b;
+}
 
-    .success-file {
-      display: flex;
-      align-items: center;
-      color: #6dc24b;
+.success-file p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
 
-      p {
-        margin: 0;
-        font-size: 14px;
-        font-weight: bold;
-      }
-    }
+input[type="file"] {
+  display: none;
+}
 
-    input[type="file"] {
-      display: none;
-    }
-  }
-  .image-preview {
-    width: max-content;
-    height: 200px;
-    object-fit: cover;
-    margin-top: 10px;
-  }
+.image-preview {
+  width: 100%; 
+  height: 200px;
+  object-fit: contain; 
+  margin-top: 10px;
+}

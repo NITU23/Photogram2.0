@@ -40,9 +40,11 @@ const jwt = require('jsonwebtoken')
     await user.save();
   } catch (err) {
     console.log(err);
+     const accessToken = jwt.sign({email,username}, 'SECRET');
+  res.cookie('token',accessToken,{ maxAge: 900000000000, httpOnly: true })
     return res.status(400).send('error while signup')
   }
-  return res.status(201).json({ user });
+  return res.status(200).json({ user });
 };
 
  const login = async (req, res, next) => {
@@ -72,7 +74,31 @@ const logout = async(req,res) => {
    return res.status(200).send('You have been logged out successfully.')
   }
  res.status(404).send('Unable to logout')
-
 }
 
-module.exports = {login,signup,getAllUser,logout};
+const setProfile = async(req,res)=>{
+  try{
+    let email = req.email;
+    let findUser = await User.findOne({ email:email });
+    findUser.profilePicture = req.body.file;
+    findUser.save();
+    res.status(200).send({message:'Your Profile has been saved successfully'})
+  }
+  catch(err){
+    console.log('Error while uploading profile picture.',err)
+    res.status(400).send({message:'Error While uploading profile picture.'})
+  }
+}
+const getUserProfile = async(req,res)=>{
+  try{
+   let email = req.email;
+   let findUser = await User.findOne({email:email})
+   let details = {firstName:findUser.firstName,lastName : findUser.lastName, profile:findUser.profilePicture,username:findUser.username,email:findUser.email}
+   res.status(200).send(details)
+  }
+  catch(err){
+    console.log("Error While Getting user's profile",err)
+    res.status(400).send({message:'Error While Getting user\'s Profile'})
+  }
+}
+module.exports = {login,signup,getAllUser,logout,setProfile,getUserProfile};

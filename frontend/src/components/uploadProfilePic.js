@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, } from "react";
 import { AiOutlineCheckCircle, AiOutlineCloudUpload } from "react-icons/ai";
 import { MdClear } from "react-icons/md";
 import '../css/dragDrop.css';
 import '../css/uploadProfilePic.css'
-
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import {useNavigate} from 'react-router-dom'
+import {setProfilePic } from '../services/userService.js'
+import Errorbar from "../util/errorSnackbar";
 function UploadProfilePic() {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
-
+   const navigate = useNavigate()
+   const [showSnackbar,setShowsnackbar] = useState(false)
+   const [error,setError] = useState('')
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -29,11 +35,13 @@ function UploadProfilePic() {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
     if (droppedFile) {
-      setFile(droppedFile);
+      
       if (droppedFile.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onloadend = () => {
           setPreview(reader.result);
+          const base64 = reader.result.split(',')[1];
+          setFile(base64);
         };
         reader.readAsDataURL(droppedFile);
       } else {
@@ -41,13 +49,30 @@ function UploadProfilePic() {
       }
     }
   };
-
+   const uploadProfile = async()=> {
+    let body = {file}
+      const response = await setProfilePic(JSON.stringify(body));
+      if(response.status===200){
+        navigate('/welcome')
+      }
+      else {
+        setShowsnackbar(true)
+        setError(response.response.message)
+        setTimeout(()=>{
+          setShowsnackbar(false)
+        },2000)
+      }
+    }
+  
   const handleRemoveFile = () => {
     setFile(null);
     setPreview(null);
   };
 
   return (
+    <div className='cardDiv'>
+    <Card className='cardProps' >
+      <CardContent>
     <div className="parentSection">
     <section className="drag-drop dragDrop " style={{ width: '600px' }}>
       <div
@@ -63,7 +88,7 @@ function UploadProfilePic() {
               <AiOutlineCloudUpload />
 
               <div>
-                <p>Select Media to Upload</p>
+                <p>Select Profile Picture</p>
               </div>
             </div>
             <input
@@ -101,7 +126,13 @@ function UploadProfilePic() {
           </div>
         )}
       </div>
+      <button className='button postButton picButton' onClick={uploadProfile}  >Upload Profile Picture</button>
     </section>
+   
+    </div>
+    </CardContent>
+    </Card>
+   { showSnackbar &&<Errorbar message={error}/>}
     </div>
   );
 }

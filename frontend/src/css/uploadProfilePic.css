@@ -1,10 +1,26 @@
 .parentSection{
     display: flex;
     justify-content: center;
-
-    height: 400px;
     margin-top: 30px;
 }
-.dragDrop{
-    border: 1px solid black;
+
+
+.picButton{
+    width: 90%;
+    margin: 10px 0px 10px 30px;
+}
+.picButton:hover{
+    width: 90%;
+}
+.cardProps{
+  
+    width: 500px;
+    height: auto;
+}
+
+.cardDiv{
+display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 70vh;
 }

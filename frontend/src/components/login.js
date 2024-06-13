@@ -45,7 +45,7 @@ const LoginComponent = () => {
       setShowsnackbar(true)
     }
     if(response.status===200){
-      navigate('/welcome')
+      navigate('/uploadProfile')
     }
     setTimeout(()=>{
       setShowsnackbar(false)

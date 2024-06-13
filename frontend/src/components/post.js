@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper';
 import '../css/post.css';
 import { Link } from 'react-router-dom';
 import { fetchUserPosts } from '../services/postService';
-
+import ShimmerLayout from './shimmer';
 const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   textAlign: 'center',
@@ -31,7 +31,8 @@ function Post(props) {
   return (
     <div className='posts'>
   <div className='grid-container'>
-  {userPost?.map((item, index) => (
+    {userPost.length<=0 && <ShimmerLayout />}
+  {userPost.length>0 && userPost?.map((item, index) => (
     <div key={index} className='grid-item'>
      <Item className='item'>
   <Link to="/viewPost">

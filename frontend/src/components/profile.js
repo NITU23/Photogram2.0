@@ -1,16 +1,18 @@
 import '../css/profile.css';
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import flower from '../images/flower.jpeg'
 import Post from './post';
 import Snackbar from '@mui/material/Snackbar';
+import { getUserProfile } from '../services/userService';
 export default function Profile() {
   const [state, setState] = React.useState({
     open: false,
     vertical: 'top',
     horizontal: 'center',
   });
+  const [detail,setDetail] = useState()
   const { vertical, horizontal, open } = state;
   const handleClick = (newState) => () => {
     setState({ ...newState, open: true });
@@ -19,13 +21,20 @@ export default function Profile() {
   const handleClose = () => {
     setState({ ...state, open: false });
   };
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      let details = await getUserProfile();
+      setDetail(details.response)
+    };
+    fetchUserDetails();
+  }, []);
   return (
     <div className="profileContainer">
       <Card className="profileCard">
         <CardContent>
           <div className='profileDetail'>
-            <img src={flower} alt='' className='profilePicture' />
-            <p className='names'>Nitin Vyas</p>
+            <img src={"data:image/png;base64," + detail?.profile}  alt='' className='profilePicture' />
+            <p className='names'>{detail?.firstName}  {detail?.lastName}</p>
             <div className='tableDiv'>
               <table  >
                 <thead>
@@ -50,7 +59,7 @@ export default function Profile() {
             </div>
           </div>
           <hr />
-          <div><Post username={'nitin@gmail.com'}/></div>
+         { detail && <div><Post username={detail?.email}/></div>}
           <Snackbar
             anchorOrigin={{ vertical, horizontal }}
             open={open}

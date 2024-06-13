@@ -29,11 +29,13 @@ function DragDrop(props) {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
     if (droppedFile) {
-      setFile(droppedFile);
+    
       if (droppedFile.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onloadend = () => {
           setPreview(reader.result);
+          const base64 = reader.result.split(',')[1];
+          setFile(base64)
         };
         reader.readAsDataURL(droppedFile);
       } else {
@@ -56,7 +58,7 @@ function DragDrop(props) {
   }, [file, onFilesSelected]);
 
   return (
-    <section className="drag-drop" style={{ width: '400px'   }}>
+    <section className="drag-drop" style={{ width: '600px'   }}>
       <div
         className={`document-uploader ${
           file ? "upload-box active" : "upload-box"

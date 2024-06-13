@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
   const cookieToken = req.cookies.token;
   if (!cookieToken) {
-    res.status(401).json({
+    res.status(401).send({
         status: 'fail',
         message: 'Unauthorized!',
       });
@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     req.email = user.email
     next();
   } catch (error) {
-    res.status(401).json({
+    res.status(401).send({
         status: 'fail',
         message: 'Unauthorized!',
       });

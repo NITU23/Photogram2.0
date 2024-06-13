@@ -1,5 +1,6 @@
 const headers = {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json', 
+    "Accept": "application/json",
    }
    module.exports = {
     fetchUser : async () => {
@@ -11,4 +12,25 @@ const headers = {
         });
         users = await users.json();
         return users;
-    }}
+    },
+    setProfilePic : async(file) =>{
+        let url = `http://localhost:3001/api/user/setProfile`;
+        let response= await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body:file,
+            credentials: 'include'
+        });
+        return {response:await response.json(),status:response.status};
+    },
+    getUserProfile : async()=>{
+        let url = `http://localhost:3001/api/user/getUserProfile`;
+        let response= await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            credentials: 'include'
+        });
+        return {response:await response.json(),status:response.status};
+    },
+    
+}

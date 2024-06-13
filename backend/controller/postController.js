@@ -63,7 +63,7 @@ module.exports = {
       }
       catch(err){
         console.log('Error While Fetching user posts',err)
-        res.send(401).send({message:'Error While fetching user posts'})
+        res.status(401).send({message:'Error While fetching user posts'})
       }
     }
 }

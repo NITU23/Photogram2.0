@@ -52,7 +52,7 @@ function CreatePost() {
 
   return (
     <div className="postCard">
-      <Card sx={{ maxWidth: 430 }} >
+      <Card sx={{ maxWidth: 700 }} >
         <CardContent>
            <DragDrop onFilesSelected={setFiles} />
           <TextField
