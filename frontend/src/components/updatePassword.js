@@ -13,6 +13,7 @@ const UpdatePassword = () => {
   });
    const [showSnackbar,setShowSnackbar] = useState(false)
    const [error,setError] = useState('')
+   const [success,setSuccess] = useState('')
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -34,6 +35,22 @@ const UpdatePassword = () => {
       let body = {password:formData.password,newpassword:formData.newpassword,cnewpassword:formData.cnewpassword}
       const response = await updatePassword(JSON.stringify(body))
       console.log('Hello Password',response)
+      if(response.status!==200){
+        setShowSnackbar(true)
+        setSuccess('')
+        setError(response.response.message)
+         setTimeout(()=>{
+          setShowSnackbar(false)
+         },2000)
+      }
+      else {
+        setShowSnackbar(true)
+        setError('')
+        setSuccess(response.response.message)
+         setTimeout(()=>{
+          setShowSnackbar(false)
+         },2000)
+      }
     }
   };
 
@@ -43,7 +60,7 @@ const UpdatePassword = () => {
       <Card sx={{ maxWidth: 500, width: '100%' }}>
         <CardHeader title="Update Password" sx={{ textAlign: 'center' }} />
         <CardContent>
-          <form onSubmit={handleSubmit}>
+          <form >
             <Box mb={2}>
               <TextField
                 fullWidth
@@ -78,7 +95,7 @@ const UpdatePassword = () => {
               />
             </Box>
             <Box display="flex" justifyContent="center" mt={2}>
-              <button type="submit" className='password'>
+              <button type="submit" className='password' onClick={handleSubmit}>
                 Update Password
               </button>
             </Box>
@@ -86,8 +103,8 @@ const UpdatePassword = () => {
         </CardContent>
       </Card>
     </Box>
-    {(showSnackbar && error!=='') && <Errorbar message={error} />}
-    {(showSnackbar && error==='' ) && <MessageBar />}
+    {(showSnackbar && error!=='' && success==='') && <Errorbar message={error} />}
+    {(showSnackbar && error==='' && success!=='' ) && <MessageBar message={success} />}
     </>
   );
 };
