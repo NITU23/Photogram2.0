@@ -37,6 +37,16 @@ module.exports = {
       posts = await posts.json();
       return posts;
   },
+  deletePost : async (postid) => {
+    let url = `http://localhost:3001/api/post/deletePost/?postid=${postid}`;
+    let response = await fetch(url, {
+        method: 'DELETE',
+        headers: headers,
+        credentials: 'include'
+    });
+    response = await response.json();
+    return response;
+},
 
 
 }

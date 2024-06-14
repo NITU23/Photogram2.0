@@ -9,7 +9,7 @@ module.exports = {
         let email = req.email
         for (let item of allPosts) {
           let findUser = await User.findOne({email:email})
-          data.push({ username: item.username, file: item.file, caption: item.caption, location: item.location, date: item.createdAt,profilePic:findUser.profilePicture })
+          data.push({ username: item.username, file: item.file, caption: item.caption, location: item.location, date: item.createdAt,profilePic:findUser.profilePicture,postid:item.id,realUser : req.username })
         }
         res.status(200).send(data)
       }
@@ -67,6 +67,17 @@ module.exports = {
       catch(err){
         console.log('Error While Fetching user posts',err)
         res.status(401).send({message:'Error While fetching user posts'})
+      }
+    },
+    deletePost : async(req,res)=>{
+      try{
+       let postid = req.query.postid;
+       await Post.findByIdAndDelete(postid);
+       res.status(200).send({message:'Post Successfully deleted'})
+      }
+      catch(err){
+        console.log('Error While Deleting Post',err)
+        res.status(400).send({message:"Error While Deleting Your Post"})
       }
     }
 }

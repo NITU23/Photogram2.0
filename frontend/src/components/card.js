@@ -6,6 +6,8 @@ import { FiSend } from "react-icons/fi";
 import { useState } from 'react';
 import Name from './name'
 import Comment from './comment'
+import DeleteIcon from '@mui/icons-material/Delete';
+import { deletePost } from '../services/postService';
 function Card(props) {
   const {caption,location,file,username,profile} = props
   const [isClicked, setIsClicked] = useState(false);
@@ -19,6 +21,10 @@ function Card(props) {
   const getData = (data) =>{
     setShowCommentComponent(data)
   }
+  const deletePhoto = async () => {
+    let response = await deletePost(props.postid)
+    props.load(true)
+}
 
   return (
     <div>
@@ -26,7 +32,12 @@ function Card(props) {
         <div className='photoDetails'>
           <div className='wrapper'>
             <div className='mainDiv'>
+              <div className='deleteName'>
+              {(props.realUser === props.username) && <div className='deleteDiv' onClick={deletePhoto}>
+                <DeleteIcon />
+              </div>}
               <Name location={location} username={username} profilePic = {profile}/>
+              </div>
               <img className="img" src={"data:image/png;base64," + file}  alt='' onDoubleClickCapture={setClick} />
               <div >
                 {!isClicked && <PiHeart className="like heart actions" onClick={setClick} />}

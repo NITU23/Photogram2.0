@@ -1,7 +1,7 @@
 const auth = require('../middlewares/authorization')
 const express = require( "express");
 const router = express.Router();
-const {getAllImages, getUserImage, createPost,fetchUserPosts} = require('../controller/postController')
+const {getAllImages, getUserImage, createPost,fetchUserPosts,deletePost} = require('../controller/postController')
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -18,5 +18,6 @@ router.get('/allImage',auth,getAllImages)
 router.get('/getUserImage',auth,getUserImage)
 router.post('/createPost',auth,upload.single('file'),createPost)
 router.get('/getUserPosts',auth,fetchUserPosts)
+router.delete('/deletePost',auth,deletePost)
 
 module.exports = router;

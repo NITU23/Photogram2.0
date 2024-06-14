@@ -105,3 +105,13 @@ width: 225px;
   cursor: pointer;
   font-size: 13px;
 }
+
+.deleteDiv{
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.deleteName{
+  display: flex;
+  flex-direction: column-reverse;
+}
