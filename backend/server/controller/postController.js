@@ -11,6 +11,7 @@ module.exports = {
           let findUser = await User.findOne({email:email})
           data.push({ username: item.username, file: item.file, caption: item.caption, location: item.location, date: item.createdAt,profilePic:findUser.profilePicture,postid:item.id,realUser : req.username })
         }
+        console.log('All Images fetched successfully.')
         res.status(200).send(data)
       }
       catch(err){
@@ -25,8 +26,10 @@ module.exports = {
             if (!file) {
               return res.status(404).send('File not found');
             }
+            console.log('User Image Fetched Successfully.')
             res.sendFile(path.resolve(file.filepath));
           } catch (err) {
+            console.log('Error While getting user Image',err)
             res.status(500).send(err.message);
           }
     },
@@ -40,11 +43,10 @@ module.exports = {
             caption: req.body.caption,
             username : username
         });
-
         const savedFile = await newFile.save();
         findUser.posts.push(savedFile._id);
         await findUser.save();
-
+        console.log('Post Created Successfully.')
         res.status(200).send(savedFile);
     } catch (err) {
         console.log('Error while creating Post', err);
@@ -71,8 +73,14 @@ module.exports = {
     },
     deletePost : async(req,res)=>{
       try{
+       let username = req.username;
        let postid = req.query.postid;
+       await User.updateOne(
+        { username: username },
+        { $pull: { posts: { _id: postid } } }
+      );
        await Post.findByIdAndDelete(postid);
+       console.log('Post Successfully Deleted')
        res.status(200).send({message:'Post Successfully deleted'})
       }
       catch(err){

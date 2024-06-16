@@ -4,7 +4,8 @@ import { Card, CardContent, CardHeader, TextField, Box } from '@mui/material';
 import '../css/login.css';
 import { TailSpin } from "react-loader-spinner";
 import MessageBar from '../util/snackbar';
-
+import { useDispatch } from 'react-redux';
+import { checkCookie } from '../redux/checklogin';
 const LoginComponent = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ const LoginComponent = () => {
   const [signUp,setSignUp] = useState(false)
   const [loading, setLoading] = useState(false);
   const [showSnackbar,setShowsnackbar] = useState(false)
-
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -45,6 +46,8 @@ const LoginComponent = () => {
       setShowsnackbar(true)
     }
     if(response.status===200){
+      dispatch(checkCookie());
+
       if(signUp===true){
         navigate('/uploadProfile')
       }

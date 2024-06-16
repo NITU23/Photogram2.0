@@ -1,4 +1,4 @@
-import React, { useEffect, useState, } from "react";
+import React, { useState } from "react";
 import { AiOutlineCheckCircle, AiOutlineCloudUpload } from "react-icons/ai";
 import { MdClear } from "react-icons/md";
 import '../css/dragDrop.css';
@@ -35,7 +35,7 @@ function UploadProfilePic() {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files[0];
     if (droppedFile) {
-      
+
       if (droppedFile.type.startsWith('image/')) {
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -63,7 +63,7 @@ function UploadProfilePic() {
         },2000)
       }
     }
-  
+
   const handleRemoveFile = () => {
     setFile(null);
     setPreview(null);
@@ -128,7 +128,7 @@ function UploadProfilePic() {
       </div>
       <button className='button postButton picButton' onClick={uploadProfile}  >Upload Profile Picture</button>
     </section>
-   
+
     </div>
     </CardContent>
     </Card>

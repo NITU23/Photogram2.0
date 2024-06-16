@@ -13,6 +13,7 @@ export default function Profile() {
   });
   const [detail,setDetail] = useState()
   const { vertical, horizontal, open } = state;
+  const [totalPosts,setTotalPosts] = useState()
   const handleClick = (newState) => () => {
     setState({ ...newState, open: true });
   };
@@ -20,6 +21,9 @@ export default function Profile() {
   const handleClose = () => {
     setState({ ...state, open: false });
   };
+  const getTotalPosts= (postslength)=>{
+    setTotalPosts(postslength)
+  }
   useEffect(() => {
     const fetchUserDetails = async () => {
       let details = await getUserProfile();
@@ -38,7 +42,7 @@ export default function Profile() {
               <table  >
                 <thead>
                   <tr>
-                    <th scope="col"><center>10</center></th>
+                    <th scope="col"><center>{totalPosts}</center></th>
                     <th scope="col"><center>5</center></th>
                     <th scope="col"><center>5</center></th>
                   </tr>
@@ -58,7 +62,7 @@ export default function Profile() {
             </div>
           </div>
           <hr />
-         { detail && <div><Post username={detail?.email}/></div>}
+         { detail && <div><Post username={detail?.email} totalPosts={getTotalPosts}/></div>}
           <Snackbar
             anchorOrigin={{ vertical, horizontal }}
             open={open}

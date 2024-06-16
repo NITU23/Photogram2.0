@@ -32,15 +32,6 @@ const headers = {
         });
         return {response:await response.json(),status:response.status};
     },
-    getUserProfile : async()=>{
-        let url = `http://localhost:3001/api/user/getUserProfile`;
-        let response= await fetch(url, {
-            method: 'POST',
-            headers: headers,
-            credentials: 'include'
-        });
-        return {response:await response.json(),status:response.status};
-    },
     updatePassword : async(body)=>{
         let url = `http://localhost:3001/api/user/updatePassword`;
         let response= await fetch(url, {

@@ -37,7 +37,7 @@
 }
 .wrapper{
   display: flex;
-  
+
 }
 .commentDialog{
 width: 400px;
@@ -109,6 +109,7 @@ width: 225px;
 .deleteDiv{
   margin-left: auto;
   cursor: pointer;
+  margin-top: -30px;
 }
 
 .deleteName{

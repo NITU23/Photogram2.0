@@ -24,6 +24,7 @@ function Post(props) {
     const fetchData = async () => {
       let allPosts = await fetchUserPosts(props.username);
       setUserPost(allPosts)
+      props.totalPosts(allPosts.length)
     };
     fetchData();
   },[]);

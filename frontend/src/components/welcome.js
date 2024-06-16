@@ -3,7 +3,6 @@ import Card from "./card"
 import '../css/welcome.css'
 import { fetchPosts } from "../services/postService";
 import ShimmerLayout from "./shimmer";
-
 function Welcome() {
    const [allPost,setAllPost] = useState([])
    const [reload,setReload] = useState(false)
@@ -12,16 +11,17 @@ function Welcome() {
       let allPosts = await fetchPosts();
       setAllPost(allPosts)
     };
-
     fetchData();
   }, []);
+
+
    const updateReload = async(value)=>{
     setReload(value)
     let allPosts = await fetchPosts();
     setAllPost(allPosts)
    }
   return (
-    <div>
+  <div>
        { allPost.length===0 && <div className="parent"> <ShimmerLayout /> <ShimmerLayout /><ShimmerLayout /><ShimmerLayout /></div>}
      { allPost && <div className='parent'>
         <div className='cards'>
