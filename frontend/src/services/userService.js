@@ -26,7 +26,7 @@ const headers = {
     getUserProfile : async()=>{
         let url = `http://localhost:3001/api/user/getUserProfile`;
         let response= await fetch(url, {
-            method: 'POST',
+            method: 'GET',
             headers: headers,
             credentials: 'include'
         });

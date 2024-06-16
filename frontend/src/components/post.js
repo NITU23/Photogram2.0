@@ -5,6 +5,7 @@ import '../css/post.css';
 import { Link } from 'react-router-dom';
 import { fetchUserPosts } from '../services/postService';
 import ShimmerLayout from './shimmer';
+import user from '../images/user.jpeg'
 const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(4),
   textAlign: 'center',
@@ -37,7 +38,7 @@ function Post(props) {
     <div key={index} className='grid-item'>
      <Item className='item'>
   <Link to="/viewPost">
-      <img src={"data:image/png;base64," + item.file[0]} alt='post' className='postImg'/>
+      <img  src={item.file[0]? "data:image/png;base64," +item.file[0]: user}  alt='post' className='postImg'/>
   </Link>
 </Item>
     </div>

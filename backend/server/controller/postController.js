@@ -6,9 +6,8 @@ module.exports = {
       try {
         let allPosts = await Post.find()
         let data = [];
-        let email = req.email
         for (let item of allPosts) {
-          let findUser = await User.findOne({email:email})
+          let findUser = await User.findOne({username:item.username})
           data.push({ username: item.username, file: item.file, caption: item.caption, location: item.location, date: item.createdAt,profilePic:findUser.profilePicture,postid:item.id,realUser : req.username })
         }
         console.log('All Images fetched successfully.')

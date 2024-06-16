@@ -8,6 +8,7 @@ import Name from './name'
 import Comment from './comment'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deletePost } from '../services/postService';
+import user from '../images/user.jpeg'
 function Card(props) {
   const {caption,location,file,username,profile} = props
   const [isClicked, setIsClicked] = useState(false);
@@ -38,7 +39,8 @@ function Card(props) {
               </div>}
               <Name location={location} username={username} profilePic = {profile}/>
               </div>
-              <img className="img" src={"data:image/png;base64," + file}  alt='' onDoubleClickCapture={setClick} />
+
+              <img className="img" src={file? "data:image/png;base64," + file: user}  alt='' onDoubleClickCapture={setClick} />
               <div >
                 {!isClicked && <PiHeart className="like heart actions" onClick={setClick} />}
                 {isClicked && <FaHeart className="liked actions" onClick={setClick} />}

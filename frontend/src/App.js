@@ -23,7 +23,6 @@ function App() {
       window.location.reload();
     }
   }, []);
-  console.log('Hello',cookieExists)
   return (
     <div className="App">
     <Navbar />

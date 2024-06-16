@@ -11,12 +11,15 @@ import MessageBar from '../util/snackbar';
 import { IoIosSearch } from 'react-icons/io';
 import { checkCookie } from '../redux/checklogin';
 import { useDispatch, useSelector } from 'react-redux';
+import { getUserProfile } from '../services/userService';
+import user from '../images/user.jpeg'
 
 function Navbar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [openNotification,setOpenNotification] = useState(false)
     const [showSnackbar,setShowsnackbar] = useState(false)
-    const navigate = useNavigate()
+    const [details,setDetail] = useState()
+     const navigate = useNavigate()
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -60,6 +63,16 @@ function Navbar() {
     dispatch(checkCookie());
   }, [dispatch]);
 
+  useEffect(()=>{
+    const fetchUserDetails = async () => {
+      let detail = await getUserProfile();
+      if(detail){
+       setDetail(detail.response)
+      }
+    };
+    fetchUserDetails();
+  },[])
+
 
     return (
       <>
@@ -80,7 +93,7 @@ function Navbar() {
             <IoIosNotificationsOutline  className='notificationBell' onClick={getNotifications}/>
             </div>
 
-            <img  className='profilePhoto'  onClick={handleClick} src={flower} alt=''/>
+            <img  className='profilePhoto'  onClick={handleClick} src={details?.profile ? "data:image/png;base64," + details?.profile: user} alt=''/>
              <Menu anchorEl={anchorEl} open={open} onClose={handleClose} MenuListProps={{
                 "aria-labelledby": "basic-button",
               }}

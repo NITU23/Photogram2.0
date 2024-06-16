@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Post from './post';
 import Snackbar from '@mui/material/Snackbar';
 import { getUserProfile } from '../services/userService';
+import user from '../images/user.jpeg'
 export default function Profile() {
   const [state, setState] = React.useState({
     open: false,
@@ -36,7 +37,7 @@ export default function Profile() {
       <Card className="profileCard">
         <CardContent>
           <div className='profileDetail'>
-            <img src={"data:image/png;base64," + detail?.profile}  alt='' className='profilePicture' />
+            <img src={detail?.profile ? "data:image/png;base64," + detail?.profile : user}  alt='' className='profilePicture' />
             <p className='names'>{detail?.firstName}  {detail?.lastName}</p>
             <div className='tableDiv'>
               <table  >
