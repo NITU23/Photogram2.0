@@ -1,0 +1,16 @@
+.cards{
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.parent {
+    flex: 1;
+}
+
+.notFound{
+  display: flex;
+  justify-content: center;
+}

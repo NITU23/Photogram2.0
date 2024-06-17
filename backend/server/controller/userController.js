@@ -41,7 +41,7 @@ const signup = async (req, res, next) => {
     return res.status(400).send("error while signup");
   }
   const accessToken = jwt.sign({ email, username }, "SECRET");
-  res.cookie("token", accessToken, { maxAge: 900000000000 });
+  res.cookie("token", accessToken, { maxAge: 86400 });
   return res.status(200).json({ user });
 };
 
@@ -66,7 +66,7 @@ const login = async (req, res, next) => {
     { email, username: existingUser.username },
     "SECRET"
   );
-  res.cookie("token", accessToken, { maxAge: 900000000000 });
+  res.cookie("token", accessToken, { maxAge: 86400});
   return res
     .status(200)
     .json({ message: "Login Successfull", user: existingUser });

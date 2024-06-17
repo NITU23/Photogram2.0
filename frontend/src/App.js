@@ -1,15 +1,15 @@
 import React, {useEffect} from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from '../src/components/navbar';
-import Welcome from '../src/components/welcome';
-import Profile from '../src/components/profile';
+import Navbar from './components/Navbar/navbar';
+import Welcome from '../src/components/Welcome/welcome';
+import Profile from '../src/components/Profile/profile';
 import './css/app.css';
-import ViewMyPost from './components/viewMyPost';
-import Chat from './components/chat';
-import UpdateProfile from './components/updateProfile';
-import Login from './components/login'
-import CreatePost from './components/createPost';
-import UploadProfilePic from './components/uploadProfilePic';
+import ViewMyPost from './components/ViewMyPost/viewMyPost';
+import Chat from './components/Chat/chat';
+import UpdateProfile from './components/UpdateProfile/updateProfile';
+import Login from './components/Login/login'
+import CreatePost from './components/CreatePost/createPost';
+import UploadProfilePic from './components/UpdateProfilePic/uploadProfilePic';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkCookie } from './redux/checklogin';
 function App() {
@@ -18,11 +18,6 @@ function App() {
   useEffect(() => {
     dispatch(checkCookie());
   }, [dispatch]);
-  useEffect(() => {
-    if ( cookieExists) {
-      window.location.reload();
-    }
-  }, []);
   return (
     <div className="App">
     <Navbar />
