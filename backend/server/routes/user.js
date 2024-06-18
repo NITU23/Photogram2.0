@@ -3,7 +3,7 @@ const { getAllUser, login, signup,logout,setProfile,getUserProfile,updatePasswor
 const auth = require('../middlewares/authorization')
 const router = express.Router();
 
-router.get("/getUsers", getAllUser);
+router.get("/getUsers", auth,getAllUser);
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/logout",logout)

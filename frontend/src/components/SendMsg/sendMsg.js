@@ -1,8 +1,9 @@
 import './sendMsg.css'
-function SendMsg() {
+function SendMsg({message}) {
+    console.log('I am props',message)
     return <div>
         <div>
-        <div className='sendMsg'><p className='content'>Hello345o34567898765434567890987654 </p></div>
+        <div className='sendMsg'><p className='content'>{message}</p></div>
         <pre className='timeStampsend'>11:45pm</pre>
         </div>
     </div>

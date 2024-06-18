@@ -34,7 +34,6 @@ const UpdatePassword = () => {
     else {
       let body = {password:formData.password,newpassword:formData.newpassword,cnewpassword:formData.cnewpassword}
       const response = await updatePassword(JSON.stringify(body))
-      console.log('Hello Password',response)
       if(response.status!==200){
         setShowSnackbar(true)
         setSuccess('')

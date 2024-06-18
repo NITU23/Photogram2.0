@@ -13,7 +13,10 @@ const cookieSlice = createSlice({
   reducers: {
     checkCookie: (state) => {
       const cookie = Cookies.get('token');
-      state.username = jwtDecode(cookie)
+      if(cookie)
+      {
+        state.username = jwtDecode(cookie)
+      }
       state.cookieExists = cookie !== undefined;
     },
   },

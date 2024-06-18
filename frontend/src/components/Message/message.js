@@ -9,13 +9,15 @@ import SendMsg from "../SendMsg/sendMsg";
 import { IoIosAttach } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
 import { checkCookie } from '../../redux/checklogin';
-
+import { io } from "socket.io-client";
+const socket = io("http://localhost:5001");
 
 const Message = (props) => {
   const [viewDialog, setViewDialog] = useState(props.messageBox);
   const [message,setMessage] = useState('')
+  const [recievedMsg,setRecievedMsg] = useState('')
   const hiddenFileInput = useRef(null);
-   const socket = props.socket
+   const receiverDetails = props.userDetails
   const setShowDialog = () => {
     props.showMessageBoxState(false);
     setViewDialog(false);
@@ -37,7 +39,8 @@ const Message = (props) => {
   const sendMessage = () => {
     socket.emit('message',{
       text:message,
-      username:username.email
+      username:username.email,
+      receiver: receiverDetails.email
     })
     setMessage('')
   };
@@ -45,6 +48,7 @@ const Message = (props) => {
   useEffect(() => {
     socket.on("Response", (data) => {
       console.log("Response from Server:", data);
+      setRecievedMsg(data)
     });
     return () => {
       socket.off("welcome");
@@ -73,7 +77,7 @@ const Message = (props) => {
                 </div>
                 <div className="chatBox">
                   <RecievedMsg />
-                  <SendMsg />
+                  <SendMsg  message={recievedMsg} />
                 </div>
 
                 <div className="sendDiv">

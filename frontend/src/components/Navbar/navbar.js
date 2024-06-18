@@ -64,7 +64,6 @@ function Navbar() {
 
   useEffect(()=>{
     if(cookieExists){
-      console.log('I am called')
     const fetchUserDetails = async () => {
       let detail = await getUserProfile();
       if(detail){
