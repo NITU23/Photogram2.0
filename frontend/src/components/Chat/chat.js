@@ -12,7 +12,7 @@ function Chat() {
     const [showMessageBox,setShowMessageBox] = useState(false);
     const [userDetail,setUserDetail] = useState('')
      const showChatBox = (data)=>{
-      setShowMessageBox(data) 
+      setShowMessageBox(data)
      }
      const getUserDetails=(data)=>{
       setUserDetail(data)

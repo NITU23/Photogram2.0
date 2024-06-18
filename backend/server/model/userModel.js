@@ -1,7 +1,25 @@
 const  mongoose  = require("mongoose");
 
 const Schema = mongoose.Schema;
-
+const chatSchema = new mongoose.Schema({
+  messages: [
+    {
+      sender: {
+        type: String,
+        required: true,
+        enum: ['you', 'him']
+      },
+      text: {
+        type: String,
+        required: true
+      },
+      timestamp: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ]
+});
 const userSchema = new Schema({
   username: {
     type: String,
@@ -30,6 +48,7 @@ const userSchema = new Schema({
       post_id : String
     }
   ],
+  chats: [chatSchema],
   profilePicture:{
     type : String
   }

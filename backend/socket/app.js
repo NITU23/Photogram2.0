@@ -1,6 +1,6 @@
 const { Server } = require("socket.io");
 const mongoose = require('./databaseConnection/mongo')
-
+const {receiveMessage} = require('./controller/chatController')
 const io = new Server(5001,{
   cors:{
     origin:'http://localhost:3000'
@@ -9,8 +9,8 @@ const io = new Server(5001,{
 
 io.on('connection', (socket) => {
     console.log('a user connected',socket.id);
-    socket.on('message',(data)=>{
-      console.log("Getting message from client",data)
+    socket.on('message',async (data)=>{
+      await receiveMessage(data)
       socket.emit('Response',data)
     })
     socket.on('disconnect', () => {

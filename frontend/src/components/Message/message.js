@@ -10,6 +10,7 @@ import { IoIosAttach } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
 import { checkCookie } from '../../redux/checklogin';
 import { io } from "socket.io-client";
+import user from '../../images/user.jpeg'
 const socket = io("http://localhost:5001");
 
 const Message = (props) => {
@@ -54,7 +55,7 @@ const Message = (props) => {
       socket.off("welcome");
     };
   }, []);
- 
+
  const _handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       sendMessage()
@@ -72,12 +73,12 @@ const Message = (props) => {
                   <IoCloseSharp onClick={setShowDialog} />
                 </div>
                 <div className="profilePic">
-                  <img alt="" src={flower} className="photo" />
-                  <h4>Nitin Vyas</h4>
+                  <img alt="" src={receiverDetails?.profilePicture? "data:image/png;base64," + receiverDetails?.profilePicture: user} className="photo" />
+                  <h4>{receiverDetails.firstName} {receiverDetails.lastName}</h4>
                 </div>
                 <div className="chatBox">
                   <RecievedMsg />
-                  <SendMsg  message={recievedMsg} />
+                  <SendMsg  message={recievedMsg.text} />
                 </div>
 
                 <div className="sendDiv">

@@ -1,4 +1,3 @@
-import flower from '../../images/superman.jpeg'
 import './chatwithUser.css'
 import {useState,useEffect} from 'react'
 import { IoIosSearch } from "react-icons/io";
