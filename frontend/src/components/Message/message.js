@@ -7,36 +7,55 @@ import { IoCloseSharp } from "react-icons/io5";
 import RecievedMsg from "../RecievedMsg/recievedMsg";
 import SendMsg from "../SendMsg/sendMsg";
 import { IoIosAttach } from "react-icons/io";
-import { io } from "socket.io-client";
+import { useDispatch, useSelector } from 'react-redux';
+import { checkCookie } from '../../redux/checklogin';
 
-const socket = io("http://localhost:5000");
 
 const Message = (props) => {
   const [viewDialog, setViewDialog] = useState(props.messageBox);
+  const [message,setMessage] = useState('')
   const hiddenFileInput = useRef(null);
-
+   const socket = props.socket
   const setShowDialog = () => {
     props.showMessageBoxState(false);
     setViewDialog(false);
+    socket.off("welcome");
   };
-
+  const dispatch = useDispatch();
+  const username = useSelector((state) => state.cookie.username);
+  useEffect(() => {
+    dispatch(checkCookie());
+  }, [dispatch]);
+  const handleChange = (event) =>{
+    let value = event.target.value
+   setMessage(value);
+  }
   const handleClick = () => {
     hiddenFileInput.current.click();
   };
 
-  const handleSubmit = () => {
-    console.log("Sending message to server");
-    socket.emit("msg", "I am message from client");
+  const sendMessage = () => {
+    socket.emit('message',{
+      text:message,
+      username:username.email
+    })
+    setMessage('')
   };
 
   useEffect(() => {
-    socket.on("welcome", (data) => {
+    socket.on("Response", (data) => {
       console.log("Response from Server:", data);
     });
     return () => {
       socket.off("welcome");
     };
   }, []);
+ 
+ const _handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      sendMessage()
+    }
+  }
 
   return (
     <div>
@@ -69,8 +88,11 @@ const Message = (props) => {
                     name="comment"
                     className="commentBox"
                     placeholder="Write a message"
+                    value={message}
+                    onChange={handleChange}
+                    onKeyDown={_handleKeyDown}
                   />
-                  <button className="post" onClick={handleSubmit}>
+                  <button className="post" onClick={sendMessage}>
                     Send
                   </button>
                 </div>

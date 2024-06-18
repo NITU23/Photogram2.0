@@ -7,7 +7,7 @@ import ChatwithUser from '../ChatWithUser/chatwithUser';
 import Message from '../Message/message';
 import './chat.css'
 import { useState } from 'react';
-function Chat() {
+function Chat({socket}) {
 
     const [showMessageBox,setShowMessageBox] = useState(false);
      const showChatBox = (data)=>{
@@ -16,7 +16,7 @@ function Chat() {
    return (
    <div>
     <div className='accordian-Message'>
-    { showMessageBox && <div className='messageBox'><Message messageBox={showMessageBox} showMessageBoxState={setShowMessageBox} /></div>}
+    { showMessageBox && <div className='messageBox'><Message messageBox={showMessageBox} showMessageBoxState={setShowMessageBox} socket={socket} /></div>}
      <div className='accordianWidth'>
       <Accordion>
         <AccordionSummary
@@ -27,7 +27,7 @@ function Chat() {
         Messages
         </AccordionSummary>
         <AccordionDetails className='accordianHeight'>
-          <ChatwithUser showChat = {showChatBox}/>
+          <ChatwithUser showChat = {showChatBox}  />
         </AccordionDetails>
       </Accordion>
       </div>

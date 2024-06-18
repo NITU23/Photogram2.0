@@ -12,6 +12,8 @@ import CreatePost from './components/CreatePost/createPost';
 import UploadProfilePic from './components/UpdateProfilePic/uploadProfilePic';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkCookie } from './redux/checklogin';
+import { io } from "socket.io-client";
+const socket = io("http://localhost:5001");
 function App() {
   const dispatch = useDispatch();
   const cookieExists = useSelector((state) => state.cookie.cookieExists);
@@ -46,7 +48,7 @@ function App() {
     </main>
     {cookieExists && (
         <div className="chat">
-          <Chat />
+          <Chat socket={socket} />
         </div>
       )}
   </div>

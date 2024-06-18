@@ -1,8 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
+import { jwtDecode } from 'jwt-decode'
 
 const initialState = {
   cookieExists: false,
+  username:''
 };
 
 const cookieSlice = createSlice({
@@ -11,6 +13,7 @@ const cookieSlice = createSlice({
   reducers: {
     checkCookie: (state) => {
       const cookie = Cookies.get('token');
+      state.username = jwtDecode(cookie)
       state.cookieExists = cookie !== undefined;
     },
   },
