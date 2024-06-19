@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import flower from "../../images/superman.jpeg";
 import "./message.css";
 import { IoCloseSharp } from "react-icons/io5";
 import RecievedMsg from "../RecievedMsg/recievedMsg";
@@ -9,9 +8,9 @@ import SendMsg from "../SendMsg/sendMsg";
 import { IoIosAttach } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
 import { checkCookie } from '../../redux/checklogin';
-import { io } from "socket.io-client";
 import user from '../../images/user.jpeg'
-const socket = io("http://localhost:5001");
+import socket from "../../services/socketService";
+
 
 const Message = (props) => {
   const [viewDialog, setViewDialog] = useState(props.messageBox);
@@ -38,6 +37,7 @@ const Message = (props) => {
   };
 
   const sendMessage = () => {
+    socket.emit('authenticate', receiverDetails.email);
     socket.emit('message',{
       text:message,
       username:username.email,
@@ -47,14 +47,21 @@ const Message = (props) => {
   };
 
   useEffect(() => {
-    socket.on("Response", (data) => {
-      console.log("Response from Server:", data);
-      setRecievedMsg(data)
-    });
+    socket.emit('authenticate', receiverDetails.email);
+    socket.on('private message', ({ senderId, message }) => {
+      setRecievedMsg((prevMessages) => [
+
+          `${senderId}: ${message}`
+      ]);
+      console.log('--------',{senderId,message})
+      //setRecievedMsg(data)
+      console.log('HEllo ',recievedMsg)
+  });
+
     return () => {
       socket.off("welcome");
     };
-  }, []);
+  }, [receiverDetails.email]);
 
  const _handleKeyDown = (e) => {
     if (e.key === 'Enter') {
