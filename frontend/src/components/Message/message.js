@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import "./message.css";
@@ -8,70 +8,87 @@ import SendMsg from "../SendMsg/sendMsg";
 import { IoIosAttach } from "react-icons/io";
 import { useDispatch, useSelector } from 'react-redux';
 import { checkCookie } from '../../redux/checklogin';
-import user from '../../images/user.jpeg'
-import socket from "../../services/socketService";
+import user from '../../images/user.jpeg';
+import { io } from "socket.io-client";
 
+const SOCKET_SERVER_URL = "http://localhost:5001";
 
 const Message = (props) => {
-  const [viewDialog, setViewDialog] = useState(props.messageBox);
-  const [message,setMessage] = useState('')
-  const [recievedMsg,setRecievedMsg] = useState('')
+  const [message, setMessage] = useState('');
+  const [recievedMsg, setRecievedMsg] = useState([]);
+  const [socket, setSocket] = useState(null);
+  const [sendMsg,setSendMsg] = useState('')
   const hiddenFileInput = useRef(null);
-   const receiverDetails = props.userDetails
-  const setShowDialog = () => {
-    props.showMessageBoxState(false);
-    setViewDialog(false);
-    socket.off("welcome");
-  };
+  const receiverDetails = props.userDetails;
   const dispatch = useDispatch();
   const username = useSelector((state) => state.cookie.username);
+
   useEffect(() => {
     dispatch(checkCookie());
   }, [dispatch]);
-  const handleChange = (event) =>{
-    let value = event.target.value
-   setMessage(value);
-  }
+
+  useEffect(() => {
+    if (!socket) {
+      const newSocket = io(SOCKET_SERVER_URL);
+      setSocket(newSocket);
+
+      return () => {
+        newSocket.disconnect();
+      };
+    }
+  }, []);
+
+  const setShowDialog = () => {
+    props.showMessageBoxState(false);
+  };
+
+  const handleChange = (event) => {
+    let value = event.target.value;
+    setMessage(value);
+  };
+
   const handleClick = () => {
     hiddenFileInput.current.click();
   };
 
   const sendMessage = () => {
-    socket.emit('authenticate', receiverDetails.email);
-    socket.emit('message',{
-      text:message,
-      username:username.email,
-      receiver: receiverDetails.email
-    })
-    setMessage('')
+    if (socket) {
+      socket.emit('message', {
+        text: message,
+        username: username.email,
+        receiver: receiverDetails.email,
+        socketId : socket.id
+      });
+      setMessage('');
+    }
   };
 
   useEffect(() => {
-    socket.emit('authenticate', receiverDetails.email);
-    socket.on('private message', ({ senderId, message }) => {
-      setRecievedMsg((prevMessages) => [
-
+    if (socket) {
+      socket.emit('authenticate', receiverDetails.email);
+      socket.on('private message', ({ senderId, message }) => {
+        console.log('-------',{senderId,message})
+        setRecievedMsg(prevMessages => [
+          ...prevMessages,
           `${senderId}: ${message}`
-      ]);
-      console.log('--------',{senderId,message})
-      //setRecievedMsg(data)
-      console.log('HEllo ',recievedMsg)
-  });
+        ]);
+      });
 
-    return () => {
-      socket.off("welcome");
-    };
-  }, [receiverDetails.email]);
-
- const _handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      sendMessage()
+      return () => {
+        socket.disconnect();
+      };
     }
-  }
+  }, [socket, receiverDetails.email]);
+
+  const _handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  };
 
   return (
     <div>
-      {viewDialog && (
+      {props.messageBox && (
         <Card sx={{ minWidth: 275 }}>
           <CardContent style={{ padding: "0px" }}>
             <div>
@@ -80,12 +97,16 @@ const Message = (props) => {
                   <IoCloseSharp onClick={setShowDialog} />
                 </div>
                 <div className="profilePic">
-                  <img alt="" src={receiverDetails?.profilePicture? "data:image/png;base64," + receiverDetails?.profilePicture: user} className="photo" />
+                  <img
+                    alt=""
+                    src={receiverDetails?.profilePicture ? "data:image/png;base64," + receiverDetails?.profilePicture : user}
+                    className="photo"
+                  />
                   <h4>{receiverDetails.firstName} {receiverDetails.lastName}</h4>
                 </div>
                 <div className="chatBox">
-                  <RecievedMsg />
-                  <SendMsg  message={recievedMsg.text} />
+                  <RecievedMsg messages={recievedMsg} />
+                  <SendMsg message={sendMsg} />
                 </div>
 
                 <div className="sendDiv">

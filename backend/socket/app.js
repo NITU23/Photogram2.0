@@ -6,18 +6,19 @@ const io = new Server(5001,{
     origin:'http://localhost:3000'
   }
 });
-const connectedUsers = {};
+let connectedUsers = {};
 io.on('connection', (socket) => {
     console.log('a user connected',socket.id);
     socket.on('authenticate', (userId) => {
       console.log(`User authenticated with ID: ${userId}`);
       socket.userId = userId;
       connectedUsers[userId] = socket.id; 
+      console.log('Hello I am connected users',connectedUsers)
   });
-    socket.on('message',({  text,username,receiver }) => {
+    socket.on('message',({  text,username,receiver,socketId }) => {
       const recipientSocketId = connectedUsers[receiver];
       if (recipientSocketId) {
-          io.to(recipientSocketId).emit('private message', {
+          io.emit('private message', {
               senderId: socket.userId,
               message: text
           });
@@ -27,6 +28,9 @@ io.on('connection', (socket) => {
   })
     socket.on('disconnect', () => {
       console.log('User disconnected');
+      connectedUsers = Object.fromEntries(
+          Object.entries(connectedUsers).filter(([key, value]) => value !== socket.id)
+      );
     });
   });
 
