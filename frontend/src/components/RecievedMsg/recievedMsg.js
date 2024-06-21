@@ -1,9 +1,10 @@
 
 import './recievedMsg.css'
-function RecievedMsg () {
+function RecievedMsg ({message}) {
     return (<div>
-       <div className='getMsg'><p className='content'> Hello356789067876678909876</p></div>
+      { message.length>0 && <><div className='getMsg'><p className='content'> {message}</p></div>
        <pre className='timeStamp'>11:45pm</pre>
+       </>}
     </div>)
 }
 

@@ -11,21 +11,25 @@ io.on('connection', (socket) => {
     console.log('a user connected',socket.id);
     socket.on('authenticate', (userId) => {
       console.log(`User authenticated with ID: ${userId}`);
-      socket.userId = userId;
+      socket.userId = socket.id;
       connectedUsers[userId] = socket.id; 
       console.log('Hello I am connected users',connectedUsers)
   });
-    socket.on('message',({  text,username,receiver,socketId }) => {
-      const recipientSocketId = connectedUsers[receiver];
-      if (recipientSocketId) {
-          io.emit('private message', {
-              senderId: socket.userId,
-              message: text
-          });
-      } else {
-          console.log(`User ${username} is not connected`);
-      }
-  })
+    socket.on('message',async ({  text,username,receiver }) => {
+    const recipientSocketId = connectedUsers[receiver];
+    if (recipientSocketId) {
+        io.emit('private message', {
+            senderId: socket.userId,
+            message: text,
+            sender : username,
+            receiver : receiver
+        });
+        await receiveMessage(text,username,receiver)
+    } else {
+        console.log(`User ${username} (${receiver}) is not connected or socket ID not found`);
+    }
+});
+
     socket.on('disconnect', () => {
       console.log('User disconnected');
       connectedUsers = Object.fromEntries(

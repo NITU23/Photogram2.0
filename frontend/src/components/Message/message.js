@@ -17,7 +17,7 @@ const Message = (props) => {
   const [message, setMessage] = useState('');
   const [recievedMsg, setRecievedMsg] = useState([]);
   const [socket, setSocket] = useState(null);
-  const [sendMsg,setSendMsg] = useState('')
+  const [sendMsg,setSendMsg] = useState([])
   const hiddenFileInput = useRef(null);
   const receiverDetails = props.userDetails;
   const dispatch = useDispatch();
@@ -66,14 +66,16 @@ const Message = (props) => {
   useEffect(() => {
     if (socket) {
       socket.emit('authenticate', receiverDetails.email);
-      socket.on('private message', ({ senderId, message }) => {
-        console.log('-------',{senderId,message})
-        setRecievedMsg(prevMessages => [
-          ...prevMessages,
-          `${senderId}: ${message}`
-        ]);
-      });
-
+      socket.on('private message', ({ senderId, message, sender, receiver}) => {
+        console.log('-------', { senderId, message,sender,receiver });
+        if(receiverDetails.email===receiver){
+          setSendMsg(prevSendMsg => [...prevSendMsg, message]);
+        }
+        else {
+          setRecievedMsg(prevReceivedMsg => [...prevReceivedMsg, message]);
+        }
+    });
+    
       return () => {
         socket.disconnect();
       };
@@ -105,7 +107,7 @@ const Message = (props) => {
                   <h4>{receiverDetails.firstName} {receiverDetails.lastName}</h4>
                 </div>
                 <div className="chatBox">
-                  <RecievedMsg messages={recievedMsg} />
+                  <RecievedMsg message={recievedMsg} />
                   <SendMsg message={sendMsg} />
                 </div>
 
