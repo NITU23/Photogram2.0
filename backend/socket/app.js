@@ -12,7 +12,7 @@ io.on('connection', (socket) => {
     socket.on('authenticate', (userId) => {
       console.log(`User authenticated with ID: ${userId}`);
       socket.userId = socket.id;
-      connectedUsers[userId] = socket.id; 
+      connectedUsers[userId] = socket.id;
       console.log('Hello I am connected users',connectedUsers)
   });
     socket.on('message',async ({  text,username,receiver }) => {
@@ -36,6 +36,10 @@ io.on('connection', (socket) => {
           Object.entries(connectedUsers).filter(([key, value]) => value !== socket.id)
       );
     });
+
+    socket.on('getAllMessage',()=>{
+
+    })
   });
 
 

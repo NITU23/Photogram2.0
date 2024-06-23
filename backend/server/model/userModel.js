@@ -1,58 +1,62 @@
-const  mongoose  = require("mongoose");
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-const chatSchema = new mongoose.Schema({
-  messages: [
-    {
-      sender: {
+
+const messageSchema = new mongoose.Schema({
+    text: {
         type: String,
         required: true,
-        enum: ['you', 'him']
-      },
-      text: {
-        type: String,
-        required: true
-      },
-      timestamp: {
+    },
+    timestamp: {
         type: Date,
-        default: Date.now
-      }
-    }
-  ]
-});
-const userSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-  },
-  firstName: {
-    type: String,
-    required: true,
-  },
-  lastName: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: 6,
-  },
-  posts: [
-    {
-      post_id : String
-    }
-  ],
-  chats: [chatSchema],
-  profilePicture:{
-    type : String
-  }
+        default: Date.now,
+    },
 });
 
-const User = mongoose.model("User", userSchema);
-module.exports  = User;
+const chatSchema = new mongoose.Schema({
+    receiver: {
+        type: String,
+        required: true,
+    },
+    messages: [messageSchema],
+});
+
+const userSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+    },
+    firstName: {
+        type: String,
+        required: true,
+    },
+    lastName: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+        minlength: 6,
+    },
+    posts: [
+        {
+            post_id: String,
+        },
+    ],
+    chats: {
+        type: Map,
+        of: [chatSchema],
+    },
+    profilePicture: {
+        type: String,
+    },
+});
+
+const User = mongoose.model('User', userSchema);
+module.exports = User;

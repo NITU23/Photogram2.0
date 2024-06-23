@@ -75,7 +75,9 @@ const Message = (props) => {
           setRecievedMsg(prevReceivedMsg => [...prevReceivedMsg, message]);
         }
     });
-    
+
+
+
       return () => {
         socket.disconnect();
       };
