@@ -15,14 +15,15 @@ const SOCKET_SERVER_URL = "http://localhost:5001";
 
 const Message = (props) => {
   const [message, setMessage] = useState('');
-  const [recievedMsg, setRecievedMsg] = useState([]);
+  const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
-  const [sendMsg,setSendMsg] = useState([])
   const hiddenFileInput = useRef(null);
   const receiverDetails = props.userDetails;
   const dispatch = useDispatch();
   const username = useSelector((state) => state.cookie.username);
-  const [previousMessages,setPreviousMessages] = useState()
+  const [previousMessages, setPreviousMessages] = useState([]);
+  const chatBoxRef = useRef(null);
+
   useEffect(() => {
     dispatch(checkCookie());
   }, [dispatch]);
@@ -37,6 +38,12 @@ const Message = (props) => {
       };
     }
   }, []);
+
+  useEffect(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  }, [messages, previousMessages, props.messageBox]);
 
   const setShowDialog = () => {
     props.showMessageBoxState(false);
@@ -57,7 +64,7 @@ const Message = (props) => {
         text: message,
         username: username.email,
         receiver: receiverDetails.email,
-        socketId : socket.id
+        socketId: socket.id
       });
       setMessage('');
     }
@@ -66,32 +73,34 @@ const Message = (props) => {
   useEffect(() => {
     if (socket) {
       socket.emit('authenticate', receiverDetails.email);
-      socket.on('private message', ({ senderId, message, sender, receiver}) => {
-        console.log('-------', { senderId, message,sender,receiver });
-        if(receiverDetails.email===receiver){
-          setSendMsg(prevSendMsg => [...prevSendMsg, message]);
-        }
-        else {
-          setRecievedMsg(prevReceivedMsg => [...prevReceivedMsg, message]);
-        }
-    });
 
-    socket.emit('getPreviousMessages',( {sender: username.email, receiver: receiverDetails.email}))
-   socket.on('previousMessages',(previousMsg)=>{
-      setPreviousMessages(previousMsg);
-   })
+      socket.on('private message', ({ sender, message }) => {
+        setMessages(prevMessages => [
+          ...prevMessages,
+          { sender, message }
+        ]);
+      });
+
+      socket.emit('getPreviousMessages', {
+        sender: username.email,
+        receiver: receiverDetails.email
+      });
+
+      socket.on('previousMessages', (previousMsg) => {
+        setPreviousMessages(previousMsg);
+      });
+
       return () => {
         socket.disconnect();
       };
     }
-  }, [socket, receiverDetails.email]);
+  }, [socket, receiverDetails.email, username.email]);
 
   const _handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       sendMessage();
     }
   };
-  console.log('Hello i am msg component',previousMessages)
 
   return (
     <div>
@@ -111,15 +120,22 @@ const Message = (props) => {
                   />
                   <h4>{receiverDetails.firstName} {receiverDetails.lastName}</h4>
                 </div>
-                <div className="chatBox">
+                <div className="chatBox" ref={chatBoxRef}>
                   {previousMessages && previousMessages.map((msg, index) => (
-                    msg.sender === 'you' ? (
-                      <SendMsg key={index} message={msg.message} />
+                    msg.sender === 'receiver' ? (
+                      <SendMsg key={index} message={msg.message} time={msg.time} />
                     ) : (
-                      <RecievedMsg key={index} message={msg.message} />
+                      <RecievedMsg key={index} message={msg.message} time={msg.time} />
                     )
                   ))}
-    </div>
+                  {messages.map((msg, index) => (
+                    msg.sender !== username.email ? (
+                      <RecievedMsg key={index} message={msg.message} />
+                    ) : (
+                      <SendMsg key={index} message={msg.message}  />
+                    )
+                  ))}
+                </div>
 
                 <div className="sendDiv">
                   <IoIosAttach onClick={handleClick} className="attachFile" />
