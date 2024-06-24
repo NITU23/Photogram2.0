@@ -28,4 +28,23 @@ module.exports = {
             console.error('Error While receiving message:', error);
         }
     },
+    getPreviousMessages : async(sender,receiver) =>{
+        const userCollection = mongoose.collection('users');
+        const user1 = await userCollection.findOne({email: sender});
+        const user2 = await userCollection.findOne({email:receiver});
+        let receiverChat = user1.chats[receiver];
+        let senderChat = user2.chats[sender];
+        let finalChatArray  =[];
+        for(let item of receiverChat){
+             finalChatArray.push({sender:'receiver',message :item.text,time:item.timestamp.toLocaleString()})
+        }
+        for(let item of senderChat){
+            finalChatArray.push({sender:'you',message :item.text,time:item.timestamp.toLocaleString()})
+       }
+      finalChatArray = finalChatArray.sort((a, b) => {
+        return new Date(a.time) - new Date(b.time);
+      });
+     return finalChatArray;
+    } 
+
 };

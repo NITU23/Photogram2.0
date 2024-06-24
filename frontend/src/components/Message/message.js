@@ -22,7 +22,7 @@ const Message = (props) => {
   const receiverDetails = props.userDetails;
   const dispatch = useDispatch();
   const username = useSelector((state) => state.cookie.username);
-
+  const [previousMessages,setPreviousMessages] = useState()
   useEffect(() => {
     dispatch(checkCookie());
   }, [dispatch]);
@@ -76,8 +76,10 @@ const Message = (props) => {
         }
     });
 
-
-
+    socket.emit('getPreviousMessages',( {sender: username.email, receiver: receiverDetails.email}))
+   socket.on('previousMessages',(previousMsg)=>{
+      setPreviousMessages(previousMsg);
+   })
       return () => {
         socket.disconnect();
       };
@@ -89,6 +91,7 @@ const Message = (props) => {
       sendMessage();
     }
   };
+  console.log('Hello i am msg component',previousMessages)
 
   return (
     <div>
@@ -109,9 +112,14 @@ const Message = (props) => {
                   <h4>{receiverDetails.firstName} {receiverDetails.lastName}</h4>
                 </div>
                 <div className="chatBox">
-                  <RecievedMsg message={recievedMsg} />
-                  <SendMsg message={sendMsg} />
-                </div>
+                  {previousMessages && previousMessages.map((msg, index) => (
+                    msg.sender === 'you' ? (
+                      <SendMsg key={index} message={msg.message} />
+                    ) : (
+                      <RecievedMsg key={index} message={msg.message} />
+                    )
+                  ))}
+    </div>
 
                 <div className="sendDiv">
                   <IoIosAttach onClick={handleClick} className="attachFile" />

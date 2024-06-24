@@ -1,6 +1,8 @@
 const { Server } = require("socket.io");
 const mongoose = require('./databaseConnection/mongo')
-const {receiveMessage} = require('./controller/chatController')
+const {receiveMessage,getPreviousMessages} = require('./controller/chatController')
+
+
 const io = new Server(5001,{
   cors:{
     origin:'http://localhost:3000'
@@ -37,8 +39,9 @@ io.on('connection', (socket) => {
       );
     });
 
-    socket.on('getAllMessage',()=>{
-
+    socket.on('getPreviousMessages',async ({sender,receiver})=>{
+     let previousMessages =  await getPreviousMessages(sender,receiver);
+     socket.emit('previousMessages',previousMessages)
     })
   });
 
