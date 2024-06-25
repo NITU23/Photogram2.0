@@ -1,7 +1,7 @@
 const { Server } = require("socket.io");
 const mongoose = require('./databaseConnection/mongo')
 const {receiveMessage,getPreviousMessages} = require('./controller/chatController')
-
+const {findUser} = require('./controller/userController')
 
 const io = new Server(5001,{
   cors:{
@@ -42,6 +42,11 @@ io.on('connection', (socket) => {
     socket.on('getPreviousMessages',async ({sender,receiver})=>{
      let previousMessages =  await getPreviousMessages(sender,receiver);
      socket.emit('previousMessages',previousMessages)
+    })
+    socket.on('searchUser',async (searchValue)=>{
+      console.log('Hello I am data',searchValue)
+      let users = await findUser(searchValue);
+      socket.emit('searchedUsers',users)
     })
   });
 

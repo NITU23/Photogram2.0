@@ -12,12 +12,14 @@ import { checkCookie } from '../../redux/checklogin';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from '../../services/userService';
 import user from '../../images/user.jpeg'
-
+import { io } from "socket.io-client";
+const SOCKET_SERVER_URL = "http://localhost:5001";
 function Navbar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [openNotification,setOpenNotification] = useState(false)
     const [showSnackbar,setShowsnackbar] = useState(false)
     const [details,setDetail] = useState()
+    const [socket, setSocket] = useState(null);
      const navigate = useNavigate()
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
@@ -71,8 +73,23 @@ function Navbar() {
       }
     };
     fetchUserDetails();
-  }},[])
+  }
+  const newSocket = io(SOCKET_SERVER_URL);
+      setSocket(newSocket);
+      return () => {
+        newSocket.disconnect();
+      };
+},[])
 
+  const getUsers=(event)=>{
+
+    let searchValue = event.target.value
+    if(searchValue.length>3){
+      socket.emit('searchUser',searchValue)
+      console.log('I am changed',searchValue)
+    }
+
+  }
 
     return (
       <>
@@ -86,7 +103,7 @@ function Navbar() {
         </div>
         <div className='searchBox'>
         <IoIosSearch  style={{marginTop: "10px"}}/>
-        <input placeholder='Type Here To Search Users' className='searchBar'/>
+        <input placeholder='Type Here To Search Users' onChange={getUsers} className='searchBar'/>
 
         </div>
           <div className='notificationDiv'>
