@@ -29,16 +29,14 @@ const Message = (props) => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (!socket) {
+
       const newSocket = io(SOCKET_SERVER_URL);
       setSocket(newSocket);
 
       return () => {
         newSocket.disconnect();
       };
-    }
-  }, []);
-
+  }, [receiverDetails.email]);
   useEffect(() => {
     if (chatBoxRef.current) {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
@@ -94,7 +92,7 @@ const Message = (props) => {
         socket.disconnect();
       };
     }
-  }, [socket, receiverDetails.email, username.email]);
+  }, [socket, receiverDetails.email]);
 
   const _handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -109,7 +107,7 @@ const Message = (props) => {
           <CardContent style={{ padding: "0px" }}>
             <div>
               <div className="messageDialog">
-                <div className="closeButton">
+                <div className="closeButtonMessage">
                   <IoCloseSharp onClick={setShowDialog} />
                 </div>
                 <div className="profilePic">
@@ -118,16 +116,23 @@ const Message = (props) => {
                     src={receiverDetails?.profilePicture ? "data:image/png;base64," + receiverDetails?.profilePicture : user}
                     className="photo"
                   />
-                  <h4>{receiverDetails.firstName} {receiverDetails.lastName}</h4>
+                  <p>{receiverDetails.firstName} {receiverDetails.lastName}</p>
                 </div>
                 <div className="chatBox" ref={chatBoxRef}>
-                  {previousMessages && previousMessages.map((msg, index) => (
-                    msg.sender === 'receiver' ? (
-                      <SendMsg key={index} message={msg.message} time={msg.time} />
-                    ) : (
-                      <RecievedMsg key={index} message={msg.message} time={msg.time} />
-                    )
-                  ))}
+              
+                  {previousMessages && previousMessages.length > 0 ? (
+                    previousMessages.map((msg, index) => (
+                      msg.sender === 'receiver' ? (
+                        <SendMsg key={index} message={msg.message} time={msg.time} />
+                      ) : (
+                        <RecievedMsg key={index} message={msg.message} time={msg.time} />
+                      )
+                    ))
+                  ) : (
+                    <p className="noChat">There are no messages to show. Start a new chat to connect!</p>
+                  )}
+
+
                   {messages.map((msg, index) => (
                     msg.sender !== username.email ? (
                       <RecievedMsg key={index} message={msg.message} />

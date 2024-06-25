@@ -23,3 +23,17 @@ display: flex;
     height: 22px;
     width: 22px;
 }
+.closeButtonMessage{
+    float: right;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+
+  .noChat{
+    opacity: 0.7;
+    position: absolute;
+  top: 50%;
+  left: 23%;
+  transform: translate(-50%, -50%);
+  max-width: 250px;
+  }
