@@ -44,7 +44,6 @@ io.on('connection', (socket) => {
      socket.emit('previousMessages',previousMessages)
     })
     socket.on('searchUser',async (searchValue)=>{
-      console.log('Hello I am data',searchValue)
       let users = await findUser(searchValue);
       socket.emit('searchedUsers',users)
     })

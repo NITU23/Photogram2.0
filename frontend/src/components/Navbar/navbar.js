@@ -23,6 +23,7 @@ function Navbar() {
      const navigate = useNavigate()
     const dispatch = useDispatch();
     const open = Boolean(anchorEl);
+    const [searchUser,setSearchUser] = useState([])
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
     };
@@ -82,13 +83,13 @@ function Navbar() {
 },[])
 
   const getUsers=(event)=>{
-
     let searchValue = event.target.value
     if(searchValue.length>3){
       socket.emit('searchUser',searchValue)
-      console.log('I am changed',searchValue)
+      socket.on('searchedUsers',(users)=>{
+        setSearchUser(users);
+      })
     }
-
   }
 
     return (
