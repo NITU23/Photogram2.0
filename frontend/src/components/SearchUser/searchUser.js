@@ -1,10 +1,22 @@
-import { useState } from "react";
 
-function SearchUser() {
+import user from '../../images/user.jpeg'
+
+function SearchUser(props) {
+ console.log('props',props)
   return(
   <div>
-    I am searchUser component
-  </div>);
+        {props.users && props.users.map((item, index) => (
+      <div key={index} className='namePhotoDiv' >
+        <div>
+          <img alt='userprofile' className='photo'
+            src={item.profilePicture ? `data:image/png;base64,${item.profilePicture}` : user} />
+        </div>
+        <div className='username'>
+          <span>{item.firstName} {item.lastName}</span>
+        </div>
+      </div>
+    ))}
+    </div>);
 }
 
-module.exports = SearchUser
+export default SearchUser

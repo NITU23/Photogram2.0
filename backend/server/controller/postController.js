@@ -42,8 +42,7 @@ module.exports = {
         username : username
     });
     const savedFile = await newFile.save();
-
-      const postId = savedFile._id;
+      const postId = newFile._id;
       await User.updateOne(
         { username: username },
         { $push: { posts: postId } }
@@ -63,8 +62,10 @@ module.exports = {
       let userPostsId = findUser.posts;
       let userPosts = [];
       for (let item of userPostsId) {
-        let getPost = await Post.findById(item.id)
-        userPosts.push({ username: getPost.username, caption: getPost.caption, location: getPost.location, file: getPost.file, date: getPost.createdAt })
+        let getPost = await Post.findOne({_id:item.id})
+        if(getPost){
+          userPosts.push({ username: findUser.username, caption: getPost?.caption, location: getPost?.location, file: getPost?.file, date: getPost?.createdAt })
+        }
       }
       res.status(200).send(userPosts)
     }

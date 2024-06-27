@@ -41,7 +41,7 @@ function Post(props) {
     <div key={index} className='grid-item'>
      <Item className='item'>
   <Link to="/viewPost">
-      <img  src={item.file[0]? "data:image/png;base64," +item.file[0]: user}  alt='post' className='postImg'/>
+      <img  src={item?.file[0]? "data:image/png;base64," +item?.file[0]: user}  alt='post' className='postImg'/>
   </Link>
 </Item>
     </div>
