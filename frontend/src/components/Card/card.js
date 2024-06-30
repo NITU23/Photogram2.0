@@ -3,17 +3,20 @@ import { PiHeart } from 'react-icons/pi';
 import { FaHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 import { FiSend } from "react-icons/fi";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Name from '../Name/name'
 import Comment from '../Comment/comment'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deletePost } from '../../services/postService';
 import user from '../../images/user.jpeg'
+
+
 function Card(props) {
-  const {caption,location,file,username,profile} = props
+  const {caption,location,file,username,profile,postid,realUser,socket} = props
   const [isClicked, setIsClicked] = useState(false);
   const [showCommentComponent, setShowCommentComponent] = useState(false);
   const setClick = () => {
+    socket.emit('like',({postid:postid,liked:!isClicked,user:realUser}))
     isClicked === true ? setIsClicked(false) : setIsClicked(true)
   }
   const setAddComments = () => {
@@ -23,7 +26,7 @@ function Card(props) {
     setShowCommentComponent(data)
   }
   const deletePhoto = async () => {
-    let response = await deletePost(props.postid)
+    await deletePost(props.postid)
     props.load(true)
 }
 
@@ -63,8 +66,6 @@ function Card(props) {
           { showCommentComponent &&  <div className='commentDialog'>
           <Comment showDialog={showCommentComponent} getCommentVar={getData}  />
             </div>}
-
-
 
         </div>
 

@@ -11,10 +11,9 @@ import { checkCookie } from '../../redux/checklogin';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from '../../services/userService';
 import user from '../../images/user.jpeg';
-import { io } from 'socket.io-client';
 import SearchUser from '../SearchUser/searchUser';
 
-const SOCKET_SERVER_URL = "http://localhost:5001";
+
 
 function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -81,11 +80,6 @@ function Navbar() {
       };
       fetchUserDetails();
     }
-    const newSocket = io(SOCKET_SERVER_URL);
-    setSocket(newSocket);
-    return () => {
-      newSocket.disconnect();
-    };
   }, [cookieExists]);
 
   const getUsers = (event) => {
