@@ -5,7 +5,7 @@ function Like () {
     <div>
         <Card>
             <CardContent>
-
+               Like Component
             </CardContent>
         </Card>
     </div>

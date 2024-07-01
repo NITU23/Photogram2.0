@@ -47,6 +47,15 @@ module.exports = {
     response = await response.json();
     return response;
 },
-
+   getLikes : async(postid) => {
+    let url = `http://localhost:3001/api/post/getLikes/?postid=${postid}`;
+    let response = await fetch(url, {
+        method: 'GET',
+        headers: headers,
+        credentials: 'include'
+    });
+    response = await response.json();
+    return response;
+   }
 
 }

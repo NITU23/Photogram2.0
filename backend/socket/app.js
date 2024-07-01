@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
     }),
 
     socket.on('like',async(data)=>{
-      await likedPost(data)
+        await likedPost(data)
     })
   });
 

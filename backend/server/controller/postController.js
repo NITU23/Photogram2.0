@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const Post = require('../model/postModel')
 const User = require('../model/userModel')
 module.exports = {
@@ -89,6 +90,26 @@ module.exports = {
     catch (err) {
       console.log('Error While Deleting Post', err)
       res.status(400).send({ message: "Error While Deleting Your Post" })
+    }
+  },
+
+   getLikes : async (req, res) => {
+    try {
+      console.log('Hello, I am getLikes');
+      let post = await Post.findOne(
+        { _id: req.query.postid },
+        { likedBy: 1, _id: 0 }
+      );
+
+      if (post) {
+        res.status(200).send({ msg: post });
+      } else {
+        res.status(404).send({ msg: 'Post not found' });
+      }
+    }
+    catch (error) {
+      console.error('Error fetching post:', error);
+      res.status(500).send({ msg: 'Server error' });
     }
   }
 }
