@@ -95,21 +95,15 @@ module.exports = {
 
    getLikes : async (req, res) => {
     try {
-      console.log('Hello, I am getLikes');
-      let post = await Post.findOne(
-        { _id: req.query.postid },
-        { likedBy: 1, _id: 0 }
-      );
-
-      if (post) {
-        res.status(200).send({ msg: post });
-      } else {
-        res.status(404).send({ msg: 'Post not found' });
+      const postId = req.query.postid; 
+      const post = await Post.findOne({ _id: postId }).lean();
+      if (!post) {
+        return res.status(404).json({ msg: 'Post not found' });
       }
-    }
-    catch (error) {
+      res.status(200).json({ msg: post });
+    } catch (error) {
       console.error('Error fetching post:', error);
-      res.status(500).send({ msg: 'Server error' });
+      res.status(500).json({ msg: 'Server error' });
     }
   }
 }

@@ -39,6 +39,10 @@ function Card(props) {
   useEffect(() => {
     const fetchLikes = async () => {
       let details = await getLikes(postid);
+      if(details.msg.username===realUser){
+        setLiked(true)
+        setIsClicked(true)
+      }
       console.log('I am likes',details)
     };
     fetchLikes();
@@ -70,10 +74,9 @@ function Card(props) {
                 onDoubleClickCapture={setClick}
               />
               <div>
-                {!isClicked && (
+                {(!isClicked || !liked) ? (
                   <PiHeart className="like heart actions" onClick={setClick} />
-                )}
-                {isClicked && (
+                ) : (
                   <FaHeart className="liked actions" onClick={setClick} />
                 )}
                 <FaRegComment className="like comment actions" onClick={setAddComments} />

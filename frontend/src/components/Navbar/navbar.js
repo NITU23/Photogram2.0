@@ -20,13 +20,13 @@ function Navbar() {
   const [openNotification, setOpenNotification] = useState(false);
   const [showSnackbar, setShowsnackbar] = useState(false);
   const [details, setDetail] = useState();
-  const [socket, setSocket] = useState(null);
+  const [socket, setSocket] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const open = Boolean(anchorEl);
   const [searchUser, setSearchUser] = useState([]);
   const cookieExists = useSelector((state) => state.cookie.cookieExists);
-
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

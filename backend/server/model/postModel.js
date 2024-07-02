@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./userModel')
 
 const postSchema = new mongoose.Schema({
   file: {
@@ -20,7 +21,7 @@ const postSchema = new mongoose.Schema({
   },
   likedBy: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
+    ref: User
   }]
 });
 
