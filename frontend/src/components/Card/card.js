@@ -13,10 +13,10 @@ import Like from "../Like/like";
 import { getLikes } from "../../services/postService";
 
 function Card(props) {
-  const {caption,location,file,username,profile,postid,realUser,socket} = props;
+  const {caption,location,file,username,profile,postid,realUser,socket,like} = props;
   const [showCommentComponent, setShowCommentComponent] = useState(false);
   const [showLikedComponent, setShowLikedComponent] = useState(false);
-  const [liked,setLiked] = useState(false)
+  const [liked,setLiked] = useState(like)
   const setClick = () => {
     socket.emit("like", { postid: postid, liked: !liked, user: realUser });
     liked=== true ? setLiked(false) : setLiked(true);
@@ -34,16 +34,6 @@ function Card(props) {
   const viewLikes = () => {
     setShowLikedComponent(!showLikedComponent);
   };
-
-  useEffect(() => {
-    const fetchLikes = async () => {
-      let details = await getLikes(postid);
-      if(details.msg.likedByMe){
-        setLiked(true)
-      }
-    };
-    fetchLikes();
-  },[]);
 
   return (
     <div>

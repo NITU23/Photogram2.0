@@ -5,18 +5,33 @@ module.exports = {
 
   getAllImages: async (req, res) => {
     try {
-      let allPosts = await Post.find()
-      let data = [];
-      for (let item of allPosts) {
-        let findUser = await User.findOne({ username: item.username })
-        data.push({ username: item.username, file: item.file, caption: item.caption, location: item.location, date: item.createdAt, profilePic: findUser.profilePicture, postid: item.id, realUser: req.username })
-      }
-      console.log('All Images fetched successfully.')
-      res.status(200).send(data)
-    }
-    catch (err) {
-      console.log('Error While Getting Post', err)
-      res.status(400).send({ message: 'Error While Getting Post' })
+      const username = req.username;
+      const user = await User.findOne({ username }, { _id: 1 });
+      const allPosts = await Post.find().lean();
+      const data = await Promise.all(allPosts.map(async (item) => {
+        const findUser = await User.findOne({ username: item.username }, { profilePicture: 1 }).lean();
+        const likedByObjectIds = item.likedBy.map(user => user._id.toString());
+        const likedByMe = likedByObjectIds.some(likedByUserId => likedByUserId === user._id.toString());
+        const likedUsers = await User.find({ _id: { $in: likedByObjectIds } }, { username: 1, profilePicture: 1 }).lean();
+        console.log('HEllo I am likedUsers',likedUsers)
+        return {
+          username: item.username,
+          file: item.file,
+          caption: item.caption,
+          location: item.location,
+          date: item.createdAt,
+          profilePic: findUser?.profilePicture,
+          postid: item._id.toString(),
+          realUser: req.username,
+          likedByMe,
+          likedUsers
+        };
+      }));
+      console.log('All images and likes fetched successfully.');
+      res.status(200).send(data);
+    } catch (err) {
+      console.log('Error while getting posts', err);
+      res.status(400).send({ message: 'Error while getting posts' });
     }
   },
 
@@ -90,25 +105,6 @@ module.exports = {
     catch (err) {
       console.log('Error While Deleting Post', err)
       res.status(400).send({ message: "Error While Deleting Your Post" })
-    }
-  },
-
-   getLikes : async (req, res) => {
-    try {
-      const postId = req.query.postid;
-      const post = await Post.findOne({ _id: postId }).lean();
-      const user = await User.findOne({ username: req.username }, { _id: 1 });
-      if (!post) {
-        return res.status(404).json({ msg: 'Post not found' });
-      }
-      const likedByObjectIds = post.likedBy.map(user => user._id.toString());
-      const likedByMe = likedByObjectIds.some(likedByUserId => likedByUserId === user._id.toString());
-
-      console.log('Liked by me:',postId, likedByMe);
-      res.status(200).json({ msg: {...post,likedByMe} });
-    } catch (error) {
-      console.error('Error fetching post:', error);
-      res.status(500).json({ msg: 'Server error' });
     }
   }
 }
