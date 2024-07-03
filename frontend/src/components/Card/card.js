@@ -14,13 +14,12 @@ import { getLikes } from "../../services/postService";
 
 function Card(props) {
   const {caption,location,file,username,profile,postid,realUser,socket} = props;
-  const [isClicked, setIsClicked] = useState(false);
   const [showCommentComponent, setShowCommentComponent] = useState(false);
   const [showLikedComponent, setShowLikedComponent] = useState(false);
   const [liked,setLiked] = useState(false)
   const setClick = () => {
-    socket.emit("like", { postid: postid, liked: !isClicked, user: realUser });
-    isClicked === true ? setIsClicked(false) : setIsClicked(true);
+    socket.emit("like", { postid: postid, liked: !liked, user: realUser });
+    liked=== true ? setLiked(false) : setLiked(true);
   };
   const setAddComments = () => {
      setShowCommentComponent(!showCommentComponent)
@@ -41,7 +40,6 @@ function Card(props) {
       let details = await getLikes(postid);
       if(details.msg.username===realUser){
         setLiked(true)
-        setIsClicked(true)
       }
       console.log('I am likes',details)
     };
@@ -74,7 +72,7 @@ function Card(props) {
                 onDoubleClickCapture={setClick}
               />
               <div>
-                {(!isClicked || !liked) ? (
+                {( !liked) ? (
                   <PiHeart className="like heart actions" onClick={setClick} />
                 ) : (
                   <FaHeart className="liked actions" onClick={setClick} />
