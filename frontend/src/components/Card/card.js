@@ -38,10 +38,9 @@ function Card(props) {
   useEffect(() => {
     const fetchLikes = async () => {
       let details = await getLikes(postid);
-      if(details.msg.username===realUser){
+      if(details.msg.likedByMe){
         setLiked(true)
       }
-      console.log('I am likes',details)
     };
     fetchLikes();
   },[]);

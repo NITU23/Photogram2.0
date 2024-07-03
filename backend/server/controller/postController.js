@@ -95,12 +95,17 @@ module.exports = {
 
    getLikes : async (req, res) => {
     try {
-      const postId = req.query.postid; 
+      const postId = req.query.postid;
       const post = await Post.findOne({ _id: postId }).lean();
+      const user = await User.findOne({ username: req.username }, { _id: 1 });
       if (!post) {
         return res.status(404).json({ msg: 'Post not found' });
       }
-      res.status(200).json({ msg: post });
+      const likedByObjectIds = post.likedBy.map(user => user._id.toString());
+      const likedByMe = likedByObjectIds.some(likedByUserId => likedByUserId === user._id.toString());
+
+      console.log('Liked by me:',postId, likedByMe);
+      res.status(200).json({ msg: {...post,likedByMe} });
     } catch (error) {
       console.error('Error fetching post:', error);
       res.status(500).json({ msg: 'Server error' });
