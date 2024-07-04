@@ -83,12 +83,9 @@ const logout = async (req, res) => {
 const setProfile = async (req, res) => {
   try {
     let email = req.email;
-    let findUser = await User.findOne({ email: email });
-    findUser.profilePicture = req.body.file;
-    findUser.save();
-    res
-      .status(200)
-      .send({ message: "Your Profile has been saved successfully" });
+    let update = { profilePicture: req.body.file };
+     await User.updateOne({ email: email }, update);
+    res.status(200).send({ message: "Your Profile has been saved successfully" });
   } catch (err) {
     console.log("Error while uploading profile picture.", err);
     res.status(400).send({ message: "Error While uploading profile picture." });

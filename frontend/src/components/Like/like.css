@@ -1,0 +1,56 @@
+.userContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 14px;
+    overflow: auto;
+    max-height: 200px;
+}
+
+.userPhoto {
+    flex: 0 0 auto;
+    margin-right: 15px;
+}
+
+.like_photo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.userInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.like_username {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+
+
+.follow {
+    background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: black;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    border: none;
+    height: 23px;
+    width: 80px;
+}
+.follow:hover {
+    background-position: right center;
+    color: black;
+    text-decoration: none;
+    width: 100px;
+    cursor: pointer;
+}
+.like_closeButton{
+float:right;
+cursor: pointer;
+margin-top: -15px;
+}

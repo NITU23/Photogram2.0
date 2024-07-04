@@ -10,13 +10,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { deletePost } from "../../services/postService";
 import user from "../../images/user.jpeg";
 import Like from "../Like/like";
-import { getLikes } from "../../services/postService";
+import { addComments } from "../../services/postService";
 
 function Card(props) {
-  const {caption,location,file,username,profile,postid,realUser,socket,like} = props;
+  const {caption,location,file,username,profile,postid,realUser,socket,like,likedUsers} = props;
   const [showCommentComponent, setShowCommentComponent] = useState(false);
   const [showLikedComponent, setShowLikedComponent] = useState(false);
   const [liked,setLiked] = useState(like)
+  const [comment,setComment] = useState('')
   const setClick = () => {
     socket.emit("like", { postid: postid, liked: !liked, user: realUser });
     liked=== true ? setLiked(false) : setLiked(true);
@@ -33,6 +34,22 @@ function Card(props) {
   };
   const viewLikes = () => {
     setShowLikedComponent(!showLikedComponent);
+  };
+  const setShowLikedDialog = () =>{
+    setShowLikedComponent(!showLikedComponent);
+  }
+  const addComment = async() => {
+    let body = JSON.stringify({postid,comment})
+     let post = await addComments(body)
+     setComment('')
+  }
+  const handleComment = (event) =>{
+    setComment(event.target.value)
+  }
+  const _handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      addComment();
+    }
   };
 
   return (
@@ -89,8 +106,11 @@ function Card(props) {
                       name="comment"
                       className="commentBox"
                       placeholder="Add your comment"
+                      onKeyDown={_handleKeyDown}
+                      onChange={handleComment}
+                      value ={comment}
                     />
-                    <button className="post">Post</button>
+                    <button className="post" onClick={addComment}>Post</button>
                   </div>
                 )}
               </div>
@@ -106,7 +126,7 @@ function Card(props) {
           )}
           {showLikedComponent && (
             <div className="commentDialog">
-              <Like />
+              <Like  likedUsers={likedUsers} showLikeDialog = {setShowLikedDialog}/>
             </div>
           )}
         </div>

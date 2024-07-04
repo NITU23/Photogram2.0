@@ -2,7 +2,6 @@
 import user from '../../images/user.jpeg'
 
 function SearchUser(props) {
- console.log('props',props)
   return(
   <div>
         {props.users && props.users.map((item, index) => (

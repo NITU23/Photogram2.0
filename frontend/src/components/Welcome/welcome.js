@@ -20,7 +20,6 @@ function Welcome() {
     const fetchData = async () => {
       setApiCalled(true)
       let allPosts = await fetchPosts();
-      console.log('I am all posts,',allPosts)
       setAllPost(allPosts)
       setApiCalled(false)
 
@@ -32,7 +31,6 @@ function Welcome() {
    const updateReload = async(value)=>{
     setReload(value)
     let allPosts = await fetchPosts();
-    console.log('I am all posts',allPosts)
     setAllPost(allPosts)
    }
   return (
@@ -42,7 +40,7 @@ function Welcome() {
         <div className='cards'>
         {allPost.length>0 && allPost?.map((item, index) => (
         <div key={index}>
-        <Card  caption={item.caption} like={item.likedByMe} location={item.location} file={item.file} username={item.username} profile={item.profilePic} postid={item.postid} realUser = {item.realUser} load={updateReload} socket={socket} />
+        <Card  caption={item.caption} like={item.likedByMe} likedUsers={item.likedUsers} location={item.location} file={item.file} username={item.username} profile={item.profilePic} postid={item.postid} realUser = {item.realUser} load={updateReload} socket={socket} />
         </div>
       ))}
         </div>

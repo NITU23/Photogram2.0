@@ -47,15 +47,15 @@ module.exports = {
     response = await response.json();
     return response;
 },
-   getLikes : async(postid) => {
-    let url = `http://localhost:3001/api/post/getLikes/?postid=${postid}`;
+addComments : async (body)=>{
+  let url = `http://localhost:3001/api/post/addComment`;
     let response = await fetch(url, {
-        method: 'GET',
+        method: 'POST',
         headers: headers,
+        body : body,
         credentials: 'include'
     });
     response = await response.json();
     return response;
-   }
-
+}
 }
