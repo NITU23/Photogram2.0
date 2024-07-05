@@ -22,7 +22,6 @@ function Welcome() {
       let allPosts = await fetchPosts();
       setAllPost(allPosts)
       setApiCalled(false)
-
     };
     fetchData();
   }, []);

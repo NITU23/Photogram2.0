@@ -13,6 +13,12 @@ module.exports = {
         const likedByObjectIds = item.likedBy.map(user => user._id.toString());
         const likedByMe = likedByObjectIds.some(likedByUserId => likedByUserId === user._id.toString());
         const likedUsers = await User.find({ _id: { $in: likedByObjectIds } }, { username: 1, profilePicture: 1,firstName:1,lastName:1 }).lean();
+        const getComments = await Post.find({ username: req.username }, { comments: 1 }).populate('username')
+      
+        //console.log('getC',getComments)
+        for(let item of getComments){
+          console.log('item',item.comments)
+        }
         return {
           username: item.username,
           file: item.file,
@@ -23,7 +29,8 @@ module.exports = {
           postid: item._id.toString(),
           realUser: req.username,
           likedByMe,
-          likedUsers
+          likedUsers,
+          comments : getComments[0]
         };
       }));
       console.log('All images and likes fetched successfully.');
@@ -106,16 +113,16 @@ module.exports = {
       res.status(400).send({ message: "Error While Deleting Your Post" })
     }
   },
-  addComment: async(req,res)=>{
-    try{
-      console.log('I am adding comments here',req.body);
-      let user = User.findOne({email:req.email},{_id:1});
+  addComment : async (req, res) => {
+    try {
+      console.log('Adding comment:', req.body);
+      const user = await User.findOne({ email: req.email }, { _id: 1 });
       const newComment = {
-        user: user._id, 
-        comment: req.body.comment, 
+        user: user._id,
+        comment: req.body.comment,
       };
-      const postId = req.body.postid; 
-       await Post.findByIdAndUpdate(
+      const postId = req.body.postid;
+      await Post.findByIdAndUpdate(
         postId,
         { $push: { comments: newComment } },
         { new: true }
@@ -124,8 +131,8 @@ module.exports = {
       res.status(200).send({msg:'Comment has been added successfully.'})
     }
     catch(err){
-      console.log('Error While Adding comment',err);
-      res.status(400).send({msg:'Error While Adding Comment'})
+      console.error('Error while adding comment:', err);
+      res.status(500).send({ msg: 'Error while adding comment' });
     }
   }
 }
