@@ -3,7 +3,7 @@ import { PiHeart } from "react-icons/pi";
 import { FaHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
 import { FiSend } from "react-icons/fi";
-import { useState,useEffect } from "react";
+import { useState } from "react";
 import Name from "../Name/name";
 import Comment from "../Comment/comment";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -38,9 +38,15 @@ function Card(props) {
   const setShowLikedDialog = () =>{
     setShowLikedComponent(!showLikedComponent);
   }
-  const addComment = async() => {
-    let body = JSON.stringify({postid,comment})
-     let post = await addComments(body)
+  const addComment = async(data) => {
+   let body;
+    if(data){
+      body = JSON.stringify({postid,comment:data})
+    }
+    else{
+      body = JSON.stringify({postid,comment})
+    }
+    await addComments(body)
      setComment('')
   }
   const handleComment = (event) =>{
@@ -121,6 +127,8 @@ function Card(props) {
               <Comment
                 showDialog={showCommentComponent}
                 getCommentVar={getData}
+                postid={postid}
+                addComment={addComment}
               />
             </div>
           )}

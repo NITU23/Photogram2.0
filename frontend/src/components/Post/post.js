@@ -26,6 +26,7 @@ function Post(props) {
     const fetchData = async () => {
       setApiCalled(true);
       let allPosts = await fetchUserPosts(props.username);
+      console.log('234r',allPosts)
       setUserPost(allPosts)
       setApiCalled(false)
       props.totalPosts(allPosts.length)
@@ -36,7 +37,7 @@ function Post(props) {
   return (
     <div className='posts'>
   <div className='grid-container'>
-    {userPost.length<=0 && apiCalled &&<> <ShimmerLayout /><ShimmerLayout /><ShimmerLayout /> </>}
+    {userPost.length===0 && apiCalled &&<> <ShimmerLayout /><ShimmerLayout /><ShimmerLayout /> </>}
   {userPost.length>0 && userPost?.map((item, index) => (
     <div key={index} className='grid-item'>
      <Item className='item'>
@@ -46,7 +47,7 @@ function Post(props) {
 </Item>
     </div>
   ))}
-  {userPost.length<=0 && !apiCalled &&<div className="noPosts"> <h1>Hey there, looks like this feed could use a touch of your magic.</h1></div>}
+  {userPost.length===0 && !apiCalled &&<div className="noPosts"> <h1>Hey there, looks like this feed could use a touch of your magic.</h1></div>}
 </div>
     </div>
   );

@@ -26,7 +26,7 @@ function Navbar() {
   const open = Boolean(anchorEl);
   const [searchUser, setSearchUser] = useState([]);
   const cookieExists = useSelector((state) => state.cookie.cookieExists);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -94,7 +94,7 @@ function Navbar() {
       setSearchUser([])
     )
   };
-
+console.log('234',details)
   return (
     <>
       <div className="navbar">

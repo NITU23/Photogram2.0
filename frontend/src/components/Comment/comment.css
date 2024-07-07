@@ -1,6 +1,6 @@
 .viewAllcomment{
     font-size: 10px;
-
+   display: flex;
    margin-top: 5px;
   }
   .showComment {
@@ -9,7 +9,7 @@
     flex-direction: column;
   }
 
-  
+
   .closeButton{
     float: right;
     cursor: pointer;
@@ -30,3 +30,8 @@
     max-height: 250px;
     overflow: auto;
   }
+  .comment_spinner{
+    right: 50%;
+    left: 42%;
+    position: sticky;
+}

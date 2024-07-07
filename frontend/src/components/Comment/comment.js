@@ -1,29 +1,73 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
-import flower from '../../images/flower.jpeg'
+import user from '../../images/user.jpeg'
 import './comment.css'
+import {getComments} from '../../services/postService'
+import CircularProgress from '@mui/material/CircularProgress';
+
 export default function Comment(props) {
   const [showComponent, setShowComponent] = useState(props.showDialog)
   const handleShowComponent = () => {
     props.getCommentVar(false);
     setShowComponent(false);
   }
+  const [comment,setComment] = useState()
+  const [postid] = useState(props.postid)
+  const [apiCalled,setApiCalled] = useState(false)
+  const [writeComment,setWriteComment]= useState('')
+  useEffect(() => {
+    const fetchComments = async () => {
+      setApiCalled(true)
+      let comments = await getComments(postid);
+      setComment(comments)
+      setApiCalled(false)
+    };
+    fetchComments();
+  }, [postid]);
+
+  const handleChange = (e)=>{
+   setWriteComment(e.target.value);
+  }
+
+ const submit = () =>{
+  props.addComment(writeComment)
+  setWriteComment('')
+ }
+ const _handleKeyDown = (e) => {
+  if (e.key === 'Enter') {
+    submit();
+  }
+};
   return (
     <div>
       {showComponent && <Card className='cardWidth' >
         <div className='closeButton'><IoCloseSharp onClick={handleShowComponent} /></div>
         <CardContent>
-          <div className='viewAllCommentDiv' >
-            <span className='viewAllcomment'><img  className='commentImg'  src={flower} alt=''/><b>NitinV : </b></span>
-           
-          </div>
-          <div className='commentDiv'>
-            <input type="text" name="comment" className='commentBox' placeholder='Add your comment' />
-            <button className='post'>Post</button>
-          </div>
+
+           {comment?.comments.length>0 && (apiCalled===false) && comment.comments.map((item, index) => (
+            <div className='viewAllCommentDiv'>
+        <span className='viewAllcomment' key={index}>
+          <img className='commentImg' src={item.profile ? `data:image/png;base64,${item.profile}` : user} alt='profile' />
+        <p style={{marginTop:'1px',fontSize:'14px' }}><b> {item.username}</b> : {item.comment}</p>
+        </span>
+        </div>
+      ))}
+      {!comment && (apiCalled===true)&&
+      <div>
+        <CircularProgress className="comment_spinner" />
+       <p style={{display:'flex',justifyContent:'center'}}> Loading Comments...</p>
+        </div>}
+        { comment?.comments.length===0 && (apiCalled===false)&&
+      <div>
+      <p style={{display:'flex',justifyContent:'center'}}>  No Comments found</p>
+        </div>}
+         {comment && (apiCalled===false) && <div className='commentDiv'>
+            <input type="text" name="comment" className='commentBox' placeholder='Add your comment'  onKeyDown={_handleKeyDown} value={writeComment}  onChange={handleChange}/>
+            <button className='post' onClick={submit}>Post</button>
+          </div>}
         </CardContent>
       </Card>
       }
