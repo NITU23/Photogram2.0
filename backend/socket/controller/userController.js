@@ -2,6 +2,7 @@ const mongoose = require("../databaseConnection/mongo");
 const { ObjectId } = require('mongodb');
 module.exports = {
     findUser : async(searchValue)=>{
+      try{
         const userCollection = mongoose.collection('users');
         const regex = new RegExp(`^${searchValue}`, 'i');
         const query = {
@@ -15,6 +16,11 @@ module.exports = {
         const users = await userCollection.find(query).toArray();
         console.log('Sent users list')
         return users;
+      }
+      catch(err){
+        console.log('Error While searching users',err)
+      }
+       
     },
     likedPost : async({postid,liked,user})=>{
       const postCollection = mongoose.collection('posts');

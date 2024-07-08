@@ -28,7 +28,6 @@ export default function Profile() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       let details = await getUserProfile();
-      console.log('pp',details)
       setDetail(details.response)
     };
     fetchUserDetails();

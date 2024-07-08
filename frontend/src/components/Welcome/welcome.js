@@ -3,15 +3,12 @@ import Card from "../Card/card"
 import './welcome.css'
 import { fetchPosts } from "../../services/postService";
 import ShimmerLayout from "../Shimmer/shimmer";
-import { useDispatch, useSelector } from 'react-redux';
-import { setSocket } from '../../redux/socket';
+import { useSelector } from 'react-redux';
+
 function Welcome() {
-  const dispatch = useDispatch();
+  
   const socket = useSelector((state) => state.socket.socket);
-  console.log('I am socket',socket)
-  useEffect(() => {
-    dispatch(setSocket());
-  }, [dispatch]);
+  
    const [allPost,setAllPost] = useState([])
    const [reload,setReload] = useState(false)
    const [apiCalled,setApiCalled] = useState();

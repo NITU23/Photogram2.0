@@ -3,6 +3,8 @@ import {useState,useEffect} from 'react'
 import { IoIosSearch } from "react-icons/io";
 import { fetchUser } from '../../services/userService';
 import user from '../../images/user.jpeg'
+import { useSelector } from 'react-redux';
+
 function ChatwithUser (props) {
     const [showMessageDialog] = useState(false);
     const [users,setUsers] = useState('')
@@ -10,6 +12,7 @@ function ChatwithUser (props) {
       showMessageDialog===true ? props.showChat(false) : props.showChat(true)
       props.userDetail(details)
     }
+    const socket = useSelector((state) => state.socket.socket);
   useEffect(()=>{
     const fetchUsers = async () => {
       let allUsers = await fetchUser();
@@ -17,11 +20,32 @@ function ChatwithUser (props) {
     };
     fetchUsers();
   },[])
+  const getUsers = (event) => {
+    let searchValue = event.target.value;
+    if (searchValue.length > 3) {
+      socket.emit('searchUser', searchValue);
+      socket.on('searchedUsers', (users) => {
+        if(users.length>0){
+          setUsers(users);
+        }
+        else {
+          setUsers('')
+        }
+      });
+    }
+    else {
+      const fetchUsers = async () => {
+        let allUsers = await fetchUser();
+        setUsers(allUsers)
+      };
+      fetchUsers();
+    }
+  };
 return (
     <div>
         <div className='searchBox'>
         <IoIosSearch />
-        <input placeholder='Type Here To Search' className='searchBar'/>
+        <input placeholder='Type Here To Search'  onChange={getUsers} className='searchBar'/>
     </div>
     {users && users.map((item, index) => (
       <div key={index} className='namePhotoDiv' onClick={() => openMessage(item)}>
@@ -34,6 +58,8 @@ return (
         </div>
       </div>
     ))}
+    {!users && 
+    <div>No Users Found</div>}
       <hr />
     </div>
 )

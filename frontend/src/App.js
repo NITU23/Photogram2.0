@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/navbar';
 import Welcome from '../src/components/Welcome/welcome';
@@ -21,9 +21,9 @@ function App() {
   }, [dispatch]);
   return (
     <div className="App">
-    <Navbar />
-    <main>
-    <Routes>
+      <Navbar />
+      <main>
+        <Routes>
           {cookieExists ? (
             <>
               <Route path="/welcome" element={<Welcome />} />
@@ -44,13 +44,13 @@ function App() {
             </>
           )}
         </Routes>
-    </main>
-    {cookieExists && (
+      </main>
+      {cookieExists && (
         <div className="chat">
           <Chat  />
         </div>
       )}
-  </div>
+    </div>
   );
 }
 

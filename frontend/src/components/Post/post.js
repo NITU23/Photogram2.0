@@ -26,7 +26,6 @@ function Post(props) {
     const fetchData = async () => {
       setApiCalled(true);
       let allPosts = await fetchUserPosts(props.username);
-      console.log('234r',allPosts)
       setUserPost(allPosts)
       setApiCalled(false)
       props.totalPosts(allPosts.length)
