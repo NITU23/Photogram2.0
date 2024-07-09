@@ -40,6 +40,27 @@ module.exports = {
         );
         console.log('Post has been unliked.')
       }
+    },
+    followUser : async(data)=>{
+      try{
+        const email = data.email;
+        const following = data.following
+        const realUseremail = data.username.email;
+        const userCollection = mongoose.collection('users');
+        let user = await userCollection.findOne({email:email},{ projection: { _id:1 }});
+        let realUser = await userCollection.findOne({email:realUseremail})
+        if(following){
+          await userCollection.updateOne({_id : new ObjectId(realUser._id)}, { $push: { followings: user._id } });
+        }
+        else {
+          await userCollection.updateOne({_id : new ObjectId(realUser._id)}, { $pull: { followings: user._id } });
+        }
+        console.log(`You are now ${following ? 'following' : 'unfollowing'} this user.`)
+        return following
+      }
+      catch(err){
+        console.log('Error While Following User',err)
+      }
     }
 
 }

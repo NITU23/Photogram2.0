@@ -93,15 +93,25 @@ const setProfile = async (req, res) => {
 };
 const getUserProfile = async (req, res) => {
   try {
-    let email = req.email;
+    let email;
+    if (req.query.email !== 'undefined') {
+      email = req.query.email;
+    } else {
+      email = req.email;
+    }
     let findUser = await User.findOne({ email: email });
+    let realUser = await User.findOne({ email: req.email });
+    let isFollowing = realUser.followings.includes(findUser._id);
+
     let details = {
       firstName: findUser.firstName,
       lastName: findUser.lastName,
       profile: findUser.profilePicture,
       username: findUser.username,
       email: findUser.email,
+      following: isFollowing  
     };
+   console.log('User profile fetched successfully.')
     res.status(200).send(details);
   } catch (err) {
     console.log("Error While Getting user's profile", err);

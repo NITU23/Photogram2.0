@@ -31,7 +31,7 @@ function Post(props) {
       props.totalPosts(allPosts.length)
     };
     fetchData();
-  },[]);
+  },[props.username]);
 
   return (
     <div className='posts'>

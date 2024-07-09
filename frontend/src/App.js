@@ -16,7 +16,7 @@ import { checkCookie } from './redux/checklogin';
 function App() {
   const dispatch = useDispatch();
   const cookieExists = useSelector((state) => state.cookie.cookieExists);
-  useEffect(() => {
+    useEffect(() => {
     dispatch(checkCookie());
   }, [dispatch]);
   return (
@@ -27,18 +27,16 @@ function App() {
           {cookieExists ? (
             <>
               <Route path="/welcome" element={<Welcome />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:email" element={<Profile />} />
               <Route path="/viewPost" element={<ViewMyPost />} />
               <Route path="/updateprofile" element={<UpdateProfile />} />
               <Route path="/createPost" element={<CreatePost />} />
               <Route path="/uploadProfile" element={<UploadProfilePic />} />
               <Route path="/" element={<Navigate to="/welcome" />} />
-              <Route path="/login" element={<Navigate to="/welcome" />} />
               <Route path="*" element={<Navigate to="/welcome" />} />
             </>
           ) : (
             <>
-              <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
               <Route path="*" element={<Navigate to="/login" />} />
             </>
@@ -47,7 +45,7 @@ function App() {
       </main>
       {cookieExists && (
         <div className="chat">
-          <Chat  />
+          <Chat />
         </div>
       )}
     </div>

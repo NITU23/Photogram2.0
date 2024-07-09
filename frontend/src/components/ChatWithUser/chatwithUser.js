@@ -23,8 +23,8 @@ function ChatwithUser (props) {
   const getUsers = (event) => {
     let searchValue = event.target.value;
     if (searchValue.length > 3) {
-      socket.emit('searchUser', searchValue);
-      socket.on('searchedUsers', (users) => {
+      socket.emit('searchUserChat', searchValue);
+      socket.on('searchedUsersChat', (users) => {
         if(users.length>0){
           setUsers(users);
         }

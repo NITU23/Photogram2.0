@@ -26,11 +26,9 @@ function Navbar() {
   const open = Boolean(anchorEl);
   const [searchUser, setSearchUser] = useState([]);
   const cookieExists = useSelector((state) => state.cookie.cookieExists);
-  console.log('navabar called',socket)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -43,6 +41,9 @@ function Navbar() {
   const createPost = () => {
     navigate('/createPost');
   };
+  const handleUsers = () =>{
+    setSearchUser([])
+  }
 
   const logout = async () => {
     const url = 'http://localhost:3001/api/user/logout';
@@ -81,7 +82,7 @@ function Navbar() {
       fetchUserDetails();
     }
   }, [cookieExists]);
-
+    
   const getUsers = (event) => {
     let searchValue = event.target.value;
     if (searchValue.length > 3) {
@@ -130,7 +131,7 @@ function Navbar() {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <Link className="link" to="profile"><MenuItem>Profile</MenuItem></Link>
+              <Link className="link" to={`/profile/${details?.email}`}><MenuItem>Profile</MenuItem></Link>
               <Link className="link" to="/updateprofile"><MenuItem>Update Profile</MenuItem></Link>
               <Link className="link"><MenuItem onClick={logout}>Logout</MenuItem></Link>
             </Menu>
@@ -139,7 +140,7 @@ function Navbar() {
       </div>
       {searchUser.length>0  && (
         <div className='searchResults'>
-          <SearchUser users={searchUser} />
+          <SearchUser users={searchUser} setUsers={handleUsers} />
         </div>
       )}
       <div className='notificationSection'>

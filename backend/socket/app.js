@@ -1,7 +1,7 @@
 const { Server } = require("socket.io");
 const mongoose = require('./databaseConnection/mongo')
 const {receiveMessage,getPreviousMessages} = require('./controller/chatController')
-const {findUser, likedPost} = require('./controller/userController')
+const {findUser, likedPost,followUser} = require('./controller/userController')
 
 const io = new Server(5001,{
   cors:{
@@ -47,9 +47,17 @@ io.on('connection', (socket) => {
       let users = await findUser(searchValue);
       socket.emit('searchedUsers',users)
     }),
+    socket.on('searchUserChat',async (searchValue)=>{
+      let users = await findUser(searchValue);
+      socket.emit('searchedUsersChat',users)
+    }),
 
     socket.on('like',async(data)=>{
         await likedPost(data)
+    })
+    socket.on('followUser',async(data)=>{
+     const resp =  await followUser(data);
+     socket.emit('followedUser',resp)
     })
   });
 

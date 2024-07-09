@@ -56,6 +56,9 @@ const userSchema = new Schema({
     profilePicture: {
         type: String,
     },
+    followings:[{
+        type: mongoose.Schema.Types.ObjectId,
+      }]
 });
 
 const User = mongoose.model('User', userSchema);

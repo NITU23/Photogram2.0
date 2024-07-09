@@ -23,8 +23,8 @@ const headers = {
         });
         return {response:await response.json(),status:response.status};
     },
-    getUserProfile : async()=>{
-        let url = `http://localhost:3001/api/user/getUserProfile`;
+    getUserProfile : async(email)=>{
+        let url = `http://localhost:3001/api/user/getUserProfile?email=${email}`;
         let response= await fetch(url, {
             method: 'GET',
             headers: headers,
