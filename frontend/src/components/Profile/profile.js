@@ -8,6 +8,7 @@ import { getUserProfile } from '../../services/userService';
 import user from '../../images/user.jpeg';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Followers from '../Follower/follower'; 
 
 export default function Profile() {
   const location = useLocation();
@@ -23,26 +24,28 @@ export default function Profile() {
   const [detail, setDetail] = useState(null);
   const [totalPosts, setTotalPosts] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [realUser,setRealUser] = useState(false)
+  const [realUser, setRealUser] = useState(false);
   const socket = useSelector((state) => state.socket.socket);
   const username = useSelector((state) => state.cookie.username);
+  const [getDialog, setGetDialog] = useState(false);
+  const [openConnections,setOpenConnections] = useState()
+
   useEffect(() => {
     const fetchUserDetails = async () => {
-        const userDetails = await getUserProfile(email);
-        setDetail(userDetails.response);
-        if(email===username.email){
-          setRealUser(true)
-        }
-        else {
-          setRealUser(false)
-        }
-        setIsFollowing(userDetails.response.following); 
+      const userDetails = await getUserProfile(email);
+      setDetail(userDetails.response);
+      if (email === username.email) {
+        setRealUser(true);
+      } else {
+        setRealUser(false);
+      }
+      setIsFollowing(userDetails.response.following);
     };
     fetchUserDetails();
   }, [email]);
 
   const handleClick = () => {
-    const updatedFollowing = !isFollowing; 
+    const updatedFollowing = !isFollowing;
     const updatedDetail = { ...detail, username, following: updatedFollowing };
     setIsFollowing(updatedFollowing);
 
@@ -58,6 +61,15 @@ export default function Profile() {
     setTotalPosts(postsLength);
   };
 
+  const openDialog = (item) => {
+    if(item==='followers' || item==='followings'){
+    setOpenConnections(item)
+    }
+    else {
+      setOpenConnections('')
+    }
+    setGetDialog(!getDialog);
+  };
 
   return (
     <div className="profileContainer">
@@ -71,20 +83,20 @@ export default function Profile() {
                 <thead>
                   <tr>
                     <th scope="col"><center>{totalPosts}</center></th>
-                    <th scope="col"><center>5</center></th>
-                    <th scope="col"><center>5</center></th>
+                    <th scope="col" style={{ cursor: 'pointer' }} onClick={()=>openDialog('followers')}><center>5</center></th>
+                    <th scope="col" style={{ cursor: 'pointer' }} onClick={()=>openDialog('followings')}><center>5</center></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>Posts</td>
-                    <td>Followers</td>
-                    <td>Followings</td>
+                    <td style={{ cursor: 'pointer' }} onClick={()=>openDialog('followers')}>Followers</td>
+                    <td style={{ cursor: 'pointer' }} onClick={()=>openDialog('followings')}>Followings</td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            {!realUser &&<div className='connect'>
+            {!realUser && <div className='connect'>
               <button className='button' onClick={handleClick}>
                 <li className='listItem'>{isFollowing ? 'Following' : 'Follow'}</li>
               </button>
@@ -103,6 +115,7 @@ export default function Profile() {
             message={`You are now ${isFollowing ? 'following' : 'unfollowing'} this user.`}
             key={`${state.vertical},${state.horizontal}`}
           />
+          {getDialog && <Followers open={getDialog} onClose={openDialog} connections={openConnections} />}
         </CardContent>
       </Card>
     </div>

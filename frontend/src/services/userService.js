@@ -41,6 +41,16 @@ const headers = {
             credentials: 'include'
         });
         return {response:await response.json(),status:response.status};
+    },
+    getConnectedPeople:async(body)=>{
+        let url = `http://localhost:3001/api/user/getConnectedPeople`;
+        let response= await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body:body,
+            credentials: 'include'
+        });
+        return {response:await response.json(),status:response.status};
     }
 
 }
