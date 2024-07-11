@@ -58,6 +58,9 @@ const userSchema = new Schema({
     },
     followings:[{
         type: mongoose.Schema.Types.ObjectId,
+      }],
+      followers : [{
+        type: mongoose.Schema.Types.ObjectId,
       }]
 });
 

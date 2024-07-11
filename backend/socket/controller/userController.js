@@ -51,9 +51,11 @@ module.exports = {
         let realUser = await userCollection.findOne({email:realUseremail})
         if(following){
           await userCollection.updateOne({_id : new ObjectId(realUser._id)}, { $push: { followings: user._id } });
+          await userCollection.updateOne({_id : new ObjectId(user._id)}, { $push: { followers: realUser._id } });
         }
         else {
           await userCollection.updateOne({_id : new ObjectId(realUser._id)}, { $pull: { followings: user._id } });
+          await userCollection.updateOne({_id : new ObjectId(user._id)}, { $pull: { followers: realUser._id } });
         }
         console.log(`You are now ${following ? 'following' : 'unfollowing'} this user.`)
         return following
