@@ -1,0 +1,29 @@
+.MuiDialog-paper {
+    width: 30%;
+    min-height: 20vh;
+    overflow: auto;
+    max-height: 80vh;
+    border-radius: 20px;
+}
+.follower_spinner {
+    display: block;
+    margin: 0 auto; 
+    margin-top: 20px; 
+}
+.follower_photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.follower_close {
+    background-image: linear-gradient(to right, #77A1D3 0%, #79CBCA 51%, #77A1D3 100%);
+    text-align: center;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: black;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    border: none;
+    height: 23px;
+    width: 80px;
+}

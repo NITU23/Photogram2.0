@@ -1,7 +1,7 @@
 const User = require("../model/userModel");
 const jwt = require("jsonwebtoken");
 
-const getAllUser = async (req, res, next) => {
+const getAllUser = async (req, res) => {
   let users;
   try {
     users = await User.find();
@@ -144,6 +144,25 @@ const updatePassword = async (req, res) => {
       });
   }
 };
+const getConnectedPeople  = async(req,res)=>{
+   try{
+     let body = req.query.body;
+     body = JSON.parse(body);
+    let username = body.username;
+    let connectionType = body.connections;
+    let findConnections = await User.findOne({username:username},{followings:1})
+     let users = [];
+     for(let item of findConnections.followings){
+       let user = await User.findOne({_id:item});
+       users.push({firstName:user.firstName,lastName:user.lastName,profile:user.profilePicture})
+     }
+     res.status(200).send(users)
+   }
+   catch(err){
+    console.log('Error While getting connected people.',err)
+    res.status(400).send({msg:'Error while getting connected people.'})
+   }
+}
 module.exports = {
   login,
   signup,
@@ -152,4 +171,5 @@ module.exports = {
   setProfile,
   getUserProfile,
   updatePassword,
+  getConnectedPeople
 };
