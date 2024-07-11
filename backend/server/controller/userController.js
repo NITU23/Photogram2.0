@@ -109,7 +109,9 @@ const getUserProfile = async (req, res) => {
       profile: findUser.profilePicture,
       username: findUser.username,
       email: findUser.email,
-      following: isFollowing  
+      following: isFollowing,
+      followers: findUser.followers.length,
+      followings:findUser.followings.length
     };
    console.log('User profile fetched successfully.')
     res.status(200).send(details);
@@ -144,25 +146,39 @@ const updatePassword = async (req, res) => {
       });
   }
 };
-const getConnectedPeople  = async(req,res)=>{
-   try{
+const getConnectedPeople = async (req, res) => {
+  try {
      let body = req.query.body;
      body = JSON.parse(body);
-    let username = body.username;
-    let connectionType = body.connections;
-    let findConnections = await User.findOne({username:username},{followings:1})
-     let users = [];
-     for(let item of findConnections.followings){
-       let user = await User.findOne({_id:item});
-       users.push({firstName:user.firstName,lastName:user.lastName,profile:user.profilePicture})
+     let username = body.username;
+     let connectionType = body.connections;
+
+     let findConnections;
+     if (connectionType === 'followings') {
+        findConnections = await User.findOne({ username: username }, { followings: 1 });
+     } else if (connectionType === 'followers') {
+        findConnections = await User.findOne({ username: username }, { followers: 1 });
      }
-     res.status(200).send(users)
-   }
-   catch(err){
-    console.log('Error While getting connected people.',err)
-    res.status(400).send({msg:'Error while getting connected people.'})
-   }
-}
+
+     if (!findConnections) {
+        return res.status(404).send({ msg: 'No connections found.' });
+     }
+
+     let users = [];
+     let connectionsArray = connectionType === 'followings' ? findConnections.followings : findConnections.followers;
+
+     for (let item of connectionsArray) {
+        let user = await User.findOne({ _id: item });
+        users.push({ firstName: user.firstName, lastName: user.lastName, profile: user.profilePicture });
+     }
+
+     res.status(200).send(users);
+  } catch (err) {
+     console.log('Error while getting connected people.', err);
+     res.status(400).send({ msg: 'Error while getting connected people.' });
+  }
+};
+
 module.exports = {
   login,
   signup,

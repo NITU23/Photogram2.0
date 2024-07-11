@@ -56,6 +56,7 @@ io.on('connection', (socket) => {
         await likedPost(data)
     })
     socket.on('followUser',async(data)=>{
+      console.log('I am followUser')
      const resp =  await followUser(data);
      socket.emit('followedUser',resp)
     })

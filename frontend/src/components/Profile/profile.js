@@ -8,7 +8,7 @@ import { getUserProfile } from '../../services/userService';
 import user from '../../images/user.jpeg';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Followers from '../Follower/follower'; 
+import Followers from '../Follower/follower';
 
 export default function Profile() {
   const location = useLocation();
@@ -28,25 +28,32 @@ export default function Profile() {
   const socket = useSelector((state) => state.socket.socket);
   const username = useSelector((state) => state.cookie.username);
   const [getDialog, setGetDialog] = useState(false);
-  const [openConnections,setOpenConnections] = useState()
+  const [openConnections, setOpenConnections] = useState(null);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      const userDetails = await getUserProfile(email);
-      setDetail(userDetails.response);
-      if (email === username.email) {
-        setRealUser(true);
-      } else {
-        setRealUser(false);
+      try {
+        const userDetails = await getUserProfile(email);
+        setDetail(userDetails.response);
+        setIsFollowing(userDetails.response.following);
+
+        if (email === username.email) {
+          setRealUser(true);
+        } else {
+          setRealUser(false);
+        }
+      } catch (error) {
+        console.error('Error fetching user details:', error);
       }
-      setIsFollowing(userDetails.response.following);
     };
     fetchUserDetails();
-  }, [email]);
+  }, [email, username.email]);
+
+  console.log('Following state:', isFollowing);
 
   const handleClick = () => {
     const updatedFollowing = !isFollowing;
-    const updatedDetail = { ...detail, username, following: updatedFollowing };
+    const updatedDetail = { ...detail, following: updatedFollowing };
     setIsFollowing(updatedFollowing);
 
     socket.emit('followUser', updatedDetail);
@@ -62,11 +69,10 @@ export default function Profile() {
   };
 
   const openDialog = (item) => {
-    if(item==='followers' || item==='followings'){
-    setOpenConnections(item)
-    }
-    else {
-      setOpenConnections('')
+    if (item === 'followers' || item === 'followings') {
+      setOpenConnections(item);
+    } else {
+      setOpenConnections(null);
     }
     setGetDialog(!getDialog);
   };
@@ -83,15 +89,15 @@ export default function Profile() {
                 <thead>
                   <tr>
                     <th scope="col"><center>{totalPosts}</center></th>
-                    <th scope="col" style={{ cursor: 'pointer' }} onClick={()=>openDialog('followers')}><center>5</center></th>
-                    <th scope="col" style={{ cursor: 'pointer' }} onClick={()=>openDialog('followings')}><center>5</center></th>
+                    <th scope="col" style={{ cursor: 'pointer' }} onClick={() => openDialog('followers')}><center>{detail?.followers}</center></th>
+                    <th scope="col" style={{ cursor: 'pointer' }} onClick={() => openDialog('followings')}><center>{detail?.followings}</center></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>Posts</td>
-                    <td style={{ cursor: 'pointer' }} onClick={()=>openDialog('followers')}>Followers</td>
-                    <td style={{ cursor: 'pointer' }} onClick={()=>openDialog('followings')}>Followings</td>
+                    <td style={{ cursor: 'pointer' }} onClick={() => openDialog('followers')}>Followers</td>
+                    <td style={{ cursor: 'pointer' }} onClick={() => openDialog('followings')}>Followings</td>
                   </tr>
                 </tbody>
               </table>
@@ -115,7 +121,7 @@ export default function Profile() {
             message={`You are now ${isFollowing ? 'following' : 'unfollowing'} this user.`}
             key={`${state.vertical},${state.horizontal}`}
           />
-          {getDialog && <Followers open={getDialog} onClose={openDialog} connections={openConnections} username={detail.username} />}
+          {getDialog && <Followers open={getDialog} onClose={openDialog} connections={openConnections} username={detail?.username} />}
         </CardContent>
       </Card>
     </div>

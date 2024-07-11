@@ -20,7 +20,7 @@ module.exports = {
       catch(err){
         console.log('Error While searching users',err)
       }
-       
+
     },
     likedPost : async({postid,liked,user})=>{
       const postCollection = mongoose.collection('posts');
@@ -43,6 +43,7 @@ module.exports = {
     },
     followUser : async(data)=>{
       try{
+        console.log('234',data)
         const email = data.email;
         const following = data.following
         const realUseremail = data.username.email;
