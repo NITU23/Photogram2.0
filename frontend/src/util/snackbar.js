@@ -1,20 +1,24 @@
 import Snackbar from '@mui/material/Snackbar';
 import { useState } from 'react';
-function MessageBar (props) {
+
+function MessageBar({ message, open, onClose }) {
     const [state] = useState({
         vertical: 'top',
         horizontal: 'center',
-      });
-      const { vertical, horizontal } = state;
+    });
+
+    const { vertical, horizontal } = state;
+
     return (
-    <div>
-   <Snackbar
+        <Snackbar
             anchorOrigin={{ vertical, horizontal }}
             autoHideDuration={2000}
-            message={props.message}
+            message={message}
             key={vertical + horizontal}
-            open = {true}
-          />
-    </div>)
+            open={open}
+            onClose={onClose}
+        />
+    );
 }
+
 export default MessageBar;

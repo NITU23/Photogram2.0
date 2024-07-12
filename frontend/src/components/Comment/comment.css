@@ -11,10 +11,11 @@
 
 
   .closeButton{
-    float: right;
     cursor: pointer;
-    margin-top: 20px;
-    margin-right: 20px;
+    margin-top: 10px;
+    margin-right: 10px;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .commentImg{
@@ -27,11 +28,13 @@
   .viewAllCommentDiv {
     display: flex;
     flex-direction: column;
-    max-height: 250px;
-    overflow: auto;
   }
   .comment_spinner{
     right: 50%;
     left: 42%;
     position: sticky;
+}
+.comment_delete{
+  margin-left: auto;
+  cursor: pointer;
 }

@@ -58,15 +58,15 @@ function UploadProfilePic() {
       else {
         setShowsnackbar(true)
         setError(response.response.message)
-        setTimeout(()=>{
-          setShowsnackbar(false)
-        },2000)
       }
     }
 
   const handleRemoveFile = () => {
     setFile(null);
     setPreview(null);
+  };
+  const handleSnackbar = () => {
+    setShowsnackbar(false);
   };
 
   return (
@@ -132,7 +132,7 @@ function UploadProfilePic() {
     </div>
     </CardContent>
     </Card>
-   { showSnackbar &&<Errorbar message={error}/>}
+   <Errorbar open={showSnackbar} message={error} onClose={handleSnackbar}/>
     </div>
   );
 }

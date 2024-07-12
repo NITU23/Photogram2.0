@@ -27,9 +27,6 @@ const UpdatePassword = () => {
     if(formData.newpassword!==formData.cnewpassword){
          setShowSnackbar(true)
          setError('New Password Does not match')
-         setTimeout(()=>{
-          setShowSnackbar(false)
-         },2000)
     }
     else {
       let body = {password:formData.password,newpassword:formData.newpassword,cnewpassword:formData.cnewpassword}
@@ -38,21 +35,17 @@ const UpdatePassword = () => {
         setShowSnackbar(true)
         setSuccess('')
         setError(response.response.message)
-         setTimeout(()=>{
-          setShowSnackbar(false)
-         },2000)
       }
       else {
         setShowSnackbar(true)
         setError('')
         setSuccess(response.response.message)
-         setTimeout(()=>{
-          setShowSnackbar(false)
-         },2000)
       }
     }
   };
-
+  const handleSnackbar = () => {
+    setShowSnackbar(false);
+  };
   return (
     <>
     <Box display="flex" justifyContent="center" marginTop="50px">
@@ -102,8 +95,8 @@ const UpdatePassword = () => {
         </CardContent>
       </Card>
     </Box>
-    {(showSnackbar && error!=='' && success==='') && <Errorbar message={error} />}
-    {(showSnackbar && error==='' && success!=='' ) && <MessageBar message={success} />}
+    <Errorbar open={showSnackbar && error!=='' && success===''} message={error} onClose={handleSnackbar} />
+     <MessageBar open={showSnackbar && error==='' && success!==''} message={success} onClose={handleSnackbar}/>
     </>
   );
 };

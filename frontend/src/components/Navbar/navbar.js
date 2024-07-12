@@ -6,12 +6,12 @@ import MenuItem from '@mui/material/MenuItem';
 import { IoIosNotificationsOutline, IoIosSearch } from 'react-icons/io';
 import Notification from '../Notification/notification';
 import { useNavigate } from 'react-router-dom';
-import MessageBar from '../../util/snackbar';
 import { checkCookie } from '../../redux/checklogin';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserProfile } from '../../services/userService';
 import user from '../../images/user.jpeg';
 import SearchUser from '../SearchUser/searchUser';
+import Errorbar from '../../util/errorSnackbar';
 
 
 
@@ -63,9 +63,6 @@ function Navbar() {
       dispatch(checkCookie());
       navigate('/login');
     }
-    setTimeout(() => {
-      setShowsnackbar(false);
-    }, 2000);
   };
 
   useEffect(() => {
@@ -83,7 +80,7 @@ function Navbar() {
       fetchUserDetails();
     }
   }, [cookieExists]);
-    
+
   const getUsers = (event) => {
     let searchValue = event.target.value;
     if (searchValue.length > 3) {
@@ -95,6 +92,9 @@ function Navbar() {
     else (
       setSearchUser([])
     )
+  };
+  const handleSnackbar = () => {
+    setShowsnackbar(false);
   };
   return (
     <>
@@ -146,7 +146,7 @@ function Navbar() {
       )}
       <div className='notificationSection'>
         {openNotification && <Notification />}
-        {showSnackbar && <MessageBar message='Unable to logout' />}
+         <Errorbar open = {showSnackbar} message='Unable to logout' onClose={handleSnackbar} />
       </div>
     </>
   );

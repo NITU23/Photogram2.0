@@ -14,7 +14,6 @@ function CreatePost() {
   const [spinner, setSpinner] = useState(false);
   const [error, setError] = useState('');
   const [showSnackbar, setShowSnackbar] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const handleChange = (e) => {
     setCaption(e.target.value);
@@ -28,24 +27,30 @@ function CreatePost() {
     setSpinner(true);
     let body = { file, caption, location };
 
-    const response = await createPosts(JSON.stringify(body));
-    if (response.status !== 200) {
+    try {
+      const response = await createPosts(JSON.stringify(body));
+      if (response.status !== 200) {
+        setError(response.posts.message);
+      } else {
+        setCaption('');
+        setLocation('');
+        setError('');
+      }
+    } catch (err) {
+      setError("An error occurred while creating the post.");
+    } finally {
       setShowSnackbar(true);
-      setError(response.posts.message);
-      setSuccess(false);
-    } else {
-      setShowSnackbar(true);
-      setCaption('');
-      setLocation('');
-      setError('');
-      setSuccess(true);
+      setSpinner(false);
     }
-    setSpinner(false);
+  }
+
+  const handleSnackbarClose = () => {
+    setShowSnackbar(false);
   }
 
   return (
     <div className="postCard">
-      <Card sx={{ maxWidth: 700 }} >
+      <Card sx={{ maxWidth: 700 }}>
         <CardContent>
           <DragDrop onFilesSelected={setFiles} />
           <TextField
@@ -55,12 +60,12 @@ function CreatePost() {
               <TextField
             fullWidth multiline
             rows ={2} label="Location (Optional)" name="Location" value={location} onChange={handleLocation} variant="outlined" className="captionBox"/>
-          <div className="spinnerButton"> <button className="postbtn" onClick={clickPost} >Post</button>
+<div className="spinnerButton"> <button className="postbtn" onClick={clickPost} >Post</button>
             { spinner && <CircularProgress className="spinner" />}</div>
         </CardContent>
       </Card>
-      <Errorbar open={error !== '' && showSnackbar} message={error} />
-      <MessageBar open={showSnackbar && error === ''} message='Post has been created Successfully.' />
+      <Errorbar open={error !== '' && showSnackbar} message={error} onClose={handleSnackbarClose} />
+      <MessageBar open={showSnackbar && error === ''} message='Post has been created successfully.' onClose={handleSnackbarClose} />
     </div>
   );
 }

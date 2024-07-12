@@ -116,10 +116,10 @@ module.exports = {
       );
       await Post.findByIdAndDelete(postid);
       console.log("Post Successfully Deleted");
-      res.status(200).send({ message: "Post Successfully deleted" });
+      res.status(200).send({ message: "Post Successfully deleted." });
     } catch (err) {
       console.log("Error While Deleting Post", err);
-      res.status(400).send({ message: "Error While Deleting Your Post" });
+      res.status(400).send({ message: "Error While Deleting Your Post." });
     }
   },
   addComment: async (req, res) => {
@@ -136,11 +136,10 @@ module.exports = {
         { $push: { comments: newComment } },
         { new: true }
       );
-
       res.status(200).send({ msg: "Comment has been added successfully." });
     } catch (err) {
       console.error("Error while adding comment:", err);
-      res.status(500).send({ msg: "Error while adding comment" });
+      res.status(500).send({ msg: "Error while adding comment." });
     }
   },
   getComments: async (req, res) => {
@@ -157,6 +156,7 @@ module.exports = {
             username: item.user.username,
             profile: item.user?.profilePicture,
             comment: item.comment,
+            id:item._id
           });
         }
       }
@@ -167,4 +167,18 @@ module.exports = {
       res.status(400).send("Error While Getting Comments.");
     }
   },
+  deleteComments : async(req,res)=>{
+    try{
+      let commentId = req.query.commentid
+      await Post.updateOne(
+        { _id: mongoose.Types.ObjectId(id) },
+        { $pull: { comments: { _id: mongoose.Types.ObjectId(commentId) } } }
+      );
+      res.status(200).send({ msg: 'Comment deleted successfully.' });
+    }
+    catch(err){
+      console.log('Error While deleting comments.',err)
+      res.status(400).send({msg:'Error while deleting comments.'})
+    }
+  }
 };

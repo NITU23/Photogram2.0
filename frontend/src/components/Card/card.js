@@ -10,6 +10,8 @@ import { deletePost } from "../../services/postService";
 import user from "../../images/user.jpeg";
 import Like from "../Like/like";
 import { addComments } from "../../services/postService";
+import Errorbar from "../../util/errorSnackbar";
+import MessageBar from "../../util/snackbar";
 
 function Card(props) {
   const {caption,location,file,username,profile,postid,realUser,socket,like,likedUsers} = props;
@@ -17,6 +19,9 @@ function Card(props) {
   const [showLikedComponent, setShowLikedComponent] = useState(false);
   const [liked,setLiked] = useState(like)
   const [comment,setComment] = useState('')
+  const [showSnackbar,setShowSnackbar] = useState(false);
+  const [message,setMessage] = useState('')
+  const [error,setError] = useState('')
   const setClick = () => {
     socket.emit("like", { postid: postid, liked: !liked, user: realUser });
     liked=== true ? setLiked(false) : setLiked(true);
@@ -45,7 +50,16 @@ function Card(props) {
     else{
       body = JSON.stringify({postid,comment})
     }
-    await addComments(body)
+   let response =  await addComments(body)
+   if(response.status===200){
+    setError('')
+    setShowSnackbar(true);
+    setMessage(response.message.msg)
+   }else {
+    setShowSnackbar(true)
+    setMessage('')
+    setError(response.message.msg)
+   }
      setComment('')
   }
   const handleComment = (event) =>{
@@ -56,6 +70,9 @@ function Card(props) {
       addComment();
     }
   };
+  const handleSnackbarClose = () => {
+    setShowSnackbar(false);
+  }
 
   return (
     <div>
@@ -114,7 +131,7 @@ function Card(props) {
                       onChange={handleComment}
                       value ={comment}
                     />
-                    <button className="post" onClick={addComment}>Post</button>
+                    <button className="post" onClick={()=>addComment(comment)}>Post</button>
                   </div>
                 )}
               </div>
@@ -137,6 +154,9 @@ function Card(props) {
           )}
         </div>
       </div>
+      <Errorbar open={error !== '' && showSnackbar} message={error} onClose={handleSnackbarClose} />
+      <MessageBar open={showSnackbar && error === ''} message={message} onClose={handleSnackbarClose} />
+
     </div>
   );
 }
