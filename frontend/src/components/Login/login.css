@@ -11,3 +11,6 @@ justify-content: center;
     margin-top: -20px;
     margin-left: 6px;
 }
+button:disabled{
+    cursor: none;
+}

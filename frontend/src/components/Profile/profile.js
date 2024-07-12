@@ -49,11 +49,9 @@ export default function Profile() {
     fetchUserDetails();
   }, [email, username.email]);
 
-  console.log('Following state:', isFollowing);
-
   const handleClick = () => {
     const updatedFollowing = !isFollowing;
-    const updatedDetail = { ...detail, following: updatedFollowing };
+    const updatedDetail = { ...detail, following: updatedFollowing,realuser:username.email };
     setIsFollowing(updatedFollowing);
 
     socket.emit('followUser', updatedDetail);

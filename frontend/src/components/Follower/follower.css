@@ -6,9 +6,9 @@
     border-radius: 20px;
 }
 .follower_spinner {
-    display: block;
-    margin: 0 auto; 
-    margin-top: 20px; 
+    position: relative; 
+    top: 50%; 
+    left: 50%; 
 }
 .follower_photo {
     width: 50px;
@@ -26,4 +26,11 @@
     border: none;
     height: 23px;
     width: 80px;
+}
+.follower_userContainer {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    overflow: auto;
+    max-height: 200px;
 }

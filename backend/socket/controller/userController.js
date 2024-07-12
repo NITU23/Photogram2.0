@@ -46,7 +46,7 @@ module.exports = {
         console.log('234',data)
         const email = data.email;
         const following = data.following
-        const realUseremail = data.username.email;
+        const realUseremail = data.realuser;
         const userCollection = mongoose.collection('users');
         let user = await userCollection.findOne({email:email},{ projection: { _id:1 }});
         let realUser = await userCollection.findOne({email:realUseremail})

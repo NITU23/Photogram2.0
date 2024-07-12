@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import { getConnectedPeople } from '../../services/userService';
 import userimg from '../../images/user.jpeg';
 import './follower.css';
 import CircularProgress from '@mui/material/CircularProgress';
+import { IoCloseSharp } from "react-icons/io5";
 
 const Followers = ({ open, onClose, connections, username }) => {
     const [userDetails, setUserDetails] = useState([]);
@@ -30,16 +30,22 @@ const Followers = ({ open, onClose, connections, username }) => {
     const capitalizeFirstLetter = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
+
     return (
-        <Dialog open={open} onClose={onClose}>
-            <DialogTitle>{capitalizeFirstLetter(connections)}</DialogTitle>
+        <Dialog open={open} onClose={onClose} >
+            <DialogTitle style={{ marginTop: '10px' }}>
+                {capitalizeFirstLetter(connections)}
+                <Button onClick={onClose} style={{ float: 'right', color: 'black', minWidth:'max-content' }}>
+                    <IoCloseSharp />
+                </Button>
+            </DialogTitle>
             <DialogContent>
                 {loader ? (
                     <div><CircularProgress className="follower_spinner" /></div>
                 ) : (
                     userDetails.length > 0 ? (
                         userDetails.map((user, index) => (
-                            <div key={index} className="userContainer">
+                            <div key={index} className="follower_userContainer">
                                 <div className="userPhoto">
                                     <img
                                         className="follower_photo"
@@ -64,11 +70,6 @@ const Followers = ({ open, onClose, connections, username }) => {
                     )
                 )}
             </DialogContent>
-            <DialogActions>
-                <Button onClick={onClose} className=''>
-                    Close
-                </Button>
-            </DialogActions>
         </Dialog>
     );
 };

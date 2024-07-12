@@ -59,6 +59,7 @@ function Navbar() {
       setAnchorEl(null);
     } else {
       setAnchorEl(null);
+      socket.disconnect()
       dispatch(checkCookie());
       navigate('/login');
     }

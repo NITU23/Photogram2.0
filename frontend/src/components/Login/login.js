@@ -129,7 +129,7 @@ const LoginComponent = () => {
               />
             </Box>
             <Box display="flex" justifyContent="center" mt={2}>
-              <button type="submit" className='password'>
+              <button type="submit" disabled={loading} className='password'>
               {signUp===true?'Sign Up':'Login'}
               </button>
              <div className='spinnerDiv'>
