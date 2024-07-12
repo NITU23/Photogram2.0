@@ -2,7 +2,6 @@ import "./card.css";
 import { PiHeart } from "react-icons/pi";
 import { FaHeart } from "react-icons/fa";
 import { FaRegComment } from "react-icons/fa";
-import { FiSend } from "react-icons/fi";
 import { useState } from "react";
 import Name from "../Name/name";
 import Comment from "../Comment/comment";
@@ -90,7 +89,6 @@ function Card(props) {
                   <FaHeart className="liked actions" onClick={setClick} />
                 )}
                 <FaRegComment className="like comment actions" onClick={setAddComments} />
-                <FiSend className="like comment" />
               </div>
               <div>
                 <span className="viewComment" onClick={viewLikes}>

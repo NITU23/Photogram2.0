@@ -1,25 +1,30 @@
 import Snackbar from '@mui/material/Snackbar';
-import { useState } from 'react';
 import SnackbarContent from '@mui/material/SnackbarContent';
-function Errorbar (props) {
-    const [state] = useState({
-        vertical: 'bottom',
-        horizontal: 'center',
-      });
-      const { vertical, horizontal } = state;
-    return (
+import { useState } from 'react';
+
+function Errorbar(props) {
+  const [open, setOpen] = useState(true); 
+
+  const handleClose = () => {
+    setOpen(false); 
+  };
+
+  const { vertical, horizontal } = { vertical: 'bottom', horizontal: 'center' };
+
+  return (
     <div>
-  <Snackbar
-    anchorOrigin={{ vertical, horizontal }}
-    autoHideDuration={2000}
-    key={vertical + horizontal}
-    open={true}
->
-    <SnackbarContent
-        style={{ backgroundColor: 'orangered', color: 'white' }}
-        message={props.message}
-    />
-</Snackbar>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        autoHideDuration={2000}
+        key={vertical + horizontal}
+        open={open && props.open} 
+        onClose={handleClose}
+      >
+        <SnackbarContent
+          style={{ backgroundColor: 'orangered', color: 'white' }}
+          message={props.message}
+        />
+      </Snackbar>
     </div>)
 }
 export default Errorbar;
