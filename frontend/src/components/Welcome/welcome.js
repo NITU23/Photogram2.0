@@ -6,9 +6,8 @@ import ShimmerLayout from "../Shimmer/shimmer";
 import { useSelector } from 'react-redux';
 
 function Welcome() {
-  
   const socket = useSelector((state) => state.socket.socket);
-  
+
    const [allPost,setAllPost] = useState([])
    const [reload,setReload] = useState(false)
    const [apiCalled,setApiCalled] = useState();

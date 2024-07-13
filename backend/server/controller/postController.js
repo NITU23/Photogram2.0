@@ -69,10 +69,12 @@ module.exports = {
       });
       const savedFile = await newFile.save();
       const postId = savedFile._id;
-      const user = await User.findOne({ username: username });
 
-      user.posts.push(postId);
-      await user.save();
+      await User.updateOne(
+        { username: username },
+        { $push: { posts: postId } }
+      );
+
       console.log("Post Created Successfully.");
       res.status(200).send(savedFile);
     } catch (err) {
@@ -80,6 +82,7 @@ module.exports = {
       res.status(400).send({ message: "Error while Creating Post." });
     }
   },
+
 
 
   fetchUserPosts: async (req, res, next) => {

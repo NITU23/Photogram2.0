@@ -6,3 +6,34 @@
     right: 0;
     bottom: 0;
   }
+
+body, html, #root, .App {
+    height: 100%;
+    margin: 0;
+  }
+
+  .App {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  main {
+    margin-top: 60px;
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .chat {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+  }
+

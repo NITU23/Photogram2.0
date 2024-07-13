@@ -45,7 +45,7 @@ return (
     <div>
         <div className='searchBox'>
         <IoIosSearch />
-        <input placeholder='Type Here To Search'  onChange={getUsers} className='searchBar'/>
+        <input placeholder='Type Here To Search'  onChange={getUsers} className='searchBar' autoComplete="off"/>
     </div>
     {users && users.map((item, index) => (
       <div key={index} className='namePhotoDiv' onClick={() => openMessage(item)}>
@@ -58,7 +58,7 @@ return (
         </div>
       </div>
     ))}
-    {!users && 
+    {!users &&
     <div>No Users Found</div>}
       <hr />
     </div>

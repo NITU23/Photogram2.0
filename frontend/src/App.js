@@ -7,7 +7,7 @@ import './css/app.css';
 import ViewMyPost from './components/ViewMyPost/viewMyPost';
 import Chat from './components/Chat/chat';
 import UpdateProfile from './components/UpdateProfile/updateProfile';
-import Login from './components/Login/login'
+import Login from './components/Login/login';
 import CreatePost from './components/CreatePost/createPost';
 import UploadProfilePic from './components/UpdateProfilePic/uploadProfilePic';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,12 +16,14 @@ import { checkCookie } from './redux/checklogin';
 function App() {
   const dispatch = useDispatch();
   const cookieExists = useSelector((state) => state.cookie.cookieExists);
-    useEffect(() => {
+
+  useEffect(() => {
     dispatch(checkCookie());
   }, [dispatch]);
+
   return (
     <div className="App">
-      <Navbar />
+      <Navbar className="navbar" />
       <main>
         <Routes>
           {cookieExists ? (
@@ -33,7 +35,7 @@ function App() {
               <Route path="/createPost" element={<CreatePost />} />
               <Route path="/uploadProfile" element={<UploadProfilePic />} />
               <Route path="/" element={<Navigate to="/welcome" />} />
-              <Route path="*" element={<Navigate to="/welcome" />} />
+              {/* <Route path="*" element={<Navigate to="/welcome" />} /> */}
             </>
           ) : (
             <>

@@ -107,17 +107,18 @@ function Navbar() {
             <div>
               <button className='button postButton' onClick={createPost}>Create A Post</button>
             </div>
-            <div className='searchBox'>
+            <div className='navbar_searchBox'>
               <IoIosSearch style={{ marginTop: "10px" }} />
               <input
                 placeholder='Type Here To Search Users'
                 onChange={getUsers}
                 className='searchBar'
+                autoComplete="off"
               />
             </div>
-            <div className='notificationDiv'>
+            {/* <div className='notificationDiv'>
               <IoIosNotificationsOutline className='notificationBell' onClick={getNotifications} />
-            </div>
+            </div> */}
             <img
               className='profilePhoto'
               onClick={handleClick}

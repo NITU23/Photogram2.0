@@ -6,7 +6,11 @@
     background-image: linear-gradient(0deg, #D9AFD9 0%, #97D9E1 100%);
     display: flex;
     width: 100%;
+    position: fixed;
+  top: 0;
+  z-index: 1000;
 }
+
 
 .link {
     color: black;
@@ -67,9 +71,20 @@
     overflow-y: auto;
     width: 21.2%;
     margin-left: auto;
-    margin-right: 11.5vw;
+    margin-right: 7vw;
   }
 
   .notificationSection {
     position: relative;
   }
+
+
+.navbar_searchBox{
+  display: flex;
+    border: 1px solid gray;
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 10px;
+    background: white;
+    margin-right: 20px;
+    height: 35px;}

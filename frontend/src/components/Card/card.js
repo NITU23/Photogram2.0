@@ -130,6 +130,7 @@ function Card(props) {
                       onKeyDown={_handleKeyDown}
                       onChange={handleComment}
                       value ={comment}
+                      autoComplete="off"
                     />
                     <button className="post" onClick={()=>addComment(comment)}>Post</button>
                   </div>

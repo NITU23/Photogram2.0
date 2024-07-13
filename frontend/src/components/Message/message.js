@@ -30,12 +30,12 @@ const Message = (props) => {
 
   useEffect(() => {
 
-      const newSocket = io(SOCKET_SERVER_URL);
-      setSocket(newSocket);
+    const newSocket = io(SOCKET_SERVER_URL);
+    setSocket(newSocket);
 
-      return () => {
-        newSocket.disconnect();
-      };
+    return () => {
+      newSocket.disconnect();
+    };
   }, [receiverDetails.email]);
   useEffect(() => {
     if (chatBoxRef.current) {
@@ -119,7 +119,7 @@ const Message = (props) => {
                   <p>{receiverDetails.firstName} {receiverDetails.lastName}</p>
                 </div>
                 <div className="chatBox" ref={chatBoxRef}>
-              
+
                   {previousMessages && previousMessages.length > 0 ? (
                     previousMessages.map((msg, index) => (
                       msg.sender === 'receiver' ? (
@@ -129,15 +129,14 @@ const Message = (props) => {
                       )
                     ))
                   ) : (
-                    <p className="noChat">There are no messages to show. Start a new chat to connect!</p>
+                    messages.length === 0 && <p className="noChat">There are no messages to show. Start a new chat to connect!</p>
                   )}
-
 
                   {messages.map((msg, index) => (
                     msg.sender !== username.email ? (
                       <RecievedMsg key={index} message={msg.message} />
                     ) : (
-                      <SendMsg key={index} message={msg.message}  />
+                      <SendMsg key={index} message={msg.message} />
                     )
                   ))}
                 </div>
@@ -157,6 +156,7 @@ const Message = (props) => {
                     value={message}
                     onChange={handleChange}
                     onKeyDown={_handleKeyDown}
+                    autoComplete="off"
                   />
                   <button className="post" onClick={sendMessage}>
                     Send

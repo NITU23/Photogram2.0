@@ -129,6 +129,7 @@ export default function Comment(props) {
                   onKeyDown={_handleKeyDown}
                   value={writeComment}
                   onChange={handleChange}
+                  autoComplete="off"
                 />
                 <button className='post' onClick={submit}>Post</button>
               </div>

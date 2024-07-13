@@ -51,6 +51,7 @@ module.exports = {
             let item = senderChat[key];
             finalChatArray.push({ sender: 'you', message: item.text, time: item.timestamp });
         }
+        console.log('Sent previous messages')
       finalChatArray = finalChatArray.sort((a, b) => {
         return new Date(a.time) - new Date(b.time);
       });
