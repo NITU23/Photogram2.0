@@ -67,14 +67,14 @@ module.exports = {
     response = await response.json();
     return response;
   },
-  deleteComments : async(id) =>{
-    let url = `http://localhost:3001/api/post/deleteComment?commentid=${id}`;
+  deleteComments : async(id,postid) =>{
+    let url = `http://localhost:3001/api/post/deleteComment?commentid=${id}&postid=${postid}`;
     let response = await fetch(url, {
       method: "DELETE",
       headers: headers,
       credentials: "include",
     });
-    response = await response.json();
+    response = {status:response.status,message:await response.json()}
     return response;
   }
 };

@@ -150,6 +150,7 @@ module.exports = {
       ).populate("comments.user", "username profilePicture");
       let parsedData = JSON.parse(JSON.stringify(comments.comments));
       let commentUserArray = [];
+      let findUser = await User.findOne({ email: req.email },'profilePicture');
       for (let item of parsedData) {
         if (Object.hasOwn(item, "user")) {
           commentUserArray.push({
@@ -161,7 +162,7 @@ module.exports = {
         }
       }
       console.log('Comments has been fetched successfully.')
-      res.status(200).send({ comments: commentUserArray });
+      res.status(200).send({ comments: commentUserArray,profile:findUser.profilePicture });
     } catch (err) {
       console.error("Error While getting comments", err);
       res.status(400).send("Error While Getting Comments.");
@@ -170,11 +171,29 @@ module.exports = {
   deleteComments : async(req,res)=>{
     try{
       let commentId = req.query.commentid
+      let id = req.query.postid
       await Post.updateOne(
-        { _id: mongoose.Types.ObjectId(id) },
-        { $pull: { comments: { _id: mongoose.Types.ObjectId(commentId) } } }
+        { _id: id },
+        { $pull: { comments: { _id: commentId } } }
       );
-      res.status(200).send({ msg: 'Comment deleted successfully.' });
+      const comments = await Post.findOne(
+        { _id: id },
+        { comments: 1 }
+      ).populate("comments.user", "username profilePicture");
+      let parsedData = JSON.parse(JSON.stringify(comments.comments));
+      let commentUserArray = [];
+      for (let item of parsedData) {
+        if (Object.hasOwn(item, "user")) {
+          commentUserArray.push({
+            username: item.user.username,
+            profile: item.user?.profilePicture,
+            comment: item.comment,
+            id:item._id
+          });
+        }
+      }
+      console.log('Comment has been deleted.')
+      res.status(200).send({comments:commentUserArray});
     }
     catch(err){
       console.log('Error While deleting comments.',err)

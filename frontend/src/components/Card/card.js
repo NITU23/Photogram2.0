@@ -144,6 +144,7 @@ function Card(props) {
                 getCommentVar={getData}
                 postid={postid}
                 addComment={addComment}
+                username={realUser}
               />
             </div>
           )}

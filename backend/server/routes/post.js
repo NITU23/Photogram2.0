@@ -20,6 +20,6 @@ router.post('/createPost',auth,upload.single('file'),createPost)
 router.get('/getUserPosts',auth,fetchUserPosts)
 router.delete('/deletePost',auth,deletePost)
 router.post('/addComment',auth,addComment)
-router.get('/getComments',getComments)
-router.delete('deleteComment',auth,deleteComments)
+router.get('/getComments',auth,getComments)
+router.delete('/deleteComment',deleteComments)
 module.exports = router;
