@@ -35,12 +35,13 @@ function App() {
               <Route path="/createPost" element={<CreatePost />} />
               <Route path="/uploadProfile" element={<UploadProfilePic />} />
               <Route path="/" element={<Navigate to="/welcome" />} />
-              {/* <Route path="*" element={<Navigate to="/welcome" />} /> */}
+              <Route path="*" element={<Navigate to="/welcome" />} />
             </>
           ) : (
             <>
+             <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
-              <Route path="*" element={<Navigate to="/login" />} />
+              {/* <Route path="*" element={<Navigate to="/login" />} /> */}
             </>
           )}
         </Routes>

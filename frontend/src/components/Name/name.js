@@ -1,6 +1,7 @@
 import './name.css'
 import user from '../../images/user.jpeg'
 function Name(props) {
+  console.log('er',props)
   return (
 
       <div className='profile' >
