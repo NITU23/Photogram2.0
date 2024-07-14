@@ -8,8 +8,10 @@ import userimg from '../../images/user.jpeg';
 import './follower.css';
 import CircularProgress from '@mui/material/CircularProgress';
 import { IoCloseSharp } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
 
 const Followers = ({ open, onClose, connections, username }) => {
+    const navigate = useNavigate()
     const [userDetails, setUserDetails] = useState([]);
     const [loader, setLoader] = useState(false);
     const [apiCalled, setApiCalled] = useState(false);
@@ -31,6 +33,11 @@ const Followers = ({ open, onClose, connections, username }) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
+    const viewProfile =(username) =>{
+        onClose();
+     navigate(`/profile/${username}`)
+    }
+
     return (
         <Dialog open={open} onClose={onClose} >
             <DialogTitle style={{ marginTop: '10px' }}>
@@ -46,7 +53,7 @@ const Followers = ({ open, onClose, connections, username }) => {
                     userDetails.length > 0 ? (
                         userDetails.map((user, index) => (
                             <div key={index} className="follower_userContainer">
-                                <div className="userPhoto">
+                                <div className="userPhoto" onClick={()=>viewProfile(user.email)}>
                                     <img
                                         className="follower_photo"
                                         src={
@@ -54,10 +61,10 @@ const Followers = ({ open, onClose, connections, username }) => {
                                                 ? `data:image/png;base64,${user.profile}`
                                                 : userimg
                                         }
-                                        alt={user.username}
+                                        alt={user.email}
                                     />
                                 </div>
-                                <div className="userInfo">
+                                <div className="userInfo" onClick={()=>viewProfile(user.email)}>
                                     <div className="like_username">
                                         <span>{user.firstName} {user.lastName}</span>
                                     </div>

@@ -4,10 +4,12 @@ import { IoIosSearch } from "react-icons/io";
 import { fetchUser } from '../../services/userService';
 import user from '../../images/user.jpeg'
 import { useSelector } from 'react-redux';
+import { getConnectedPeople } from '../../services/userService';
 
 function ChatwithUser (props) {
     const [showMessageDialog] = useState(false);
-    const [users,setUsers] = useState('')
+    const [users,setUsers] = useState([])
+    const [connections] = useState('followings')
     const openMessage = details =>{
       showMessageDialog===true ? props.showChat(false) : props.showChat(true)
       props.userDetail(details)
@@ -15,8 +17,9 @@ function ChatwithUser (props) {
     const socket = useSelector((state) => state.socket.socket);
   useEffect(()=>{
     const fetchUsers = async () => {
-      let allUsers = await fetchUser();
-      setUsers(allUsers)
+      let body =JSON.stringify( {connections})
+      let allUsers = await getConnectedPeople(body);
+      setUsers(allUsers.response)
     };
     fetchUsers();
   },[])
@@ -35,7 +38,7 @@ function ChatwithUser (props) {
     }
     else {
       const fetchUsers = async () => {
-        let allUsers = await fetchUser();
+        let allUsers = await getConnectedPeople('followings');
         setUsers(allUsers)
       };
       fetchUsers();
@@ -47,7 +50,7 @@ return (
         <IoIosSearch />
         <input placeholder='Type Here To Search'  onChange={getUsers} className='searchBar' autoComplete="off"/>
     </div>
-    {users && users.map((item, index) => (
+    {users!='' && users?.map((item, index) => (
       <div key={index} className='namePhotoDiv' onClick={() => openMessage(item)}>
         <div>
           <img alt='userprofile' className='photo'

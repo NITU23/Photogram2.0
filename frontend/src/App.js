@@ -30,7 +30,6 @@ function App() {
             <>
               <Route path="/welcome" element={<Welcome />} />
               <Route path="/profile/:email" element={<Profile />} />
-              <Route path="/viewPost" element={<ViewMyPost />} />
               <Route path="/updateprofile" element={<UpdateProfile />} />
               <Route path="/createPost" element={<CreatePost />} />
               <Route path="/uploadProfile" element={<UploadProfilePic />} />

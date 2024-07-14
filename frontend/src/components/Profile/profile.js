@@ -119,7 +119,7 @@ export default function Profile() {
             message={`You are now ${isFollowing ? 'following' : 'unfollowing'} this user.`}
             key={`${state.vertical},${state.horizontal}`}
           />
-          {getDialog && <Followers open={getDialog} onClose={openDialog} connections={openConnections} username={detail?.username} />}
+          {getDialog && <Followers open={getDialog} onClose={openDialog} connections={openConnections} username={detail?.email} />}
         </CardContent>
       </Card>
     </div>

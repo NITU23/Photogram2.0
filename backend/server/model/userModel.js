@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// const Post = require('./postModel');
 
 const Schema = mongoose.Schema;
 
@@ -46,7 +47,8 @@ const userSchema = new Schema({
     },
     posts: [
         {
-            post_id: String,
+            type:mongoose.Schema.Types.ObjectId,
+            ref:'posts'
         },
     ],
     chats: {

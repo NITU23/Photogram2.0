@@ -9,6 +9,7 @@
 .userPhoto {
     flex: 0 0 auto;
     margin-right: 15px;
+    cursor: pointer;
 }
 
 .like_photo {
@@ -21,6 +22,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .like_username {

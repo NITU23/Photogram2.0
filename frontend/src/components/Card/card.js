@@ -22,6 +22,8 @@ function Card(props) {
   const [showSnackbar,setShowSnackbar] = useState(false);
   const [message,setMessage] = useState('')
   const [error,setError] = useState('')
+  const [deleteSnackbar,setDeleteSnackbar] = useState(false)
+
   const setClick = () => {
     socket.emit("like", { postid: postid, liked: !liked, user: realUser });
     liked=== true ? setLiked(false) : setLiked(true);
@@ -34,6 +36,7 @@ function Card(props) {
   };
   const deletePhoto = async () => {
     await deletePost(props.postid);
+    setDeleteSnackbar(true)
     props.load(true);
   };
   const viewLikes = () => {
@@ -72,6 +75,10 @@ function Card(props) {
   };
   const handleSnackbarClose = () => {
     setShowSnackbar(false);
+
+  }
+  const handleDeleteSnackbarClose = ()=>{
+   setDeleteSnackbar(false)
   }
 
   return (
@@ -158,7 +165,7 @@ function Card(props) {
       </div>
       <Errorbar open={error !== '' && showSnackbar} message={error} onClose={handleSnackbarClose} />
       <MessageBar open={showSnackbar && error === ''} message={message} onClose={handleSnackbarClose} />
-
+      <MessageBar open={deleteSnackbar && error === ''} message={'Post has been deleted.'} onClose={handleDeleteSnackbarClose} />
     </div>
   );
 }

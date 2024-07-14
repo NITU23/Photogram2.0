@@ -101,7 +101,10 @@ const getUserProfile = async (req, res) => {
     } else {
       email = req.email;
     }
-    let findUser = await User.findOne({ email: email });
+    let findUser = await User.findOne({ email: email })
+    if(findUser===null){
+      findUser = await User.findOne({username:email});
+    }
     let realUser = await User.findOne({ email: req.email });
     let isFollowing = realUser.followings.includes(findUser._id);
 
@@ -149,28 +152,32 @@ const updatePassword = async (req, res) => {
 const getConnectedPeople = async (req, res) => {
   try {
     let body = req.query.body;
+
     body = JSON.parse(body);
-    let username = body.username;
+    let username = body?.username;
+    if(username===undefined){
+      username = req.email
+    }
     let connectionType = body.connections;
 
     let findConnections;
     if (connectionType === "followings") {
       findConnections = await User.findOne(
-        { username: username },
+        { email: username },
         { followings: 1 }
       );
     } else if (connectionType === "followers") {
       findConnections = await User.findOne(
-        { username: username },
+        { email: username },
         { followers: 1 }
       );
     }
-
+    let users = [];
     if (!findConnections) {
-      return res.status(404).send({ msg: "No connections found." });
+      return res.status(200).send(users );
     }
 
-    let users = [];
+
     let connectionsArray =
       connectionType === "followings"
         ? findConnections.followings
@@ -182,9 +189,9 @@ const getConnectedPeople = async (req, res) => {
         firstName: user.firstName,
         lastName: user.lastName,
         profile: user.profilePicture,
+        email:user.email
       });
     }
-
     res.status(200).send(users);
   } catch (err) {
     console.log("Error while getting connected people.", err);
