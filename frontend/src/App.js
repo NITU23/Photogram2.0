@@ -16,7 +16,6 @@ import { checkCookie } from './redux/checklogin';
 function App() {
   const dispatch = useDispatch();
   const cookieExists = useSelector((state) => state.cookie.cookieExists);
-
   useEffect(() => {
     dispatch(checkCookie());
   }, [dispatch]);

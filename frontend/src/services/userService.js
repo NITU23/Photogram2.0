@@ -2,9 +2,12 @@ const headers = {
     'Content-Type': 'application/json',
     "Accept": "application/json",
    }
+
+const baseURL = process.env.REACT_APP_BACKEND;
+
    module.exports = {
     fetchUser : async () => {
-        let url = `http://localhost:3001/api/user/getUsers`;
+        let url = `${baseURL}/user/getUsers`;
         let users = await fetch(url, {
             method: 'GET',
             headers: headers,
@@ -14,7 +17,7 @@ const headers = {
         return users;
     },
     setProfilePic : async(file) =>{
-        let url = `http://localhost:3001/api/user/setProfile`;
+        let url = `${baseURL}/user/setProfile`;
         let response= await fetch(url, {
             method: 'POST',
             headers: headers,
@@ -24,7 +27,7 @@ const headers = {
         return {response:await response.json(),status:response.status};
     },
     getUserProfile : async(email)=>{
-        let url = `http://localhost:3001/api/user/getUserProfile?email=${email}`;
+        let url = `${baseURL}/user/getUserProfile?email=${email}`;
         let response= await fetch(url, {
             method: 'GET',
             headers: headers,
@@ -33,7 +36,7 @@ const headers = {
         return {response:await response.json(),status:response.status};
     },
     updatePassword : async(body)=>{
-        let url = `http://localhost:3001/api/user/updatePassword`;
+        let url = `${baseURL}/user/updatePassword`;
         let response= await fetch(url, {
             method: 'POST',
             headers: headers,
@@ -43,7 +46,7 @@ const headers = {
         return {response:await response.json(),status:response.status};
     },
     getConnectedPeople:async(body)=>{
-        let url = `http://localhost:3001/api/user/getConnectedPeople?body=${body}`;
+        let url = `${baseURL}/user/getConnectedPeople?body=${body}`;
         let response= await fetch(url, {
             method: 'GET',
             headers: headers,

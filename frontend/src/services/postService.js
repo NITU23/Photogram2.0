@@ -1,9 +1,12 @@
 const headers = {
   "Content-Type": "application/json",
 };
+
+const baseURL = process.env.REACT_APP_BACKEND;
+console.log('234',baseURL)
 module.exports = {
   createPosts: async (body) => {
-    let url = "http://localhost:3001/api/post/createPost";
+    let url = `${baseURL}/post/createPost`;
     let posts = await fetch(url, {
       method: "POST",
       credentials: "include",
@@ -17,7 +20,7 @@ module.exports = {
     return posts;
   },
   fetchPosts: async () => {
-    let url = "http://localhost:3001/api/post/allImage";
+    let url = `${baseURL}/post/allImage`;
     let posts = await fetch(url, {
       method: "GET",
       headers: headers,
@@ -27,7 +30,7 @@ module.exports = {
     return posts;
   },
   fetchUserPosts: async (username) => {
-    let url = `http://localhost:3001/api/post/getUserPosts/?username=${username}`;
+    let url = `${baseURL}/post/getUserPosts/?username=${username}`;
     let posts = await fetch(url, {
       method: "GET",
       headers: headers,
@@ -37,7 +40,7 @@ module.exports = {
     return posts;
   },
   deletePost: async (postid) => {
-    let url = `http://localhost:3001/api/post/deletePost/?postid=${postid}`;
+    let url = `${baseURL}/post/deletePost/?postid=${postid}`;
     let response = await fetch(url, {
       method: "DELETE",
       headers: headers,
@@ -47,7 +50,7 @@ module.exports = {
     return response;
   },
   addComments: async (body) => {
-    let url = `http://localhost:3001/api/post/addComment`;
+    let url = `${baseURL}/post/addComment`;
     let response = await fetch(url, {
       method: "POST",
       headers: headers,
@@ -58,7 +61,7 @@ module.exports = {
     return response;
   },
   getComments: async (postid) => {
-    let url = `http://localhost:3001/api/post/getComments?postid=${postid}`;
+    let url = `${baseURL}/post/getComments?postid=${postid}`;
     let response = await fetch(url, {
       method: "GET",
       headers: headers,
@@ -68,7 +71,7 @@ module.exports = {
     return response;
   },
   deleteComments : async(id,postid) =>{
-    let url = `http://localhost:3001/api/post/deleteComment?commentid=${id}&postid=${postid}`;
+    let url = `${baseURL}/post/deleteComment?commentid=${id}&postid=${postid}`;
     let response = await fetch(url, {
       method: "DELETE",
       headers: headers,

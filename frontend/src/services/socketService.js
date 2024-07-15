@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-
-const socket = io("http://localhost:5001");
+const socketURL = process.env.REACT_APP_SOCKET
+const socket = io(`${socketURL}`);
 
 export default socket;

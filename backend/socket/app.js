@@ -2,10 +2,11 @@ const { Server } = require("socket.io");
 const mongoose = require('./databaseConnection/mongo')
 const {receiveMessage,getPreviousMessages} = require('./controller/chatController')
 const {findUser, likedPost,followUser} = require('./controller/userController')
-
-const io = new Server(5001,{
+require('dotenv').config()
+const PORT = process.env.port || 5001 ;
+const io = new Server(PORT,{
   cors:{
-    origin:'http://localhost:3000'
+    origin:true
   }
 });
 let connectedUsers = {};
@@ -15,7 +16,7 @@ io.on('connection', (socket) => {
       console.log(`User authenticated with ID: ${userId}`);
       socket.userId = socket.id;
       connectedUsers[userId] = socket.id;
-      console.log('Hello I am connected users',connectedUsers)
+      console.log('I am connected users',connectedUsers)
   });
     socket.on('message',async ({  text,username,receiver }) => {
     const recipientSocketId = connectedUsers[receiver];
