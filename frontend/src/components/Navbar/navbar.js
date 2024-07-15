@@ -105,7 +105,7 @@ function Navbar() {
         {cookieExists && (
           <div className='profileMenu'>
             <div>
-              <button className='button postButton' onClick={createPost}>Create A Post</button>
+              <button className='postButton' onClick={createPost}>Create A Post</button>
             </div>
             <div className='navbar_searchBox'>
               <IoIosSearch style={{ marginTop: "10px" }} />

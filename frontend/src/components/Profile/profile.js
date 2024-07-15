@@ -104,9 +104,9 @@ export default function Profile() {
               <button className='button' onClick={handleClick}>
                 <li className='listItem'>{isFollowing ? 'Following' : 'Follow'}</li>
               </button>
-              <button className='button'>
+              {/* <button className='button'>
                 <li className='listItem'>Message</li>
-              </button>
+              </button> */}
             </div>}
           </div>
           <hr />
