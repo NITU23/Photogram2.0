@@ -4,8 +4,8 @@ const User = require("../model/userModel");
 module.exports = {
   getAllImages: async (req, res) => {
     try {
-      const username = req.username;
-      const user = await User.findOne({ username }, { _id: 1 });
+      const username = req.email;
+      const user = await User.findOne({ email:username }, { _id: 1, followings: 1 });
       const allPosts = await Post.find().lean();
       const data = await Promise.all(
         allPosts.map(async (item) => {
@@ -13,16 +13,21 @@ module.exports = {
             { username: item.username },
             { profilePicture: 1 }
           ).lean();
-          const likedByObjectIds = item.likedBy.map((user) =>
-            user._id.toString()
-          );
-          const likedByMe = likedByObjectIds.some(
-            (likedByUserId) => likedByUserId === user._id.toString()
-          );
-          const likedUsers = await User.find(
-            { _id: { $in: likedByObjectIds } },
-            { username: 1, profilePicture: 1, firstName: 1, lastName: 1 }
-          ).lean();
+          const isCurrentUser = findUser._id.toString() === user._id.toString();
+          if (!isCurrentUser && !user.followings.includes(findUser._id.toString())) {
+            return null; 
+          }
+          const likedByObjectIds = item.likedBy.map((user) => user._id.toString());
+          const likedByMe = likedByObjectIds.includes(user._id.toString());
+  
+          let likedUsers = [];
+          if (likedByObjectIds.length > 0) {
+            likedUsers = await User.find(
+              { _id: { $in: likedByObjectIds } },
+              { username: 1, profilePicture: 1, firstName: 1, lastName: 1 }
+            ).lean();
+          }
+  
           return {
             username: item.username,
             file: item.file,
@@ -37,13 +42,17 @@ module.exports = {
           };
         })
       );
+  
+      const filteredData = data.filter(item => item !== null);
       console.log("All images and likes fetched successfully.");
-      res.status(200).send(data);
+      res.status(200).send(filteredData);
     } catch (err) {
       console.log("Error while getting posts", err);
       res.status(400).send({ message: "Error while getting posts" });
     }
   },
+  
+  
 
   getUserImage: async (req, res) => {
     try {
