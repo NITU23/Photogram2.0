@@ -3,7 +3,7 @@ const headers = {
     "Accept": "application/json",
    }
 
-const baseURL = 'https://main--photogrambe.netlify.app/';
+const baseURL = 'https://photogram2-0.vercel.app/';
 
    module.exports = {
     fetchUser : async () => {

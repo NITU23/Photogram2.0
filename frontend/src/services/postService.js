@@ -2,7 +2,7 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-const baseURL = 'https://main--photogrambe.netlify.app/';
+const baseURL = 'https://photogram2-0.vercel.app/';
 console.log('234',baseURL)
 module.exports = {
   createPosts: async (body) => {
