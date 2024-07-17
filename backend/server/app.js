@@ -7,7 +7,7 @@ require('dotenv').config()
 const PORT = process.env.port || 3001 ;
 const bodyParser = require('body-parser');
 app.use(cookieParser());
-app.use(cors({ origin: true,credentials: true,
+app.use(cors({ origin: '*',credentials: true,
     optionsSuccessStatus: 200 }));
 
 app.use(express.json({limit: '50mb'}));
