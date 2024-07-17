@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-const socketURL = process.env.REACT_APP_SOCKET
+const socketURL = 'https://main--photogramsocket.netlify.app/'
 const socket = io(`${socketURL}`);
 
 export default socket;
