@@ -19,7 +19,8 @@ const userRouter = require("./routes/user");
 const postRouter = require("./routes/post")
 app.use("/api/user", userRouter);
 app.use("/api/post",postRouter)
-
+app.get('/',(req,res)=>
+res.status(200).send('hello'))
 async function startServer() {
     try {
         await mongoose.connect("mongodb+srv://nitin:Nitin123@cluster0.xdpamow.mongodb.net/");
