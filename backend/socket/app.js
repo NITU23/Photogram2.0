@@ -6,7 +6,7 @@ require('dotenv').config()
 const PORT = process.env.port || 5001 ;
 const io = new Server(PORT,{
   cors:{
-    origin:'https://photogram2-0-frontend.vercel.app/'
+    origin:'*'
   }
 });
 let connectedUsers = {};
