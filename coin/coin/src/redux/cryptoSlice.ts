@@ -1,64 +1,69 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { AppThunk, RootState } from './store'; // Adjust the path as per your project structure
+
+interface Delta {
+  hour: number;
+  day: number;
+  week: number;
+  month: number;
+  quarter: number;
+  year: number;
+}
+
+interface Coin {
+  code: string;
+  rate: number;
+  volume: number;
+  cap: number;
+  delta: Delta;
+}
 
 interface CryptoState {
-  // Define your state structure here
-  data: any[]; // Example, adjust as per your actual state structure
+  coins: Coin[];
   loading: boolean;
   error: string | null;
 }
 
 const initialState: CryptoState = {
-  data: [],
+  coins: [],
   loading: false,
   error: null,
 };
 
+
+export const fetchCoins = createAsyncThunk<Coin[], string>(
+  'crypto/fetchCoins',
+  async (selectedCode: string) => {
+    try {
+      const response = await axios.get<Coin[]>(`http://localhost:5000?coin=${selectedCode}`);
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to fetch coins');
+    }
+  }
+);
+
+
 const cryptoSlice = createSlice({
   name: 'crypto',
   initialState,
-  reducers: {
-    // Define your reducers here
-    updateCryptoData(state, action: PayloadAction<any[]>) {
-      state.data = action.payload;
-      state.loading = false;
-      state.error = null;
-    },
-    // Define other reducers as needed
-    fetchCryptoStart(state) {
-      state.loading = true;
-      state.error = null;
-    },
-    fetchCryptoSuccess(state, action: PayloadAction<any[]>) {
-      state.data = action.payload;
-      state.loading = false;
-      state.error = null;
-    },
-    fetchCryptoFailure(state, action: PayloadAction<string>) {
-      state.loading = false;
-      state.error = action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCoins.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchCoins.fulfilled, (state, action: PayloadAction<Coin[]>) => {
+        state.coins = action.payload;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(fetchCoins.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to fetch coins';
+      });
   },
 });
-
-// Export actions from slice
-export const {
-  updateCryptoData,
-  fetchCryptoStart,
-  fetchCryptoSuccess,
-  fetchCryptoFailure,
-} = cryptoSlice.actions;
-
-// Thunk action to fetch crypto data from backend
-export const fetchCryptoData = (): any => async (dispatch:any) => {
-  try {
-    dispatch(fetchCryptoStart());
-    const response = await axios.get<any[]>('/api/crypto'); // Adjust URL as per your backend
-    dispatch(fetchCryptoSuccess(response.data));
-  } catch (error:any) {
-    dispatch(fetchCryptoFailure(error.message));
-  }
-};
 
 export default cryptoSlice.reducer;

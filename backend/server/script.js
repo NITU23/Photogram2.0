@@ -1,65 +1,51 @@
-const mongoose = require('mongoose');
-const express = require('express');
-const fetch = require('node-fetch');
-const cron = require('node-cron');
+import fetch from 'node-fetch';
+import mongoose from 'mongoose';
+import express from 'express';
+import cors from 'cors';
+
 const app = express();
-const Coin = require('./model/coin');
-const cors = require('cors');
+app.use(cors({ origin: true }));
 
-app.use(cors());
-
-// Connect to MongoDB
-mongoose.connect("mongodb+srv://nitin:Nitin123@cluster0.wwsnzjl.mongodb.net/")
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.error(err));
-
-// Schedule fetching and saving data
-cron.schedule('* * * * *', async () => {
+app.get('/', async (req, res) => {
   try {
-    const raw = JSON.stringify({
-      "currency": "USD",
-      "sort": "rank",
-      "order": "ascending",
-      "offset": 0,
-      "limit": 2,
-      "meta": false
-    });
+    const requestData = {
+      currency: 'USD',
+      sort: 'rank',
+      order: 'ascending',
+      offset: 0,
+      limit: 2,
+      meta: false
+    };
 
     const requestOptions = {
       method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        "x-api-key": "4daae8b5-bd1e-412b-8304-e425ebae0cc3"
+        'Content-Type': 'application/json',
+        'x-api-key': 'eca10fd1-3bf8-4fd2-a696-1fdb73f469b8'
       },
-      body: raw,
-      redirect: 'follow'
+      body: JSON.stringify(requestData)
     };
 
-    const response = await fetch("https://api.livecoinwatch.com/coins/list", requestOptions);
-    let result = await response.json();
+    const response = await fetch('https://api.livecoinwatch.com/coins/list', requestOptions);
+    console.log('e',response)
 
-    // Save data to MongoDB
-    await Coin.deleteMany({}); // Clear existing data
-    await Coin.insertMany(result);
 
-    console.log('Data updated successfully.');
-  } catch (err) {
-    console.error('Error updating data:', err);
-  }
-});
+    const result = await response.json();
 
-// API endpoint to fetch data
-app.get('/api/coins', async (req, res) => {
-  try {
-    const coins = await Coin.find().limit(10); // Fetch top 10 coins
-    res.status(200).json(coins);
+    res.status(200).json(result);
   } catch (err) {
     console.error('Error fetching coins:', err);
     res.status(500).send('Error fetching coins.');
   }
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+const PORT = 5000;
+
+app.listen(PORT, async () => {
+  try {
+    await mongoose.connect('mongodb+srv://nitin:Nitin123@cluster0.wwsnzjl.mongodb.net/');
+    console.log('Connected to MongoDB');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+  }
 });
