@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
 
 const coinSchema = new mongoose.Schema({
-  // Define schema fields based on API response
-  // Example:
-  name: String,
-  symbol: String,
-  price: Number,
-  // Add more fields as per your API response
+  code: String,
+  cap: String,
+  rate: Number,
+  timestamp: { type: Date, default: Date.now } 
 });
 
 const Coin = mongoose.model('Coin', coinSchema);
