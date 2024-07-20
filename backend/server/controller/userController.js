@@ -45,13 +45,15 @@ const signup = async (req, res, next) => {
 
   const hostname = req.hostname;
   const isProduction = hostname !== 'localhost' && hostname !== '127.0.0.1';
-  const domain = isProduction ? hostname.replace(/^www\./, '') : 'localhost';
+  const domain = isProduction ? '.photogram2-0frontend.vercel.app' : 'localhost';
 
   const cookieOptions = {
     maxAge: 8640000,
     domain: domain,
+    path: '/',
     httpOnly: true,
-    secure: isProduction,
+    secure: true,
+    sameSite: 'None',
   };
 
   res.cookie("token", accessToken, cookieOptions);
@@ -83,13 +85,15 @@ const login = async (req, res, next) => {
 
   const hostname = req.hostname;
   const isProduction = hostname !== 'localhost' && hostname !== '127.0.0.1';
-  const domain = isProduction ? hostname.replace(/^www\./, '') : 'localhost';
+  const domain = isProduction ? '.photogram2-0frontend.vercel.app' : 'localhost';
 
   const cookieOptions = {
-    maxAge: 86400000,
+    maxAge: 8640000,
     domain: domain,
+    path: '/',
     httpOnly: true,
-    secure: isProduction,
+    secure: true,
+    sameSite: 'None',
   };
 
   res.cookie("token", accessToken, cookieOptions);
