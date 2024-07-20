@@ -3,7 +3,7 @@ const headers = {
     "Accept": "application/json",
    }
 
-const baseURL = 'https://photogram2-0.vercel.app/';
+const baseURL = process.env.REACT_APP_BACKEND;
 
    module.exports = {
     fetchUser : async () => {

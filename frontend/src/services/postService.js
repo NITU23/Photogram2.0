@@ -2,7 +2,7 @@ const headers = {
   "Content-Type": "application/json",
 };
 
-const baseURL = 'https://photogram2-0.vercel.app/';
+const baseURL = process.env.REACT_APP_BACKEND;
 console.log('234',baseURL)
 module.exports = {
   createPosts: async (body) => {

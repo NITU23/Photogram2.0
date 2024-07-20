@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
-const socketURL = 'https://photogram2-0-socket.vercel.app/'
+const socketURL = process.env.REACT_APP_SOCKET
+console.log('er',socketURL)
 const socket = io(`${socketURL}`);
 
 export default socket;
