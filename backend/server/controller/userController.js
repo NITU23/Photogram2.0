@@ -14,7 +14,6 @@ const getAllUser = async (req, res) => {
   users = users.filter((user) => user.email !== req.email);
   return res.status(200).json(users);
 };
-
 const signup = async (req, res, next) => {
   const { username, email, password, firstName, lastName } = req.body;
   let existingUser;
@@ -44,16 +43,21 @@ const signup = async (req, res, next) => {
 
   const accessToken = jwt.sign({ email, username }, "SECRET");
 
+  const hostname = req.hostname;
+  const isProduction = hostname !== 'localhost' && hostname !== '127.0.0.1';
+  const domain = isProduction ? hostname.replace(/^www\./, '') : 'localhost';
+
   const cookieOptions = {
     maxAge: 8640000,
-    domain: process.env.NODE_ENV === 'production' ? '.vercel.app/' : 'localhost',
+    domain: domain,
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isProduction,
   };
 
   res.cookie("token", accessToken, cookieOptions);
   return res.status(200).json({ user });
 };
+
 
 
 const login = async (req, res, next) => {
@@ -65,9 +69,7 @@ const login = async (req, res, next) => {
     return console.log(err);
   }
   if (!existingUser) {
-    return res
-      .status(404)
-      .json({ message: "Couldn't Find User By This Email" });
+    return res.status(404).json({ message: "Couldn't Find User By This Email" });
   }
 
   if (existingUser.password !== password) {
@@ -79,18 +81,21 @@ const login = async (req, res, next) => {
     "SECRET"
   );
 
+  const hostname = req.hostname;
+  const isProduction = hostname !== 'localhost' && hostname !== '127.0.0.1';
+  const domain = isProduction ? hostname.replace(/^www\./, '') : 'localhost';
+
   const cookieOptions = {
     maxAge: 86400000,
-    domain: process.env.NODE_ENV === 'production' ? '.vercel.app/' : 'localhost',
+    domain: domain,
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: isProduction,
   };
 
   res.cookie("token", accessToken, cookieOptions);
-  return res
-    .status(200)
-    .json({ message: "Login Successful", user: existingUser });
+  return res.status(200).json({ message: "Login Successful", user: existingUser });
 };
+
 
 const logout = async (req, res) => {
   if (JSON.stringify(req.cookies) != "{}") {
