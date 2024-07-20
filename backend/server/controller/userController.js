@@ -46,7 +46,7 @@ const signup = async (req, res, next) => {
 
   const cookieOptions = {
     maxAge: 8640000,
-    domain: process.env.NODE_ENV === 'production' ? 'vercel.app/' : 'localhost',
+    domain: process.env.NODE_ENV === 'production' ? '.vercel.app/' : 'localhost',
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
   };
@@ -81,7 +81,7 @@ const login = async (req, res, next) => {
 
   const cookieOptions = {
     maxAge: 86400000,
-    domain: process.env.NODE_ENV === 'production' ? 'vercel.app/' : 'localhost',
+    domain: process.env.NODE_ENV === 'production' ? '.vercel.app/' : 'localhost',
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
   };
