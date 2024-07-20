@@ -39,12 +39,22 @@ const signup = async (req, res, next) => {
     await user.save();
   } catch (err) {
     console.log(err);
-    return res.status(400).send("error while signup");
+    return res.status(400).send("Error while signup");
   }
+
   const accessToken = jwt.sign({ email, username }, "SECRET");
-  res.cookie("token", accessToken, { maxAge: 8640000 });
+
+  const cookieOptions = {
+    maxAge: 8640000,
+    domain: process.env.NODE_ENV === 'production' ? 'https://photogram2-0frontend.vercel.app/' : 'localhost',
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+  };
+
+  res.cookie("token", accessToken, cookieOptions);
   return res.status(200).json({ user });
 };
+
 
 const login = async (req, res, next) => {
   const { email, password } = req.body;
@@ -63,15 +73,25 @@ const login = async (req, res, next) => {
   if (existingUser.password !== password) {
     return res.status(400).json({ message: "Incorrect Password" });
   }
+
   const accessToken = jwt.sign(
     { email, username: existingUser.username },
     "SECRET"
   );
-  res.cookie("token", accessToken, { maxAge: 86400000 });
+
+  const cookieOptions = {
+    maxAge: 86400000,
+    domain: process.env.NODE_ENV === 'production' ? 'https://photogram2-0frontend.vercel.app/' : 'localhost',
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+  };
+
+  res.cookie("token", accessToken, cookieOptions);
   return res
     .status(200)
-    .json({ message: "Login Successfull", user: existingUser });
+    .json({ message: "Login Successful", user: existingUser });
 };
+
 const logout = async (req, res) => {
   if (JSON.stringify(req.cookies) != "{}") {
     res.clearCookie("token");
